@@ -31,3 +31,9 @@ Recent posts:
 * [A sum of squares tactic](/blog/2026-5-13-a-sum-of-squares-tactic/) — discharging nonlinear real inequalities via Harrison's sum-of-squares algorithm.
 
 The full archive lives at [/blog](/blog/).
+
+# Papers about Lean
+
+* [grind: An SMT-Inspired Tactic for Lean 4](/papers/grind/) — a Verso rendering of the `grind` system description.
+* [The Lean mathematical library](https://arxiv.org/abs/1910.09336) — the mathlib paper (CPP 2020).
+* [Schemes in Lean](https://arxiv.org/abs/2101.02602) — formalizing schemes three ways (Experimental Mathematics, 2022).

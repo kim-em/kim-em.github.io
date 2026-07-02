@@ -9,6 +9,7 @@ import Site.Blog.Lp
 open Verso Genre Blog Site Syntax
 
 def mySite : Site := site Site.FrontPage /
+  static "papers" ← "papers"
   "blog" Site.Blog with
     Site.Blog.Sos
     Site.Blog.Lp

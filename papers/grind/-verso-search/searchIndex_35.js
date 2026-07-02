@@ -1,0 +1,1 @@
+window.docContents[35].resolve({"/#related-work":{"contents":"\n\n\n\n","context":"grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)","header":"6. Related Work","id":"/#related-work"}});

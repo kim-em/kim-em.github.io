@@ -10,6 +10,14 @@
   --link: #7fd6ff;        /* cool accent for links inside prose */
   --border: #1c281c;
   --border-bright: #2f452f;
+
+  /* Verso syntax-highlighting palette (themeable custom properties that
+     Verso's highlight CSS reads). Without these the tokens fall back to an
+     empty value and vanish on a dark background — e.g. brackets/operators. */
+  --verso-code-color: #b8d8b0;          /* default: punctuation, brackets, operators, delimiters, wildcards */
+  --verso-code-keyword-color: #c8a2ff;  /* keywords: example, by, fun, ∀, ∃ */
+  --verso-code-const-color: #7fd6ff;    /* constants, types, functions */
+  --verso-code-var-color: #e6d08a;      /* bound variables (also italic) */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -60,6 +68,8 @@ body {
   margin: 1.6em 0 1.1em 0;
   word-break: break-word;
 }
+/* htmlDiv wraps its content in a <p>; keep the prompt on one tight line. */
+.prompt-line p { margin: 0; }
 .prompt { color: var(--green); font-weight: 500; }
 .cursor {
   display: inline-block;
@@ -155,29 +165,44 @@ pre code, pre .hl.lean { border: none; background: none; padding: 0; }
   font-size: 0.9em;
 }
 
-/* Verso highlighted code: force readable tokens on the dark background.
-   These override the light-mode defaults injected by builtinHeader. */
-.hl.lean { color: var(--fg); }
-.hl.lean .token.keyword    { color: #c8a2ff; font-weight: 500; }
-.hl.lean .token.const,
-.hl.lean .const            { color: #7fd6ff; }
-.hl.lean .var              { color: var(--fg); }
-.hl.lean .literal,
-.hl.lean .token.literal    { color: #ffb86c; }
-.hl.lean .comment          { color: var(--fg-dim); font-style: italic; }
-.hl.lean .sort             { color: #5ee27a; }
-.hl.lean .typed            { color: var(--fg); }
-.hl.lean .tactic           { color: #8fe0a0; }
-.hl.lean .unknown          { color: var(--fg); }
+/* Verso highlighted code on the dark background. Token colours come from the
+   --verso-code-* variables above (Verso's own rules read them). These rules,
+   loaded after Verso's, only need to cover things Verso hardcodes. */
+.hl.lean { color: var(--verso-code-color); }
+.hl.lean .literal.number, .hl.lean .number { color: #ffb86c; }  /* numeric literals: orange */
+.hl.lean .comment { color: var(--fg-dim); font-style: italic; }
 
-/* Proof-state / info output panels from anchors */
-.hl.lean .has-info .info,
-.hl.lean .infoview,
-.hl.lean .messages {
-  background: #0a140a;
-  border: 1px solid var(--border);
-  color: var(--fg);
+/* Token highlight-on-hover backgrounds (Verso hardcodes light greys). */
+.hl.lean .token.binding-hl,
+.hl.lean .literal:hover,
+.hl.lean .token.typed:hover {
+  background-color: var(--border) !important;
 }
+
+/* Hover tooltips / goal (proof-state) views. Verso hardcodes light panels
+   (#e5e5e5, black text/border) and tippy relocates the content into a
+   body-level `.tippy-box`. Recolour both the popup and the CSS-hover
+   fallback for the dark theme. */
+.tippy-box,
+.tippy-box .hl.lean,
+.hl.lean .has-info .hover-info {
+  background-color: #0e130e !important;
+  color: var(--fg) !important;
+  border-color: var(--border-bright) !important;
+}
+.tippy-box .hover-info,
+.tippy-box .hover-info code,
+.tippy-box .hover-info.messages > code,
+.hl.lean .hover-info code {
+  background-color: transparent !important;
+  color: var(--fg) !important;
+}
+.tippy-box { box-shadow: 0 2px 14px rgba(0,0,0,0.6) !important; }
+/* Tippy arrow should match the dark panel, not the default light fill. */
+.tippy-box[data-placement^='top'] > .tippy-arrow::before { border-top-color: #0e130e !important; }
+.tippy-box[data-placement^='bottom'] > .tippy-arrow::before { border-bottom-color: #0e130e !important; }
+.tippy-box[data-placement^='left'] > .tippy-arrow::before { border-left-color: #0e130e !important; }
+.tippy-box[data-placement^='right'] > .tippy-arrow::before { border-right-color: #0e130e !important; }
 
 @media (max-width: 640px) {
   body { font-size: 14px; }

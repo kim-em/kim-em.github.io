@@ -15,12 +15,6 @@ open Output Html Template Theme in
 def theme : Theme := { Theme.default with
   primaryTemplate := do
     let title ← param (α := String) "title"
-    let isFront := (← currentPath).isEmpty
-    let whoami :=
-      if isFront then {{
-        <div class="prompt-line"><span class="prompt">"kim@lean:~$ "</span>"whoami"</div>
-        <p class="whoami">"kim — Lean & Mathlib. I build tactics and try to get the theorem prover to carry more of the work — most recently a linear-programming solver and a sum-of-squares tactic."</p>
-      }} else Html.empty
     let postList :=
       match (← param? "posts") with
       | none => Html.empty
@@ -41,8 +35,8 @@ def theme : Theme := { Theme.default with
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin"/>
           <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" type="text/css"/>
           <link rel="alternate" type="application/rss+xml" title="kim@lean" href="/feed.xml"/>
-          <style>{{siteCSS}}</style>
           {{← builtinHeader}}
+          <style>{{siteCSS}}</style>
         </head>
         <body>
           <div class="term">
@@ -56,7 +50,6 @@ def theme : Theme := { Theme.default with
               </span>
             </div>
             <main class="term-body">
-              {{whoami}}
               {{← param "content"}}
               {{postList}}
             </main>
@@ -123,7 +116,6 @@ def theme : Theme := { Theme.default with
         <a class="post-title" href={{target}}>"> " {{post.contents.titleString}}</a>
       </li>
     }}]
-  cssFiles := #[("site.css", siteCSS)]
 }
 
 end Site

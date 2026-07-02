@@ -38,6 +38,21 @@ jobs:
           lake build
           .lake/build/bin/generate-site --output _site
 
+      # Check the generated site for broken links. `-verso-data` holds Verso's
+      # framework assets, referenced relative to the per-page <base>; the
+      # checker doesn't honour <base>, so exclude them. 429s are transient.
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --root-dir "${{ github.workspace }}/_site"
+            --exclude verso-data
+            --accept '200..=299, 429'
+            --max-retries 3
+            --no-progress
+            "./_site/**/*.html"
+          fail: true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

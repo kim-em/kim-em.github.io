@@ -197,6 +197,13 @@ pre code, pre .hl.lean { border: none; background: none; padding: 0; }
   background-color: transparent !important;
   color: var(--fg) !important;
 }
+/* Goal / proof-state view: Verso hardcodes a white panel with a grey border. */
+.hl.lean .tactic-state,
+.hl.lean.popup .tactic-state {
+  background-color: #0e130e !important;
+  border-color: var(--border-bright) !important;
+  color: var(--fg) !important;
+}
 .tippy-box { box-shadow: 0 2px 14px rgba(0,0,0,0.6) !important; }
 /* Tippy arrow should match the dark panel, not the default light fill. */
 .tippy-box[data-placement^='top'] > .tippy-arrow::before { border-top-color: #0e130e !important; }

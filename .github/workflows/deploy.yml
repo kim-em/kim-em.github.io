@@ -1,0 +1,67 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      # sos → csdp-ffi links against the system BLAS/LAPACK runtime, and
+      # builds CSDP from source; SoPlex (for lp) needs a C++ toolchain.
+      - name: Install native dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake gfortran liblapack-dev libblas-dev
+
+      # Pre-build the example subprojects under their own toolchains so
+      # the blog's SubVerso extraction (which shells out to each project)
+      # only has to read already-built artifacts.
+      - name: Build sos examples (fetches Mathlib cache)
+        working-directory: examples/sos
+        run: |
+          lake exe cache get
+          lake build
+
+      - name: Build lp examples
+        working-directory: examples/lp
+        run: lake build
+
+      - name: Build site
+        run: |
+          lake build
+          .lake/build/bin/generate-site --output _site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

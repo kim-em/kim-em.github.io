@@ -79,7 +79,7 @@ private def collapseWs (s : String) : String := Id.run do
     if c' == ' ' && prev == ' ' then continue
     out := out.push c'
     prev := c'
-  pure out.trim
+  pure out.trimAscii.toString
 
 private def slugify (str : String) : String := Id.run do
   let mut slug := ""

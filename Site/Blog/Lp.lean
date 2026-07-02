@@ -3,6 +3,8 @@ import Site.Categories
 open Verso Genre Blog
 open Verso.Code.External
 
+set_option linter.verso.markup.emph false
+
 set_option verso.exampleProject "examples/lp"
 set_option verso.exampleModule "LpExamples"
 

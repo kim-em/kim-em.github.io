@@ -25,13 +25,25 @@ jobs:
           curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
 
-      # Pre-build the lp example subproject under its own toolchain so the
-      # blog's SubVerso extraction (which shells out to it) only reads
-      # already-built artifacts. The lp examples use the pure-Lean backend,
-      # so there are no native dependencies to install.
+      # sos → csdp-ffi builds CSDP and links it against the system BLAS/LAPACK
+      # runtime; the lp examples use the pure-Lean backend (no native deps).
+      - name: Install native dependencies (for sos / CSDP)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential liblapack-dev libblas-dev gfortran
+
+      # Pre-build the example subprojects under their own toolchains so the
+      # blog's SubVerso extraction (which shells out to each) only reads
+      # already-built artifacts.
       - name: Build lp examples
         working-directory: examples/lp
         run: lake build
+
+      - name: Build sos examples (fetches Mathlib cache)
+        working-directory: examples/sos
+        run: |
+          lake exe cache get
+          lake build
 
       - name: Build site
         run: |

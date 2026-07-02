@@ -106,9 +106,11 @@ def theme : Theme := { Theme.default with
     }}
   archiveEntryTemplate := do
     let post : BlogPost ← param "post"
+    -- Absolute, root-relative link with a trailing slash so it resolves
+    -- correctly whether the archive is viewed at /blog/ or /blog/<category>/.
     let target ← if let some p := (← param? "path") then
-        pure <| p ++ "/" ++ (← post.postName')
-      else post.postName'
+        pure <| "/" ++ p ++ "/" ++ (← post.postName') ++ "/"
+      else pure <| "/" ++ (← post.postName') ++ "/"
     let dateStr := post.contents.metadata.map (fun md => Site.fmtDate md.date) |>.getD ""
     let cats := post.contents.metadata.map (·.categories) |>.getD []
     return #[{{

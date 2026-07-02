@@ -1,9 +1,14 @@
-import LP
+import LPTactic
+import LPBackendPure  -- registers the pure-Lean backend at priority 100
 
 /-!
 Example code for the "Verified linear programming" blog post. Each
 `ANCHOR` region is pulled into the post by Verso via SubVerso, so the
 code shown there is exactly the code that is elaborated here.
+
+These are elaborated with the pure-Lean backend (no SoPlex FFI) so the
+extractor can run `by lp` in-process; the examples are small enough that
+the exact-rational simplex handles them instantly.
 -/
 
 -- A basic linear bound over `Rat`.

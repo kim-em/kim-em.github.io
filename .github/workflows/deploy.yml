@@ -25,27 +25,10 @@ jobs:
           curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
 
-      # Native dependencies for the example subprojects, mirroring their
-      # own CI: sos → csdp-ffi links CSDP against BLAS/LAPACK/gfortran;
-      # lp → SoPlex builds against libc++ (GMP/Boost/cmake/ninja/clang).
-      - name: Install native dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            cmake build-essential ninja-build clang \
-            libgmp-dev libgmpxx4ldbl libboost-dev \
-            libc++-dev libc++abi-dev zstd \
-            liblapack-dev libblas-dev gfortran
-
-      # Pre-build the example subprojects under their own toolchains so
-      # the blog's SubVerso extraction (which shells out to each project)
-      # only has to read already-built artifacts.
-      - name: Build sos examples (fetches Mathlib cache)
-        working-directory: examples/sos
-        run: |
-          lake exe cache get
-          lake build
-
+      # Pre-build the lp example subproject under its own toolchain so the
+      # blog's SubVerso extraction (which shells out to it) only reads
+      # already-built artifacts. The lp examples use the pure-Lean backend,
+      # so there are no native dependencies to install.
       - name: Build lp examples
         working-directory: examples/lp
         run: lake build

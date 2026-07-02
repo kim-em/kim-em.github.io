@@ -25,12 +25,17 @@ jobs:
           curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
           echo "$HOME/.elan/bin" >> $GITHUB_PATH
 
-      # sos → csdp-ffi links against the system BLAS/LAPACK runtime, and
-      # builds CSDP from source; SoPlex (for lp) needs a C++ toolchain.
+      # Native dependencies for the example subprojects, mirroring their
+      # own CI: sos → csdp-ffi links CSDP against BLAS/LAPACK/gfortran;
+      # lp → SoPlex builds against libc++ (GMP/Boost/cmake/ninja/clang).
       - name: Install native dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential cmake gfortran liblapack-dev libblas-dev
+          sudo apt-get install -y \
+            cmake build-essential ninja-build clang \
+            libgmp-dev libgmpxx4ldbl libboost-dev \
+            libc++-dev libc++abi-dev zstd \
+            liblapack-dev libblas-dev gfortran
 
       # Pre-build the example subprojects under their own toolchains so
       # the blog's SubVerso extraction (which shells out to each project)

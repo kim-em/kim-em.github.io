@@ -77,4 +77,4 @@ git = "https://github.com/leanprover/sos"
 rev = "main"
 ```
 
-Then `import SOS` and use `by sos`. You'll need the system BLAS/LAPACK runtime installed. There's also `sos?`, which prints the certificate it found so you can commit the witness directly instead of re-running the solver.
+Then `import SOS` and use `by sos`. You'll need the system BLAS/LAPACK runtime installed; see [the README](https://github.com/leanprover/sos) for the full showcase and native-dependency notes. There's also `sos?`, which prints the certificate it found so you can commit the witness directly instead of re-running the solver.

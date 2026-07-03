@@ -18,7 +18,7 @@ I work at the [Lean Focused Research Organization](https://lean-lang.org/fro).
 I am a maintainer of the [Mathlib formal mathematics library](https://leanprover-community.github.io/), which aims to curate and perfect mathematical knowledge as a coherent formal library.
 Mathlib is a large open-source community project, which serves as the foundation for all mathematical formalization in the Lean ecosystem.
 I helped found the [Mathlib Initiative](https://mathlib-initiative.org/), and am a member of the strategic advisor board there.
-I'm the founder and maintainer of [Tau Ceti](https://github.com/TauCetiProject/TauCeti), a library of reusable formalized mathematics
+I'm the founder and maintainer of [Tau Ceti](https://github.com/TauCetiProject/TauCeti), a library of reusable formalized mathematics which uses AI implementors and reviewers to follow human curated roadmaps.
 
 I build automation for the Lean language, making it easier for humans and AIs to write difficult proofs.
 I also have time for experiments building Lean libraries and tactics using AI,

@@ -12,7 +12,7 @@ htmlId := some "frontpage"
 {htmlSpan (class := "prompt")}[kim@lean:~\$ ]whoami
 :::
 
-kim morrison — Programming mathematics & mathematics for programming.
+kim morrison — programming mathematics & mathematics for programming.
 
 I work at the [Lean Focused Research Organization](https://lean-lang.org/fro).
 I am a maintainer of the [Mathlib formal mathematics library](https://leanprover-community.github.io/), which aims to curate and perfect mathematical knowledge as a coherent formal library.

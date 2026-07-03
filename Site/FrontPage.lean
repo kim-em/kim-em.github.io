@@ -34,6 +34,6 @@ The full archive lives at [/blog](/blog/).
 
 # Papers about Lean
 
-* [grind: An SMT-Inspired Tactic for Lean 4](/papers/grind/) — a Verso rendering of the `grind` system description.
+* [grind: An SMT-Inspired Tactic for Lean 4](/papers/grind/) — a Verso rendering of the `grind` system description, published at IJCAR 2026.
 * [The Lean mathematical library](https://arxiv.org/abs/1910.09336) — the mathlib paper (CPP 2020).
 * [Schemes in Lean](https://arxiv.org/abs/2101.02602) — formalizing schemes three ways (Experimental Mathematics, 2022).

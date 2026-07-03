@@ -1,0 +1,1 @@
+window.docContents[171].resolve({"/#grind-paper":{"contents":"Kim Morrison (Lean FRO, kim@lean-fro.org) and\nLeonardo de Moura (Lean FRO and Amazon Web Services, leo@lean-fro.org, leomoura@amazon.com)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"","header":"grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)","id":"/#grind-paper"}});

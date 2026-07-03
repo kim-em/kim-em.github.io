@@ -1,0 +1,661 @@
+{"Verso.Genre.Manual.section":
+ {"title": "Sections or chapters of the manual",
+  "description": null,
+  "contents":
+  {"typeclass-solvers":
+   [{"id": "typeclass-solvers",
+     "data":
+     {"title": "Typeclass-Parametrized Solvers",
+      "shortTitle": null,
+      "sectionNum": "4.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Typeclass-Parametrized Solvers",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/"}],
+   "theory-combination":
+   [{"id": "theory-combination",
+     "data":
+     {"title": "Theory combination",
+      "shortTitle": null,
+      "sectionNum": "4.3.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Typeclass-Parametrized Solvers",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Theory combination", "shortTitle": null, "number": "3"}]},
+     "address": "/"}],
+   "ring-solver":
+   [{"id": "ring-solver",
+     "data":
+     {"title": "The ring solver",
+      "shortTitle": null,
+      "sectionNum": "4.1.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Typeclass-Parametrized Solvers",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "The ring solver", "shortTitle": null, "number": "1"}]},
+     "address": "/"}],
+   "related-work":
+   [{"id": "related-work",
+     "data":
+     {"title": "Related Work",
+      "shortTitle": null,
+      "sectionNum": "6.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Related Work", "shortTitle": null, "number": "6"}]},
+     "address": "/"}],
+   "linear-arithmetic":
+   [{"id": "linear-arithmetic",
+     "data":
+     {"title": "Linear arithmetic and orders",
+      "shortTitle": null,
+      "sectionNum": "4.2.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Typeclass-Parametrized Solvers",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Linear arithmetic and orders",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/"}],
+   "lean-automation":
+   [{"id": "lean-automation",
+     "data":
+     {"title": "Automation in Lean 4",
+      "shortTitle": null,
+      "sectionNum": "6.2.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Related Work", "shortTitle": null, "number": "6"},
+       {"title": "Automation in Lean 4", "shortTitle": null, "number": "2"}]},
+     "address": "/"}],
+   "introduction":
+   [{"id": "introduction",
+     "data":
+     {"title": "Introduction",
+      "shortTitle": null,
+      "sectionNum": "2.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Introduction", "shortTitle": null, "number": "2"}]},
+     "address": "/"}],
+   "interactive":
+   [{"id": "interactive",
+     "data":
+     {"title": "Interactive Mode and Diagnostics",
+      "shortTitle": null,
+      "sectionNum": "5.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Interactive Mode and Diagnostics",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/"}],
+   "instantiation-constraints":
+   [{"id": "instantiation-constraints",
+     "data":
+     {"title": "Instantiation constraints",
+      "shortTitle": null,
+      "sectionNum": "3.3.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "grind  by Example", "shortTitle": null, "number": "3"},
+       {"title": "Instantiation constraints",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/"}],
+   "grind-paper":
+   [{"id": "grind-paper",
+     "data":
+     {"title":
+      "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+      "shortTitle": null,
+      "sectionNum": "",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null}]},
+     "address": "/"}],
+   "grind-___-An-SMT-Inspired-Tactic-for-Lean-4-_LPAR_Short-Paper-___-System-Description_RPAR_--Evaluation-and-Conclusion--Disclosure-of-Interests":
+   [{"id":
+     "grind-___-An-SMT-Inspired-Tactic-for-Lean-4-_LPAR_Short-Paper-___-System-Description_RPAR_--Evaluation-and-Conclusion--Disclosure-of-Interests",
+     "data":
+     {"title": "Disclosure of Interests",
+      "shortTitle": null,
+      "sectionNum": "7.1.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Evaluation and Conclusion",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Disclosure of Interests",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/"}],
+   "external-provers":
+   [{"id": "external-provers",
+     "data":
+     {"title": "External provers",
+      "shortTitle": null,
+      "sectionNum": "6.1.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Related Work", "shortTitle": null, "number": "6"},
+       {"title": "External provers", "shortTitle": null, "number": "1"}]},
+     "address": "/"}],
+   "extensibility":
+   [{"id": "extensibility",
+     "data":
+     {"title": "Extensibility",
+      "shortTitle": null,
+      "sectionNum": "4.4.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Typeclass-Parametrized Solvers",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Extensibility", "shortTitle": null, "number": "4"}]},
+     "address": "/"}],
+   "examples":
+   [{"id": "examples",
+     "data":
+     {"title": "grind  by Example",
+      "shortTitle": null,
+      "sectionNum": "3.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "grind  by Example", "shortTitle": null, "number": "3"}]},
+     "address": "/"}],
+   "evaluation":
+   [{"id": "evaluation",
+     "data":
+     {"title": "Evaluation and Conclusion",
+      "shortTitle": null,
+      "sectionNum": "7.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Evaluation and Conclusion",
+        "shortTitle": null,
+        "number": "7"}]},
+     "address": "/"}],
+   "e-matching":
+   [{"id": "e-matching",
+     "data":
+     {"title": "E-matching and annotations",
+      "shortTitle": null,
+      "sectionNum": "3.2.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "grind  by Example", "shortTitle": null, "number": "3"},
+       {"title": "E-matching and annotations",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/"}],
+   "dependent-pattern-matching":
+   [{"id": "dependent-pattern-matching",
+     "data":
+     {"title": "Dependent pattern matching",
+      "shortTitle": null,
+      "sectionNum": "3.5.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "grind  by Example", "shortTitle": null, "number": "3"},
+       {"title": "Dependent pattern matching",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/"}],
+   "contributions":
+   [{"id": "contributions",
+     "data":
+     {"title": "Contributions",
+      "shortTitle": null,
+      "sectionNum": "2.1.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Introduction", "shortTitle": null, "number": "2"},
+       {"title": "Contributions", "shortTitle": null, "number": "1"}]},
+     "address": "/"}],
+   "congruence-closure":
+   [{"id": "congruence-closure",
+     "data":
+     {"title": "Congruence closure",
+      "shortTitle": null,
+      "sectionNum": "3.1.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "grind  by Example", "shortTitle": null, "number": "3"},
+       {"title": "Congruence closure", "shortTitle": null, "number": "1"}]},
+     "address": "/"}],
+   "case-splitting":
+   [{"id": "case-splitting",
+     "data":
+     {"title": "Case splitting and inductive predicates",
+      "shortTitle": null,
+      "sectionNum": "3.4.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "grind  by Example", "shortTitle": null, "number": "3"},
+       {"title": "Case splitting and inductive predicates",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/"}],
+   "abstract":
+   [{"id": "abstract",
+     "data":
+     {"title": "Abstract",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "context":
+      [{"title":
+        "grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Abstract", "shortTitle": null, "number": "1"}]},
+     "address": "/"}]}},
+ "Verso.Genre.Manual.example":
+ {"title": "Verso.Genre.Manual.example",
+  "description": null,
+  "contents":
+  {"trig_identity":
+   [{"id": "trig_identity",
+     "data":
+     {"/#trig_identity":
+      {"display": "trig_identity",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "Interactive Mode and Diagnostics"]}},
+     "address": "/"}],
+   "sin":
+   [{"id": "sin",
+     "data":
+     {"/#sin":
+      {"display": "sin",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "Interactive Mode and Diagnostics"]}},
+     "address": "/"}],
+   "shiftLeft_add":
+   [{"id": "shiftLeft_add",
+     "data":
+     {"/#shiftLeft_add":
+      {"display": "shiftLeft_add",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Instantiation constraints"]}},
+     "address": "/"}],
+   "if_iff":
+   [{"id": "if_iff",
+     "data":
+     {"/#if_iff":
+      {"display": "if_iff",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "g'":
+   [{"id": "g___",
+     "data":
+     {"/#g___":
+      {"display": "g'",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "E-matching and annotations"]}},
+     "address": "/"}],
+   "fg":
+   [{"id": "fg",
+     "data":
+     {"/#fg":
+      {"display": "fg",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "E-matching and annotations"]}},
+     "address": "/"}],
+   "f'":
+   [{"id": "f___",
+     "data":
+     {"/#f___":
+      {"display": "f'",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "E-matching and annotations"]}},
+     "address": "/"}],
+   "cos":
+   [{"id": "cos",
+     "data":
+     {"/#cos":
+      {"display": "cos",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "Interactive Mode and Diagnostics"]}},
+     "address": "/"}],
+   "Vec.nil":
+   [{"id": "Vec___nil",
+     "data":
+     {"/#Vec___nil":
+      {"display": "nil",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Dependent pattern matching"]}},
+     "address": "/"}],
+   "Vec.head":
+   [{"id": "Vec___head",
+     "data":
+     {"/#Vec___head":
+      {"display": "Vec.head",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Dependent pattern matching"]}},
+     "address": "/"}],
+   "Vec.cons":
+   [{"id": "Vec___cons",
+     "data":
+     {"/#Vec___cons":
+      {"display": "cons",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Dependent pattern matching"]}},
+     "address": "/"}],
+   "Vec":
+   [{"id": "Vec",
+     "data":
+     {"/#Vec":
+      {"display": "Vec",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Dependent pattern matching"]}},
+     "address": "/"}],
+   "Variable":
+   [{"id": "Variable",
+     "data":
+     {"/#Variable":
+      {"display": "Variable",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "Stmt.whileDo":
+   [{"id": "Stmt___whileDo",
+     "data":
+     {"/#Stmt___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "Stmt.skip":
+   [{"id": "Stmt___skip",
+     "data":
+     {"/#Stmt___skip":
+      {"display": "skip",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "Stmt.seq":
+   [{"id": "Stmt___seq",
+     "data":
+     {"/#Stmt___seq":
+      {"display": "seq",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "Stmt.ifThenElse":
+   [{"id": "Stmt___ifThenElse",
+     "data":
+     {"/#Stmt___ifThenElse":
+      {"display": "ifThenElse",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "Stmt.assign":
+   [{"id": "Stmt___assign",
+     "data":
+     {"/#Stmt___assign":
+      {"display": "assign",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "Stmt":
+   [{"id": "Stmt",
+     "data":
+     {"/#Stmt":
+      {"display": "Stmt",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "State":
+   [{"id": "State",
+     "data":
+     {"/#State":
+      {"display": "State",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "Rtrans":
+   [{"id": "Rtrans",
+     "data":
+     {"/#Rtrans":
+      {"display": "Rtrans",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "E-matching and annotations"]}},
+     "address": "/"}],
+   "Rsymm":
+   [{"id": "Rsymm",
+     "data":
+     {"/#Rsymm":
+      {"display": "Rsymm",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "E-matching and annotations"]}},
+     "address": "/"}],
+   "Real'":
+   [{"id": "Real___",
+     "data":
+     {"/#Real___":
+      {"display": "Real'",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "Interactive Mode and Diagnostics"]}},
+     "address": "/"}],
+   "R":
+   [{"id": "R",
+     "data":
+     {"/#R":
+      {"display": "R",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "E-matching and annotations"]}},
+     "address": "/"}],
+   "BigStep.while_true":
+   [{"id": "BigStep___while_true",
+     "data":
+     {"/#BigStep___while_true":
+      {"display": "while_true",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "BigStep.while_false":
+   [{"id": "BigStep___while_false",
+     "data":
+     {"/#BigStep___while_false":
+      {"display": "while_false",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "BigStep.skip":
+   [{"id": "BigStep___skip",
+     "data":
+     {"/#BigStep___skip":
+      {"display": "skip",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "BigStep.seq":
+   [{"id": "BigStep___seq",
+     "data":
+     {"/#BigStep___seq":
+      {"display": "seq",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "BigStep.if_true":
+   [{"id": "BigStep___if_true",
+     "data":
+     {"/#BigStep___if_true":
+      {"display": "if_true",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "BigStep.if_false":
+   [{"id": "BigStep___if_false",
+     "data":
+     {"/#BigStep___if_false":
+      {"display": "if_false",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "BigStep.assign":
+   [{"id": "BigStep___assign",
+     "data":
+     {"/#BigStep___assign":
+      {"display": "assign",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}],
+   "BigStep":
+   [{"id": "BigStep",
+     "data":
+     {"/#BigStep":
+      {"display": "BigStep",
+       "context":
+       ["grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)",
+        "grind  by Example",
+        "Case splitting and inductive predicates"]}},
+     "address": "/"}]}},
+ "Verso.Genre.Manual.doc.tech":
+ {"title": "Terminology",
+  "description": "Definitions of technical terms",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.tactic.conv":
+ {"title": "Conversion Tactics",
+  "description": "Tactics for performing targeted rewriting of subterms",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.tactic":
+ {"title": "Tactic Documentation",
+  "description": "Detailed descriptions of tactics",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.suggestion":
+ {"title": "Lean constant suggestions",
+  "description": "Search suggestions for Lean constants",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.option":
+ {"title": "Compiler options", "description": null, "contents": {}},
+ "Verso.Genre.Manual.doc":
+ {"title": "Lean constant reference",
+  "description": "Documentation for Lean constants",
+  "contents": {}}}

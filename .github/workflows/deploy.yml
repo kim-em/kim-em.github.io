@@ -56,13 +56,17 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
+          # Scan only the blog's own pages. The imported grind paper under
+          # _site/papers is a self-contained Verso build (its own relative
+          # assets + <base> tag confuse a base-unaware checker); the landing's
+          # link *to* /papers/grind/ is still validated from index.html.
           args: >-
             --root-dir "${{ github.workspace }}/_site"
             --exclude verso-data
             --accept '200..=299, 429'
             --max-retries 3
             --no-progress
-            "./_site/**/*.html"
+            ./_site/index.html ./_site/blog
           fail: true
 
       - name: Upload artifact

@@ -1,0 +1,1 @@
+window.docContents[177].resolve({"/#examples":{"contents":"All examples here can be explored interactively at https://live.lean-lang.org/.\n\n\n\n\n\n\n\n\n\n\n\n","context":"grind : An SMT-Inspired Tactic for Lean 4 (Short Paper — System Description)","header":"3. grind  by Example","id":"/#examples"}});

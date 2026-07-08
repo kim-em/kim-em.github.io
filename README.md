@@ -21,11 +21,24 @@ lake build
 The first `lake build` also drives the `examples/*` subprojects under their own
 toolchains (installed automatically by elan), so it needs network access and the
 native dependencies those projects require (BLAS/LAPACK for `sos`; a C++
-toolchain for `lp`'s SoPlex backend). See `.github/workflows/deploy.yml`.
+toolchain for `lp`'s SoPlex backend; GMP for `hex`). See
+`.github/workflows/deploy.yml`.
+
+`examples/hex` depends on the hex monorepo, and its `HexExamples.Mathlib`
+section pulls in Mathlib, so build it through its `build-examples.sh` (which
+fetches the Mathlib cache first) *before* the top-level `lake build` extracts
+its anchors. Run it once after cloning:
+
+```
+(cd examples/hex && ./build-examples.sh)
+```
 
 Layout
 ------
 
 - `Main.lean`, `Site.lean`, `Site/` — the Verso site (theme, front page, posts).
 - `Site/Theme.lean` + `Site/theme.css` — the terminal styling.
-- `examples/lp`, `examples/sos` — standalone example projects, one per post.
+- `examples/lp`, `examples/sos`, `examples/hex` — standalone example projects,
+  one per post. Post sections can pull code from different modules (with
+  different imports) of the same project via `anchor NAME (module := ...)`;
+  `examples/hex` uses this to keep its Mathlib-free and Mathlib sections apart.

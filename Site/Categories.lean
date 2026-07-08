@@ -10,3 +10,7 @@ def tactics : Category where
 def lean : Category where
   name := "lean"
   slug := "lean"
+
+def algebra : Category where
+  name := "computer algebra"
+  slug := "computer-algebra"

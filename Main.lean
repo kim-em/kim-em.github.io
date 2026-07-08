@@ -5,14 +5,17 @@ import Site.Feed
 import Site.Blog
 import Site.Blog.Sos
 import Site.Blog.Lp
+import Site.Blog.Hex
 
 open Verso Genre Blog Site Syntax
 
 def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
+  static "figures" ← "figures"
   "blog" Site.Blog with
     Site.Blog.Sos
     Site.Blog.Lp
+    Site.Blog.Hex
 
 def main (args : List String) : IO UInt32 := do
   let status ← blogMain Site.theme mySite (linkTargets := {}) args

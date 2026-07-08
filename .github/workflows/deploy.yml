@@ -27,10 +27,10 @@ jobs:
 
       # sos → csdp-ffi builds CSDP and links it against the system BLAS/LAPACK
       # runtime; the lp examples use the pure-Lean backend (no native deps).
-      - name: Install native dependencies (for sos / CSDP)
+      - name: Install native dependencies (for sos / CSDP and hex / GMP)
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential liblapack-dev libblas-dev gfortran
+          sudo apt-get install -y build-essential liblapack-dev libblas-dev gfortran libgmp-dev
 
       # Pre-build the example subprojects under their own toolchains so the
       # blog's SubVerso extraction (which shells out to each) only reads
@@ -44,6 +44,13 @@ jobs:
         run: |
           lake exe cache get
           lake build
+
+      # hex examples: the Core and Coppersmith sections are Mathlib-free (GMP
+      # for Berlekamp-Zassenhaus, hence libgmp-dev), the Mathlib section imports
+      # HexRowReduceMathlib. The script fetches the Mathlib cache, then builds.
+      - name: Build hex examples (fetches Mathlib cache)
+        working-directory: examples/hex
+        run: ./build-examples.sh
 
       - name: Build site
         run: |

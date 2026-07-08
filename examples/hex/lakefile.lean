@@ -1,7 +1,7 @@
 import Lake
 open Lake DSL
 
-require subverso from git "https://github.com/leanprover/subverso" @ "main"
+require subverso from git "https://github.com/kim-em/subverso" @ "sos-load-dynlibs"
 
 -- The hex monorepo (kim-em/hex-dev) provides the full library set: the released
 -- Mathlib-free computational libraries, the as-yet-unreleased Berlekamp-Zassenhaus

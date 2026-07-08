@@ -92,7 +92,7 @@ def M : Matrix Rat 2 3 :=
 ```
 
 We can do Gram-Schmidt orthogonalization
-(and under the hood there are efficient algorithms that avoid division when we working over the integers).
+(and under the hood there are efficient algorithms that avoid division when we work over the integers).
 
 ```anchor gramschmidt
 -- A 3×3 rational matrix, orthogonalized row by row (left to right).
@@ -408,6 +408,6 @@ in your `lakefile.toml`, and then `import Hex`.
 (If you want individual sublibraries, instead require just the one you need, e.g.
 `name = "hex-lll"`, `git = "https://github.com/leanprover/hex-lll"`, and `import HexLLL`.)
 
-Unreleased libraries, and all future development, live at https://github.com/kim-em/hex-dev.
+Unreleased libraries, and all future development, live at [github.com/kim-em/hex-dev](https://github.com/kim-em/hex-dev).
 Contributions and pull requests are welcome, but specs must be updated *before* any new features or substantial changes,
 as separately reviewed PRs.

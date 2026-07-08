@@ -197,6 +197,14 @@ pre code, pre .hl.lean { border: none; background: none; padding: 0; }
   background-color: transparent !important;
   color: var(--fg) !important;
 }
+/* Inline `code` in a hover's docstring (e.g. `rows`, `getRow`, `M[i]`). Verso
+   hardcodes black for its light panel, and the docstring's `div.docstring`
+   isn't under `.hover-info` once tippy relocates it, so recolour it here. */
+.tippy-box code,
+.tippy-box div.docstring code,
+.hl.lean div.docstring code {
+  color: var(--green-soft) !important;
+}
 /* Goal / proof-state view: Verso hardcodes a white panel with a grey border. */
 .hl.lean .tactic-state,
 .hl.lean.popup .tactic-state {

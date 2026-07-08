@@ -13,9 +13,9 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
-    Site.Blog.Sos
-    Site.Blog.Lp
     Site.Blog.Hex
+    Site.Blog.Lp
+    Site.Blog.Sos
 
 def main (args : List String) : IO UInt32 := do
   let status ← blogMain Site.theme mySite (linkTargets := {}) args

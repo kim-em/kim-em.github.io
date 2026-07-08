@@ -19,7 +19,7 @@ def theme : Theme := { Theme.default with
       match (← param? "posts") with
       | none => Html.empty
       | some html => {{
-          <div class="prompt-line"><span class="prompt">"kim@lean:~$ "</span>"ls posts/ --sort=recent"<span class="cursor"></span></div>
+          <div class="prompt-line"><span class="prompt">"kim@lean:~$ "</span>"ls posts/ --sort=recent"</div>
           <ul class="posts">{{ html }}</ul>
         }}
     return {{

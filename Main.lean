@@ -2,10 +2,12 @@ import VersoBlog
 import Site.Theme
 import Site.FrontPage
 import Site.Feed
+import Site.LinkTargets
 import Site.Blog
 import Site.Blog.Sos
 import Site.Blog.Lp
 import Site.Blog.Hex
+import Site.Blog.Zip
 
 open Verso Genre Blog Site Syntax
 
@@ -13,12 +15,13 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
+    Site.Blog.Zip
     Site.Blog.Hex
     Site.Blog.Lp
     Site.Blog.Sos
 
 def main (args : List String) : IO UInt32 := do
-  let status ← blogMain Site.theme mySite (linkTargets := {}) args
+  let status ← blogMain Site.theme mySite (linkTargets := Site.linkTargets) args
   if status != 0 then return status
   let dest := Site.parseDestination args
   Site.writeFeed

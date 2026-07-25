@@ -14,3 +14,7 @@ def lean : Category where
 def algebra : Category where
   name := "computer algebra"
   slug := "computer-algebra"
+
+def performance : Category where
+  name := "performance"
+  slug := "performance"

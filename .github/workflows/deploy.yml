@@ -27,10 +27,10 @@ jobs:
 
       # sos → csdp-ffi builds CSDP and links it against the system BLAS/LAPACK
       # runtime; the lp examples use the pure-Lean backend (no native deps).
-      - name: Install native dependencies (for sos / CSDP and hex / GMP)
+      - name: Install native dependencies (for sos / CSDP, hex / GMP, zip / zlib)
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential liblapack-dev libblas-dev gfortran libgmp-dev
+          sudo apt-get install -y build-essential liblapack-dev libblas-dev gfortran libgmp-dev zlib1g-dev
 
       # Pre-build the example subprojects under their own toolchains so the
       # blog's SubVerso extraction (which shells out to each) only reads
@@ -52,7 +52,24 @@ jobs:
         working-directory: examples/hex
         run: ./build-examples.sh
 
+      # zip examples: one anchor, but it is the DEFLATE roundtrip capstone, so
+      # this compiles the whole of lean-zip's verification (~15 minutes, and
+      # zlib for the library's FFI shims). There is no cache to fetch.
+      #
+      # ZLIB_LDFLAGS short-circuits lean-zip's zlib probe. Without it the probe
+      # falls through to `xcrun` when pkg-config can't find zlib, which throws
+      # on Linux and leaves Lake with a configuration it rejects on the *next*
+      # invocation ("compiled configuration is invalid") — exactly what the
+      # site build does when it shells back in to extract the anchor.
+      - name: Build zip examples
+        working-directory: examples/zip
+        env:
+          ZLIB_LDFLAGS: -lz
+        run: lake build
+
       - name: Build site
+        env:
+          ZLIB_LDFLAGS: -lz
         run: |
           lake build
           .lake/build/bin/generate-site --output _site

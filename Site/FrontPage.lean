@@ -27,6 +27,7 @@ the Lean language for automation, and the Lean kernel for reliable verification.
 
 Recent posts:
 
+* [Why Lean is faster than Rust](/blog/2026-7-24-why-lean-is-faster-than-rust/) — a verified DEFLATE implementation that outcompresses `miniz_oxide`, faster.
 * [Lattice basis reduction using the Hex Lean library](/blog/2026-7-7-lattice-basis-reduction-using-the-hex-lean-library/) — a walkthrough of the Hex computational algebra library, culminating in a Coppersmith attack on RSA.
 * [Verified linear programming](/blog/2026-6-14-verified-linear-programming/) — a proof-carrying LP solver and a `lp` tactic, with no dependency on Mathlib.
 * [A sum of squares tactic](/blog/2026-5-13-a-sum-of-squares-tactic/) — discharging nonlinear real inequalities via Harrison's sum-of-squares algorithm.

@@ -58,7 +58,7 @@ These graphs show the "Pareto frontier", describing the compression ratio vs thr
 
 (Note these graphs are measuring the geometric mean of the compression ratios across the constituent files in `silesia.tar`, so it's a slightly different measurement than our first measurement.)
 
-We're not nearly as fast as `miniz_oxide`'s L1 (the least compression, fastest throughput setting). At its L2 we now win outright: very slightly better compression, at 21% higher throughput. For `miniz_oxide`'s L3 and L4, at the corresponding compression ratio we're a bit slower (worst is L4, 22% slower), and at L5 we've drawn level. But then for L6-L9, `miniz_oxide` is dominated: `lean-zip` is capable of compressing faster and better. The headline numbers in this post are taken from L6, the typical default for zip algorithms. At `miniz_oxide`'s L9 we're a full 71% faster.
+We're not nearly as fast as `miniz_oxide`'s L1 (the least compression, fastest throughput setting). At its L2 we now win outright: very slightly better compression, at 20% higher throughput. For `miniz_oxide`'s L3 and L4, at the corresponding compression ratio we're a bit slower (worst is L4, 22% slower), and at L5 we've drawn level. But then for L6-L9, `miniz_oxide` is dominated: `lean-zip` is capable of compressing faster and better. The headline numbers in this post are taken from L6, the typical default for zip algorithms. At `miniz_oxide`'s L9 we're a full 65% faster.
 
 I still can't quite believe that!
 

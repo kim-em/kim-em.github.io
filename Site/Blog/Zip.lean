@@ -69,7 +69,7 @@ For completeness, here's the Pareto frontier graph showing a number of other DEF
 `lean-zip` is certainly not the best here: `libdeflate` unsurprisingly blows it out of the water (unsurprisingly because this is a very carefully tuned implementation using architecture-specific SIMD, that we can't touch in Lean).
 `zlib-ng` and `zlib-rs` are faster than us across most of the range their curves cover, but no longer at the deep end: their L9 lands at exactly the compression ratio `lean-zip` reaches at L7, and we get there faster than either (a little ahead of `zlib-rs`, 11% ahead of `zlib-ng`). `zlib-ng` is optimized C; `zlib-rs` is a memory-safe Rust implementation heavily based on zlib-ng, with some carefully contained unsafe internally.
 
-We're competitive with or simply better than the other libraries. We completely dominate the OCaml, JavaScript, and `zlib` C reference implementations, and lose at lower levels but win at high levels against Go, pure Rust (`miniz_oxide`), and Zig,.
+We're competitive with or simply better than the other libraries. We completely dominate the OCaml, JavaScript, and `zlib` C reference implementations, and lose at lower levels but win at high levels against Go, pure Rust (`miniz_oxide`), and Zig.
 
 There are also some caveats that are worth thinking about:
 * The Lean implementation has higher memory consumption than `miniz_oxide`.

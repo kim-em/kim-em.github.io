@@ -77,6 +77,19 @@ jobs:
       # Check the generated site for broken links. `-verso-data` holds Verso's
       # framework assets, referenced relative to the per-page <base>; the
       # checker doesn't honour <base>, so exclude them. 429s are transient.
+      #
+      # This step guards against links *we* got wrong, so it must not block the
+      # deploy over someone else's downtime. On 2026-07-26 lean-lang.org was
+      # unreachable twice — once a timeout, once a refused connection — and each
+      # time publishing stalled until the run was retried by hand, with nothing
+      # wrong on our side. `--max-retries` does not help: it retries inside the
+      # run, and the outage outlasted it.
+      #
+      # So lychee no longer decides the outcome (`fail: false`); the step after
+      # it does, splitting its JSON report into faults we can fix (an HTTP
+      # status, a missing local file, a bad fragment) and faults we cannot (the
+      # remote is down or slow). The first still fails the build; the second is
+      # a warning.
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
@@ -89,9 +102,46 @@ jobs:
             --exclude verso-data
             --accept '200..=299, 429'
             --max-retries 3
+            --retry-wait-time 5
+            --timeout 20
             --no-progress
             ./_site/index.html ./_site/blog
-          fail: true
+          format: json
+          output: lychee/out.json
+          jobSummary: false
+          fail: false
+
+      - name: Fail only on links we can fix
+        run: |
+          python3 - <<'PYEOF'
+          import json, sys
+          rep = json.load(open("lychee/out.json"))
+          hard, soft = [], []
+          # A network-level failure carries no HTTP code and reports itself as
+          # a network error; anything else in error_map is a real fault in our
+          # markup (4xx/5xx, missing local file, bad fragment).
+          for src, entries in (rep.get("error_map") or {}).items():
+              for e in entries:
+                  st = e.get("status") or {}
+                  text = st.get("text", "")
+                  remote_down = st.get("code") is None and (
+                      text.startswith("Network error")
+                      or "Connection" in text
+                      or "timed out" in text.lower()
+                      or "dns" in text.lower()
+                  )
+                  (soft if remote_down else hard).append((src, e.get("url"), text))
+          # Timeouts get their own map, and are always someone else's problem.
+          for src, entries in (rep.get("timeout_map") or {}).items():
+              for e in entries:
+                  soft.append((src, e.get("url"), "timed out"))
+          for src, url, why in soft:
+              print(f"::warning::unreachable, not failing the deploy: {url} (in {src}) - {why}")
+          for src, url, why in hard:
+              print(f"::error::broken link: {url} (in {src}) - {why}")
+          print(f"{len(hard)} broken, {len(soft)} unreachable")
+          sys.exit(1 if hard else 0)
+          PYEOF
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

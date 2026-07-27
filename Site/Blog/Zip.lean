@@ -22,14 +22,16 @@ Let me show you something:
 
 ```
 # silesia.tar: the 212 MB standard corpus. Each tool compresses at level 6
-# and prints the resulting size in bytes; `time` reports wall-clock.
-$ time deflate-rust silesia.tar   # miniz_oxide (pure Rust, no 'unsafe')
+# and prints the resulting size in bytes. The times are medians of nine cold
+# runs, alternating between the two on one pinned core — a single `time` on a
+# busy machine swings by several percent.
+$ deflate-rust silesia.tar   # miniz_oxide (pure Rust, no 'unsafe')
 68112144
-real    0m5.81s
+5.87s
 
-$ time deflate-lean silesia.tar   # lean-zip
+$ deflate-lean silesia.tar   # lean-zip
 67944712
-real    0m4.71s
+4.78s
 ```
 
 What's going on here? This is the [`lean-zip`](https://github.com/kim-em/lean-zip) implementation of [`DEFLATE`](https://www.rfc-editor.org/rfc/rfc1951)

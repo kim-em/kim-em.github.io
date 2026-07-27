@@ -25,11 +25,11 @@ Let me show you something:
 # and prints the resulting size in bytes; `time` reports wall-clock.
 $ time deflate-rust silesia.tar   # miniz_oxide (pure Rust, no 'unsafe')
 68112144
-real    0m5.78s
+real    0m5.79s
 
 $ time deflate-lean silesia.tar   # lean-zip
-67944712
-real    0m4.97s
+68054183
+real    0m4.87s
 ```
 
 What's going on here? This is the [`lean-zip`](https://github.com/kim-em/lean-zip) implementation of [`DEFLATE`](https://www.rfc-editor.org/rfc/rfc1951)
@@ -56,7 +56,7 @@ These graphs show the "Pareto frontier", describing the compression ratio vs thr
 
 (Note these graphs are measuring the geometric mean of the compression ratios across the constituent files in `silesia.tar`, so it's a slightly different measurement than our first measurement.)
 
-We're not nearly as fast as `miniz_oxide`'s L1 (the least compression, fastest throughput setting). At its L2 we now win outright: very slightly better compression, at 20% higher throughput. For `miniz_oxide`'s L3 and L4, at the corresponding compression ratio we're a bit slower (worst is L4, 10% slower), and at L5 we've drawn level. But then for L6-L9, `miniz_oxide` is dominated: `lean-zip` is capable of compressing faster and better. The headline numbers in this post are taken from L6, the typical default for zip algorithms. At `miniz_oxide`'s L9 we're nearly twice as fast.
+We can't match `miniz_oxide`'s L1 for raw speed: it's 30% faster than our fastest setting, in exchange for compressing 16% worse. Its L2 we simply beat, at very slightly better compression and 20% higher throughput. Through its L3 and L4 we're level, within a percent or two. From L5 on we pull ahead: 8% at L5, 24% at L6 — the typical default for zip algorithms, and where this post's headline numbers come from — and 90% at its L9.
 
 I still can't quite believe that!
 
@@ -67,7 +67,7 @@ For completeness, here's the Pareto frontier graph showing a number of other DEF
 ![Pareto frontier: lean-zip against zlib, miniz_oxide, zlib-rs, zlib-ng, libdeflate, Go, JS, Zig, and OCaml](/figures/zip-silesia-pareto.svg)
 
 `lean-zip` is certainly not the best here: `libdeflate` unsurprisingly blows it out of the water (unsurprisingly because this is a very carefully tuned implementation using architecture-specific SIMD, that we can't touch in Lean).
-`zlib-ng` and `zlib-rs` are faster than us across most of the range their curves cover, but no longer at the deep end: their L9 lands at exactly the compression ratio `lean-zip` reaches at L7, and we get there faster than either (a little ahead of `zlib-rs`, 11% ahead of `zlib-ng`). `zlib-ng` is optimized C; `zlib-rs` is a memory-safe Rust implementation heavily based on zlib-ng, with some carefully contained unsafe internally.
+`zlib-ng` and `zlib-rs` are faster than us across most of the range their curves cover, though not at the deep end: their L9 lands at exactly the compression ratio `lean-zip` reaches at L7, and we reach it at about the same speed as `zlib-rs`, a few percent ahead of `zlib-ng`. `zlib-ng` is optimized C; `zlib-rs` is a memory-safe Rust implementation heavily based on zlib-ng, with some carefully contained unsafe internally.
 
 We're competitive with or simply better than the other libraries. We completely dominate the OCaml, JavaScript, and `zlib` C reference implementations, and lose at lower levels but win at high levels against Go, pure Rust (`miniz_oxide`), and Zig.
 

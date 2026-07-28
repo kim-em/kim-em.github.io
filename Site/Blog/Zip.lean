@@ -25,11 +25,11 @@ Let me show you something:
 # and prints the resulting size in bytes; `time` reports wall-clock.
 $ time deflate-rust silesia.tar   # miniz_oxide (pure Rust, no 'unsafe')
 68112144
-real    0m5.79s
+real    0m5.77s
 
 $ time deflate-lean silesia.tar   # lean-zip
 68054183
-real    0m4.87s
+real    0m4.57s
 ```
 
 What's going on here? This is the [`lean-zip`](https://github.com/kim-em/lean-zip) implementation of [`DEFLATE`](https://www.rfc-editor.org/rfc/rfc1951)
@@ -56,7 +56,9 @@ These graphs show the "Pareto frontier", describing the compression ratio vs thr
 
 (Note these graphs are measuring the geometric mean of the compression ratios across the constituent files in `silesia.tar`, so it's a slightly different measurement than our first measurement.)
 
-We can't match `miniz_oxide`'s L1 for raw speed: it's 30% faster than our fastest setting, in exchange for compressing 16% worse. Its L2 we simply beat, at very slightly better compression and 20% higher throughput. Through its L3 and L4 we're level, within a percent or two. From L5 on we pull ahead: 8% at L5, 24% at L6 — the typical default for zip algorithms, and where this post's headline numbers come from — and 90% at its L9.
+`lean-zip` beats every single compression level `miniz_oxide` provides, i.e. we're capable of providing the same compression at higher throughput. At its fastest setting we're 15% quicker and the output is 8.8% smaller. At L6, the typical default for zip algorithms and where this post's headline numbers come from, we're 30% faster. At its L9 we're twice as fast.
+
+(Slight caveat: to strictly beat `miniz_oxide` L3, we'd have to use a mixture of our L3 and L4.)
 
 I still can't quite believe that!
 

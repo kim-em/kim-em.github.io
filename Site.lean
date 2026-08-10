@@ -8,3 +8,4 @@ import Site.Blog.Sos
 import Site.Blog.Lp
 import Site.Blog.Hex
 import Site.Blog.Zip
+import Site.Blog.Factor

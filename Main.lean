@@ -8,6 +8,7 @@ import Site.Blog.Sos
 import Site.Blog.Lp
 import Site.Blog.Hex
 import Site.Blog.Zip
+import Site.Blog.Factor
 
 open Verso Genre Blog Site Syntax
 
@@ -15,6 +16,7 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
+    Site.Blog.Factor
     Site.Blog.Zip
     Site.Blog.Hex
     Site.Blog.Lp

@@ -72,8 +72,9 @@ and appear to have similar asymptotic behaviour to the state-of-the-art unverifi
 
 Two plots, both cumulative "cactus" plots of instances solved against time:
 
-- [a mixed sample](https://github.com/kim-em/hex-dev/blob/main/reports/figures/hexbz-cactus-combined.svg) drawn from the whole test corpus
-- [Swinnerton-Dyer polynomials](https://github.com/kim-em/hex-dev/blob/main/reports/figures/hexbz-cactus-swinnerton-dyer.svg), the classic hard case for Berlekamp-Zassenhaus recombination
+![a mixed sample drawn from the whole test corpus](/figures/hexbz-cactus-combined.svg)
+
+![Swinnerton-Dyer polynomials, the classic hard case for Berlekamp-Zassenhaus recombination](/figures/hexbz-cactus-swinnerton-dyer.svg)
 
 As usual for Hex, these libraries are split into purely computational libraries that do not depend on Mathlib, plus associated libraries that make the connection with Mathlib theory. (The irreducibility and factoring tactics work in the purely computational setting, and then gain capabilities to handle Mathlib polynomials once you import the Mathlib libraries.) In the medium term I am interested in merging the "with Mathlib" libraries into Mathlib (adding the computational libraries as dependencies), which would make these tactics available within Mathlib, and to all projects that import Mathlib without the need for further dependencies.
 

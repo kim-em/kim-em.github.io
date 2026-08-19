@@ -29,10 +29,9 @@ section
 open Complex Filter InnerProductSpace Metric Real Topology
 open TauCeti
 
-variable {f : ℂ → ℝ} {c w : ℂ} {R : ℝ}
-
 -- ANCHOR: harnack
-theorem harnack_inequality_center (hf : HarmonicOnNhd f (ball c R))
+theorem harnack_inequality_center
+    {f : ℂ → ℝ} {c w : ℂ} {R : ℝ} (hf : HarmonicOnNhd f (ball c R))
     (hnonneg : ∀ z ∈ ball c R, 0 ≤ f z) (hw : w ∈ ball c R) :
     (R - ‖w - c‖) / (R + ‖w - c‖) * f c ≤ f w ∧
       f w ≤ (R + ‖w - c‖) / (R - ‖w - c‖) * f c
@@ -47,10 +46,9 @@ section
 open Function InnerProductSpace Metric Set Topology
 open TauCeti
 
-variable {f : ℂ → ℝ} {Ω : Set ℂ} {a : ℂ}
-
 -- ANCHOR: strongMaximum
 theorem eqOn_const_of_harmonicOnNhd_of_isLocalMax
+    {f : ℂ → ℝ} {Ω : Set ℂ} {a : ℂ}
     (hΩa : Ω ∈ 𝓝 a) (hΩconn : IsPreconnected Ω) (hf : HarmonicOnNhd f Ω)
     (hmax : IsLocalMax f a) : EqOn f (const ℂ (f a)) Ω
 -- ANCHOR_END: strongMaximum
@@ -64,11 +62,10 @@ section
 open MeasureTheory Set TauCeti
 open scoped InnerProductSpace
 
-variable (𝕜 G : Type*) [RCLike 𝕜] [IsAlgClosed 𝕜] [Group G] [TopologicalSpace G]
-  [IsTopologicalGroup G] [CompactSpace G] [MeasurableSpace G] [BorelSpace G]
-
 -- ANCHOR: peterWeyl
-noncomputable def stdPeterWeylBasis :
+noncomputable def stdPeterWeylBasis
+    (𝕜 G : Type*) [RCLike 𝕜] [IsAlgClosed 𝕜] [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] [MeasurableSpace G] [BorelSpace G] :
     HilbertBasis (Σ i : IrrepClass 𝕜 G,
       Fin (IrrepClass.model i).dim × Fin (IrrepClass.model i).dim)
       𝕜 (Lp 𝕜 2 (haarProb G))
@@ -82,11 +79,10 @@ section
 
 open TauCeti
 
-variable (𝕜 G : Type*) [RCLike 𝕜] [Group G] [TopologicalSpace G]
-  [IsTopologicalGroup G] [CompactSpace G]
-
 -- ANCHOR: representativeDensity
-theorem representativeStarSubalgebra_dense :
+theorem representativeStarSubalgebra_dense
+    (𝕜 G : Type*) [RCLike 𝕜] [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] :
     (representativeStarSubalgebra 𝕜 G).topologicalClosure = ⊤
 -- ANCHOR_END: representativeDensity
     :=
@@ -96,16 +92,13 @@ end
 
 section
 
-universe u v w x
-
 open TauCeti
 
-variable {A : Type u} [Ring A]
-variable {M : Type v} [AddCommGroup M] [Module A M]
-
 -- ANCHOR: krullSchmidt
-theorem exists_equiv_linearEquiv_of_iSupIndep [IsNoetherian A M] [IsArtinian A M]
-    {ι : Type w} {κ : Type x} [Finite ι] [Finite κ] {P : ι → Submodule A M}
+theorem exists_equiv_linearEquiv_of_iSupIndep
+    {A M : Type*} [Ring A] [AddCommGroup M] [Module A M]
+    [IsNoetherian A M] [IsArtinian A M]
+    {ι κ : Type*} [Finite ι] [Finite κ] {P : ι → Submodule A M}
     {Q : κ → Submodule A M} (hP : iSupIndep P) (hPt : ⨆ i, P i = ⊤)
     (hPind : ∀ i, IsIndecomposableModule A (P i)) (hQ : iSupIndep Q)
     (hQt : ⨆ j, Q j = ⊤) (hQind : ∀ j, IsIndecomposableModule A (Q j)) :
@@ -121,10 +114,10 @@ section
 open Filter NormedSpace TauCeti TauCeti.Semigroups
 open scoped NNReal Topology
 
-variable {X : Type*} [NormedAddCommGroup X] [NormedSpace ℝ X] [CompleteSpace X]
-
 -- ANCHOR: hilleYosida
-theorem hilleYosida_generation_iff (A : X →ₗ.[ℝ] X) (M omega : ℝ) :
+theorem hilleYosida_generation_iff
+    {X : Type*} [NormedAddCommGroup X] [NormedSpace ℝ X] [CompleteSpace X]
+    (A : X →ₗ.[ℝ] X) (M omega : ℝ) :
     (∃ S : StronglyContinuousSemigroup X,
       S.generator = A ∧ S.HasGrowthBound omega M) ↔
       1 ≤ M ∧ Dense (A.domain : Set X) ∧
@@ -141,10 +134,10 @@ section
 
 open TauCeti.Probability
 
-variable {Ω α : Type*} [MeasurableSpace Ω] [MeasurableSpace α]
-
 -- ANCHOR: deFinettiEquivalence
-theorem deFinetti_RyllNardzewski_equivalence [StandardBorelSpace α] [Nonempty α]
+theorem deFinetti_RyllNardzewski_equivalence
+    {Ω α : Type*} [MeasurableSpace Ω] [MeasurableSpace α]
+    [StandardBorelSpace α] [Nonempty α]
     {μ : Measure Ω} [IsFiniteMeasure μ] {X : ℕ → Ω → α}
     (hX_meas : ∀ n, AEMeasurable (X n) μ) :
     Contractable μ X ↔ Exchangeable μ X ∧ ConditionallyIID μ X
@@ -158,10 +151,10 @@ section
 
 open TauCeti.Probability
 
-variable {Ω α : Type*} [MeasurableSpace Ω] [MeasurableSpace α]
-
 -- ANCHOR: deFinettiMixture
-theorem deFinetti_mixture [StandardBorelSpace α] {μ : Measure Ω}
+theorem deFinetti_mixture
+    {Ω α : Type*} [MeasurableSpace Ω] [MeasurableSpace α]
+    [StandardBorelSpace α] {μ : Measure Ω}
     [IsProbabilityMeasure μ] {X : ℕ → Ω → α} (hX : Exchangeable μ X)
     (hX_meas : ∀ n, AEMeasurable (X n) μ) :
     ∃! π : ProbabilityMeasure (ProbabilityMeasure α),
@@ -177,11 +170,10 @@ section
 
 open TauCeti.Isogeny
 
-variable {F : Type*} [Field F] [Finite F] (W : WeierstrassCurve.Affine F)
-
 -- ANCHOR: frobenius
 @[simp]
-theorem degree_frobeniusIsogeny :
+theorem degree_frobeniusIsogeny
+    {F : Type*} [Field F] [Finite F] (W : WeierstrassCurve.Affine F) :
     (frobeniusIsogeny W).degree = Nat.card F
 -- ANCHOR_END: frobenius
     :=
@@ -191,14 +183,11 @@ end
 
 section
 
-universe u v
-
 open TauCeti TauCeti.ClassFunction
 
-variable {k : Type u} {G : Type v} [Field k] [Group G] [Finite G]
-
 -- ANCHOR: artin
-theorem natCard_nsmul_mem_indVirtualCharacters_isCyclic {f : G → k}
+theorem natCard_nsmul_mem_indVirtualCharacters_isCyclic
+    {k G : Type*} [Field k] [Group G] [Finite G] {f : G → k}
     (hf : f ∈ virtualCharacters k G) :
     Nat.card G • f ∈ indVirtualCharacters k G (fun C ↦ IsCyclic C)
 -- ANCHOR_END: artin
@@ -211,13 +200,12 @@ section
 
 open TauCeti
 
-variable {ι R M N : Type*} [CommRing R] [AddCommGroup M] [Module R M]
-  [AddCommGroup N] [Module R N] {P : RootPairing ι R M N} [Finite ι]
-  [CharZero R] [IsDomain R] [P.IsRootSystem] [P.IsCrystallographic]
-  [P.IsReduced] [P.IsIrreducible] [Nonempty ι]
-
 -- ANCHOR: cartanKilling
-theorem existsUnique_dynkinType (b : P.Base) :
+theorem existsUnique_dynkinType
+    {ι R M N : Type*} [CommRing R] [AddCommGroup M] [Module R M]
+    [AddCommGroup N] [Module R N] {P : RootPairing ι R M N} [Finite ι]
+    [CharZero R] [IsDomain R] [P.IsRootSystem] [P.IsCrystallographic]
+    [P.IsReduced] [P.IsIrreducible] [Nonempty ι] (b : P.Base) :
     ∃! t : DynkinType, t.Valid ∧ HasCartanType P b t
 -- ANCHOR_END: cartanKilling
     :=
@@ -227,14 +215,12 @@ end
 
 section
 
-universe u
-
 open CategoryTheory AlgebraicGeometry Opposite
 open scoped CategoryTheory.MonObj
 open TauCeti
 
 -- ANCHOR: cartierDuality
-noncomputable def cartierDuality (R : Type u) [CommRing R] :
+noncomputable def cartierDuality (R : Type*) [CommRing R] :
     (FiniteLocallyFreeCommAffineGroupSchemeCat (CommRingCat.of R))ᵒᵖ ≌
       FiniteLocallyFreeCommAffineGroupSchemeCat (CommRingCat.of R)
 -- ANCHOR_END: cartierDuality
@@ -249,11 +235,10 @@ open Filter
 open scoped ComplexOrder FourierTransform Topology
 open TauCeti
 
-variable {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V]
-  [FiniteDimensional ℝ V] [MeasurableSpace V] [BorelSpace V]
-
 -- ANCHOR: bochner
-theorem bochner (F : V → ℂ) :
+theorem bochner
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V]
+    [FiniteDimensional ℝ V] [MeasurableSpace V] [BorelSpace V] (F : V → ℂ) :
     (Continuous F ∧ IsPositiveDefiniteSub F) ↔
       ∃! μ : Measure V,
         IsFiniteMeasure μ ∧ ∀ v, F v = ∫ q, fourierAtom v q ∂μ

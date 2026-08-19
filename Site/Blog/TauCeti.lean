@@ -1,8 +1,12 @@
 import VersoBlog
 import Site.Categories
 open Verso Genre Blog
+open Verso.Code.External
 
 set_option linter.verso.markup.emph false
+
+set_option verso.exampleProject "examples/tauceti"
+set_option verso.exampleModule "TauCetiExamples"
 
 #doc (Post) "Tau Ceti: ten theorems from the first month" =>
 
@@ -12,27 +16,22 @@ date := {year := 2026, month := 8, day := 19}
 categories := [Site.lean]
 %%%
 
-It's been a month since we launched [Tau Ceti](https://github.com/TauCetiProject/TauCeti),
-a library of formal mathematics controlled by human-written and human-reviewed roadmaps,
-with the implementation and adversarial review carried out by AIs.
-Here are ten of the results that have landed in its first month.
+It's been a month since we launched, so I'd like to make a brief post highlighting some of the results that have landed in Tau Ceti.
 
-Each result below links to the pinned source, the generated API documentation, and the pull
-request that contributed the substantive mathematics. The displayed Lean declarations omit their
-proofs; their surrounding variables and typeclass assumptions are visible in the linked source.
-
-We're ready for more contributors. Please come to the
+We're ready for more contributors at this point. Please come to the
 [#Tau Ceti channel](https://leanprover.zulipchat.com/#narrow/channel/610393-Tau-Ceti)
-to discuss contributing to the roadmaps, or if you have existing material that you would like to
-migrate into Tau Ceti. If you'd just like to point your AI at the project, it can be as simple as:
+to discuss contributing to the roadmaps, or if you have existing material you would like to
+migrate into Tau Ceti.
+
+If you'd just like to point your AI at Tau Ceti, it can be as simple as
 
 ```
 uv tool install git+https://github.com/kim-em/TauCetiWorker.git
 tauceti --loop
 ```
 
-For running the worker in a container, see the
-[Docker instructions](https://github.com/kim-em/TauCetiWorker/blob/78c4969bd8803d920050108e4e851546a08eeceb/docs/docker.md).
+(if you would like to run this inside a Docker container, please read, or have your AI read,
+[https://github.com/kim-em/TauCetiWorker/blob/main/docs/docker.md](https://github.com/kim-em/TauCetiWorker/blob/78c4969bd8803d920050108e4e851546a08eeceb/docs/docker.md))
 
 # 1. Planar Harnack inequality and strong maximum principle
 
@@ -40,12 +39,14 @@ A nonnegative harmonic function on a planar disk satisfies the sharp two-sided H
 relative to its value at the center; consequently, a harmonic function on a connected planar
 domain that attains an interior local extremum is constant.
 
-```
+```anchor harnack
 theorem harnack_inequality_center (hf : HarmonicOnNhd f (ball c R))
     (hnonneg : ∀ z ∈ ball c R, 0 ≤ f z) (hw : w ∈ ball c R) :
     (R - ‖w - c‖) / (R + ‖w - c‖) * f c ≤ f w ∧
       f w ≤ (R + ‖w - c‖) / (R - ‖w - c‖) * f c
+```
 
+```anchor strongMaximum
 theorem eqOn_const_of_harmonicOnNhd_of_isLocalMax
     (hΩa : Ω ∈ 𝓝 a) (hΩconn : IsPreconnected Ω) (hf : HarmonicOnNhd f Ω)
     (hmax : IsLocalMax f a) : EqOn f (const ℂ (f a)) Ω
@@ -60,12 +61,14 @@ For a compact group, the normalized matrix coefficients of its irreducible unita
 representations form a Hilbert basis of `L²(G)`, and the representative functions are uniformly
 dense in `C(G)`.
 
-```
+```anchor peterWeyl
 noncomputable def stdPeterWeylBasis :
     HilbertBasis (Σ i : IrrepClass 𝕜 G,
       Fin (IrrepClass.model i).dim × Fin (IrrepClass.model i).dim)
       𝕜 (Lp 𝕜 2 (haarProb G))
+```
 
+```anchor representativeDensity
 theorem representativeStarSubalgebra_dense :
     (representativeStarSubalgebra 𝕜 G).topologicalClosure = ⊤
 ```
@@ -78,7 +81,7 @@ Representative density: [source](https://github.com/TauCetiProject/TauCeti/blob/
 Any two decompositions of a finite-length module into finitely many indecomposable summands have
 isomorphic summands after reindexing.
 
-```
+```anchor krullSchmidt
 theorem exists_equiv_linearEquiv_of_iSupIndep [IsNoetherian A M] [IsArtinian A M]
     {ι : Type w} {κ : Type x} [Finite ι] [Finite κ] {P : ι → Submodule A M}
     {Q : κ → Submodule A M} (hP : iSupIndep P) (hPt : ⨆ i, P i = ⊤)
@@ -95,7 +98,7 @@ An operator on a real Banach space generates a strongly continuous semigroup wit
 growth bound exactly when its domain is dense and its resolvent satisfies the corresponding
 Hille–Yosida power bounds.
 
-```
+```anchor hilleYosida
 theorem hilleYosida_generation_iff (A : X →ₗ.[ℝ] X) (M omega : ℝ) :
     (∃ S : StronglyContinuousSemigroup X,
       S.generator = A ∧ S.HasGrowthBound omega M) ↔
@@ -113,12 +116,14 @@ For standard-Borel-valued sequences, contractability, exchangeability, and condi
 independence with identical distributions coincide; every exchangeable law has a unique
 representation as a mixture of i.i.d. product laws.
 
-```
+```anchor deFinettiEquivalence
 theorem deFinetti_RyllNardzewski_equivalence [StandardBorelSpace α] [Nonempty α]
     {μ : Measure Ω} [IsFiniteMeasure μ] {X : ℕ → Ω → α}
     (hX_meas : ∀ n, AEMeasurable (X n) μ) :
     Contractable μ X ↔ Exchangeable μ X ∧ ConditionallyIID μ X
+```
 
+```anchor deFinettiMixture
 theorem deFinetti_mixture [StandardBorelSpace α] {μ : Measure Ω}
     [IsProbabilityMeasure μ] {X : ℕ → Ω → α} (hX : Exchangeable μ X)
     (hX_meas : ∀ n, AEMeasurable (X n) μ) :
@@ -135,7 +140,7 @@ Unique mixture: [source](https://github.com/TauCetiProject/TauCeti/blob/f9373604
 For a Weierstrass curve over a finite field with `q` elements, the `q`-power Frobenius defines an
 isogeny of degree `q`.
 
-```
+```anchor frobenius
 @[simp]
 theorem degree_frobeniusIsogeny :
     (frobeniusIsogeny W).degree = Nat.card F
@@ -148,7 +153,7 @@ theorem degree_frobeniusIsogeny :
 For a finite group `G`, induction from cyclic subgroups spans the rationalized group of virtual
 characters; explicitly, `|G|` times every virtual character lies in the induced integral span.
 
-```
+```anchor artin
 theorem natCard_nsmul_mem_indVirtualCharacters_isCyclic {f : G → k}
     (hf : f ∈ virtualCharacters k G) :
     Nat.card G • f ∈ indVirtualCharacters k G (fun C ↦ IsCyclic C)
@@ -161,7 +166,7 @@ theorem natCard_nsmul_mem_indVirtualCharacters_isCyclic {f : G → k}
 Every irreducible reduced crystallographic finite root system has a unique valid Dynkin type:
 `Aₙ`, `Bₙ`, `Cₙ`, `Dₙ`, `E₆`, `E₇`, `E₈`, `F₄`, or `G₂`.
 
-```
+```anchor cartanKilling
 theorem existsUnique_dynkinType (b : P.Base) :
     ∃! t : DynkinType, t.Valid ∧ HasCartanType P b t
 ```
@@ -173,7 +178,7 @@ theorem existsUnique_dynkinType (b : P.Base) :
 Over any commutative ring, Cartier duality is an involutive anti-equivalence on finite locally
 free commutative affine group schemes.
 
-```
+```anchor cartierDuality
 noncomputable def cartierDuality (R : Type u) [CommRing R] :
     (FiniteLocallyFreeCommAffineGroupSchemeCat (CommRingCat.of R))ᵒᵖ ≌
       FiniteLocallyFreeCommAffineGroupSchemeCat (CommRingCat.of R)
@@ -186,7 +191,7 @@ noncomputable def cartierDuality (R : Type u) [CommRing R] :
 A function on a finite-dimensional real inner-product space is continuous and positive definite
 exactly when it is the Fourier transform of a unique finite positive Borel measure.
 
-```
+```anchor bochner
 theorem bochner (F : V → ℂ) :
     (Continuous F ∧ IsPositiveDefiniteSub F) ↔
       ∃! μ : Measure V,

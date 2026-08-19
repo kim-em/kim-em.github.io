@@ -27,10 +27,13 @@ toolchain for `lp`'s SoPlex backend; GMP for `hex`; zlib for `zip`). See
 `examples/hex` depends on the hex monorepo, and its `HexExamples.Mathlib`
 section pulls in Mathlib, so build it through its `build-examples.sh` (which
 fetches the Mathlib cache first) *before* the top-level `lake build` extracts
-its anchors. Run it once after cloning:
+its anchors. The Tau Ceti post similarly has a pinned example project that
+checks its displayed theorem statements against Tau Ceti. Run both once after
+cloning:
 
 ```
 (cd examples/hex && ./build-examples.sh)
+(cd examples/tauceti && lake exe cache get && lake build)
 ```
 
 `examples/zip` is slow for the same reason: its single anchor is lean-zip's
@@ -58,7 +61,7 @@ Layout
 - `Site/Theme.lean` + `Site/theme.css` — the terminal styling.
 - `Site/LinkTargets.lean` — turns identifiers in highlighted code into links to
   the sources they come from (the example projects live in other repositories).
-- `examples/lp`, `examples/sos`, `examples/hex`, `examples/zip` — standalone example projects,
+- `examples/lp`, `examples/sos`, `examples/hex`, `examples/zip`, `examples/tauceti` — standalone example projects,
   one per post. Post sections can pull code from different modules (with
   different imports) of the same project via `anchor NAME (module := ...)`;
   `examples/hex` uses this to keep its Mathlib-free and Mathlib sections apart.

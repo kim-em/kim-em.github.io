@@ -45,6 +45,12 @@ jobs:
           lake exe cache get
           lake build
 
+      - name: Build Tau Ceti examples (fetches Mathlib cache)
+        working-directory: examples/tauceti
+        run: |
+          lake exe cache get
+          lake build
+
       # hex examples: the Core and Coppersmith sections are Mathlib-free (GMP
       # for Berlekamp-Zassenhaus, hence libgmp-dev), the Mathlib section imports
       # HexRowReduceMathlib. The script fetches the Mathlib cache, then builds.

@@ -10,3 +10,4 @@ import Site.Blog.Lp
 import Site.Blog.Hex
 import Site.Blog.Zip
 import Site.Blog.Factor
+import Site.Blog.Palomar

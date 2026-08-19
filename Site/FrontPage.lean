@@ -27,6 +27,7 @@ the Lean language for automation, and the Lean kernel for reliable verification.
 
 Recent posts:
 
+* [Announcing the Palomar Registry](/blog/2026-8-19-announcing-the-palomar-registry/) — an index of formalized mathematics repositories, with automatic checks on the formal statements and the metadata.
 * [Tau Ceti: ten theorems from the first month](/blog/2026-8-19-tau-ceti-ten-theorems-from-the-first-month/) — ten highlights from a formal-mathematics library built by AIs following human-written roadmaps.
 * [Certified integer polynomial factorization in Lean](/blog/2026-8-10-certified-integer-polynomial-factorization-in-lean/) — Berlekamp-Zassenhaus with van Hoeij reconstruction, formally verified for the first time.
 * [Why Lean is faster than Rust](/blog/2026-7-24-why-lean-is-faster-than-rust/) — a verified DEFLATE implementation that outcompresses `miniz_oxide`, faster.

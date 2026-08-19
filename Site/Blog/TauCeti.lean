@@ -40,7 +40,8 @@ relative to its value at the center; consequently, a harmonic function on a conn
 domain that attains an interior local extremum is constant.
 
 ```anchor harnack
-theorem harnack_inequality_center (hf : HarmonicOnNhd f (ball c R))
+theorem harnack_inequality_center
+    {f : ℂ → ℝ} {c w : ℂ} {R : ℝ} (hf : HarmonicOnNhd f (ball c R))
     (hnonneg : ∀ z ∈ ball c R, 0 ≤ f z) (hw : w ∈ ball c R) :
     (R - ‖w - c‖) / (R + ‖w - c‖) * f c ≤ f w ∧
       f w ≤ (R + ‖w - c‖) / (R - ‖w - c‖) * f c
@@ -48,6 +49,7 @@ theorem harnack_inequality_center (hf : HarmonicOnNhd f (ball c R))
 
 ```anchor strongMaximum
 theorem eqOn_const_of_harmonicOnNhd_of_isLocalMax
+    {f : ℂ → ℝ} {Ω : Set ℂ} {a : ℂ}
     (hΩa : Ω ∈ 𝓝 a) (hΩconn : IsPreconnected Ω) (hf : HarmonicOnNhd f Ω)
     (hmax : IsLocalMax f a) : EqOn f (const ℂ (f a)) Ω
 ```
@@ -62,14 +64,18 @@ representations form a Hilbert basis of `L²(G)`, and the representative functio
 dense in `C(G)`.
 
 ```anchor peterWeyl
-noncomputable def stdPeterWeylBasis :
+noncomputable def stdPeterWeylBasis
+    (𝕜 G : Type*) [RCLike 𝕜] [IsAlgClosed 𝕜] [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] [MeasurableSpace G] [BorelSpace G] :
     HilbertBasis (Σ i : IrrepClass 𝕜 G,
       Fin (IrrepClass.model i).dim × Fin (IrrepClass.model i).dim)
       𝕜 (Lp 𝕜 2 (haarProb G))
 ```
 
 ```anchor representativeDensity
-theorem representativeStarSubalgebra_dense :
+theorem representativeStarSubalgebra_dense
+    (𝕜 G : Type*) [RCLike 𝕜] [Group G] [TopologicalSpace G]
+    [IsTopologicalGroup G] [CompactSpace G] :
     (representativeStarSubalgebra 𝕜 G).topologicalClosure = ⊤
 ```
 
@@ -82,8 +88,10 @@ Any two decompositions of a finite-length module into finitely many indecomposab
 isomorphic summands after reindexing.
 
 ```anchor krullSchmidt
-theorem exists_equiv_linearEquiv_of_iSupIndep [IsNoetherian A M] [IsArtinian A M]
-    {ι : Type w} {κ : Type x} [Finite ι] [Finite κ] {P : ι → Submodule A M}
+theorem exists_equiv_linearEquiv_of_iSupIndep
+    {A M : Type*} [Ring A] [AddCommGroup M] [Module A M]
+    [IsNoetherian A M] [IsArtinian A M]
+    {ι κ : Type*} [Finite ι] [Finite κ] {P : ι → Submodule A M}
     {Q : κ → Submodule A M} (hP : iSupIndep P) (hPt : ⨆ i, P i = ⊤)
     (hPind : ∀ i, IsIndecomposableModule A (P i)) (hQ : iSupIndep Q)
     (hQt : ⨆ j, Q j = ⊤) (hQind : ∀ j, IsIndecomposableModule A (Q j)) :
@@ -99,7 +107,9 @@ growth bound exactly when its domain is dense and its resolvent satisfies the co
 Hille–Yosida power bounds.
 
 ```anchor hilleYosida
-theorem hilleYosida_generation_iff (A : X →ₗ.[ℝ] X) (M omega : ℝ) :
+theorem hilleYosida_generation_iff
+    {X : Type*} [NormedAddCommGroup X] [NormedSpace ℝ X] [CompleteSpace X]
+    (A : X →ₗ.[ℝ] X) (M omega : ℝ) :
     (∃ S : StronglyContinuousSemigroup X,
       S.generator = A ∧ S.HasGrowthBound omega M) ↔
       1 ≤ M ∧ Dense (A.domain : Set X) ∧
@@ -117,14 +127,18 @@ independence with identical distributions coincide; every exchangeable law has a
 representation as a mixture of i.i.d. product laws.
 
 ```anchor deFinettiEquivalence
-theorem deFinetti_RyllNardzewski_equivalence [StandardBorelSpace α] [Nonempty α]
+theorem deFinetti_RyllNardzewski_equivalence
+    {Ω α : Type*} [MeasurableSpace Ω] [MeasurableSpace α]
+    [StandardBorelSpace α] [Nonempty α]
     {μ : Measure Ω} [IsFiniteMeasure μ] {X : ℕ → Ω → α}
     (hX_meas : ∀ n, AEMeasurable (X n) μ) :
     Contractable μ X ↔ Exchangeable μ X ∧ ConditionallyIID μ X
 ```
 
 ```anchor deFinettiMixture
-theorem deFinetti_mixture [StandardBorelSpace α] {μ : Measure Ω}
+theorem deFinetti_mixture
+    {Ω α : Type*} [MeasurableSpace Ω] [MeasurableSpace α]
+    [StandardBorelSpace α] {μ : Measure Ω}
     [IsProbabilityMeasure μ] {X : ℕ → Ω → α} (hX : Exchangeable μ X)
     (hX_meas : ∀ n, AEMeasurable (X n) μ) :
     ∃! π : ProbabilityMeasure (ProbabilityMeasure α),
@@ -142,7 +156,8 @@ isogeny of degree `q`.
 
 ```anchor frobenius
 @[simp]
-theorem degree_frobeniusIsogeny :
+theorem degree_frobeniusIsogeny
+    {F : Type*} [Field F] [Finite F] (W : WeierstrassCurve.Affine F) :
     (frobeniusIsogeny W).degree = Nat.card F
 ```
 
@@ -154,7 +169,8 @@ For a finite group `G`, induction from cyclic subgroups spans the rationalized g
 characters; explicitly, `|G|` times every virtual character lies in the induced integral span.
 
 ```anchor artin
-theorem natCard_nsmul_mem_indVirtualCharacters_isCyclic {f : G → k}
+theorem natCard_nsmul_mem_indVirtualCharacters_isCyclic
+    {k G : Type*} [Field k] [Group G] [Finite G] {f : G → k}
     (hf : f ∈ virtualCharacters k G) :
     Nat.card G • f ∈ indVirtualCharacters k G (fun C ↦ IsCyclic C)
 ```
@@ -167,7 +183,11 @@ Every irreducible reduced crystallographic finite root system has a unique valid
 `Aₙ`, `Bₙ`, `Cₙ`, `Dₙ`, `E₆`, `E₇`, `E₈`, `F₄`, or `G₂`.
 
 ```anchor cartanKilling
-theorem existsUnique_dynkinType (b : P.Base) :
+theorem existsUnique_dynkinType
+    {ι R M N : Type*} [CommRing R] [AddCommGroup M] [Module R M]
+    [AddCommGroup N] [Module R N] {P : RootPairing ι R M N} [Finite ι]
+    [CharZero R] [IsDomain R] [P.IsRootSystem] [P.IsCrystallographic]
+    [P.IsReduced] [P.IsIrreducible] [Nonempty ι] (b : P.Base) :
     ∃! t : DynkinType, t.Valid ∧ HasCartanType P b t
 ```
 
@@ -179,7 +199,7 @@ Over any commutative ring, Cartier duality is an involutive anti-equivalence on 
 free commutative affine group schemes.
 
 ```anchor cartierDuality
-noncomputable def cartierDuality (R : Type u) [CommRing R] :
+noncomputable def cartierDuality (R : Type*) [CommRing R] :
     (FiniteLocallyFreeCommAffineGroupSchemeCat (CommRingCat.of R))ᵒᵖ ≌
       FiniteLocallyFreeCommAffineGroupSchemeCat (CommRingCat.of R)
 ```
@@ -192,7 +212,9 @@ A function on a finite-dimensional real inner-product space is continuous and po
 exactly when it is the Fourier transform of a unique finite positive Borel measure.
 
 ```anchor bochner
-theorem bochner (F : V → ℂ) :
+theorem bochner
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V]
+    [FiniteDimensional ℝ V] [MeasurableSpace V] [BorelSpace V] (F : V → ℂ) :
     (Continuous F ∧ IsPositiveDefiniteSub F) ↔
       ∃! μ : Measure V,
         IsFiniteMeasure μ ∧ ∀ v, F v = ∫ q, fourierAtom v q ∂μ

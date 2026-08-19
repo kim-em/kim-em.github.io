@@ -27,6 +27,7 @@ the Lean language for automation, and the Lean kernel for reliable verification.
 
 Recent posts:
 
+* [Tau Ceti: ten theorems from the first month](/blog/2026-8-19-tau-ceti-ten-theorems-from-the-first-month/) — ten highlights from a formal-mathematics library built by AIs following human-written roadmaps.
 * [Certified integer polynomial factorization in Lean](/blog/2026-8-10-certified-integer-polynomial-factorization-in-lean/) — Berlekamp-Zassenhaus with van Hoeij reconstruction, formally verified for the first time.
 * [Why Lean is faster than Rust](/blog/2026-7-24-why-lean-is-faster-than-rust/) — a verified DEFLATE implementation that outcompresses `miniz_oxide`, faster.
 * [Lattice basis reduction using the Hex Lean library](/blog/2026-7-7-lattice-basis-reduction-using-the-hex-lean-library/) — a walkthrough of the Hex computational algebra library, culminating in a Coppersmith attack on RSA.

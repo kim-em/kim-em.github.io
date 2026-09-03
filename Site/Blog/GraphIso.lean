@@ -98,17 +98,18 @@ coloured graphs—is Latin-square isotopy. Two Latin squares are isotopic if one
 can be obtained from the other by independently permuting the rows, columns,
 and symbols.
 
-The square and the four-colour construction below reproduce exactly the
-example headed [“Isotopy” in the nauty introduction](https://pallini.di.uniroma1.it/Introduction.html):
-its rows are `1 3 2`, `2 1 3`, and `3 2 1`. In Lean we use the zero-based
-elements of `Fin 3`, and add `cyclicSquare` as the square to compare it with.
+The example headed [“Isotopy” in the nauty introduction](https://pallini.di.uniroma1.it/Introduction.html)
+uses the Latin square whose rows are `1 3 2`, `2 1 3`, and `3 2 1`. We use
+exactly that square here. The Lean definitions use the zero-based elements of
+`Fin 3`, and add `cyclicSquare` as the square to compare it with.
 
-The encoding has a vertex for each row, column, symbol, and position, with
-those four kinds as its colours. Each position is joined to its row, its
-column, and the symbol written there. A colour-preserving graph isomorphism
-therefore restricts to three permutations, and the three edges at every
-position force precisely the isotopy equation. Once that bridge is proved,
-the actual isotopy proof is just the reduction followed by `graph_iso`:
+Following the introduction, the encoding has a vertex for each row, column,
+symbol, and position, with those four kinds as its colours. Each position is
+joined to its row, its column, and the symbol written there. A
+colour-preserving graph isomorphism therefore restricts to three permutations,
+and the three edges at every position force precisely the isotopy equation.
+Once that bridge is proved, the actual isotopy proof is just the reduction
+followed by `graph_iso`:
 
 ```anchor latin-isotopy
 open Hex.GraphIso.Mathlib

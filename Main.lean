@@ -11,6 +11,7 @@ import Site.Blog.Hex
 import Site.Blog.Zip
 import Site.Blog.Factor
 import Site.Blog.Palomar
+import Site.Blog.GraphIso
 
 open Verso Genre Blog Site Syntax
 
@@ -18,6 +19,7 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
+    Site.Blog.GraphIso
     Site.Blog.Palomar
     Site.Blog.TauCeti
     Site.Blog.Factor

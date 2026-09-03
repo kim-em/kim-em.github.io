@@ -22,12 +22,14 @@ as-is. Open items:
 * `categories` copies the Factor post. `Site.performance` is also defined and
   would fit, given the comparison charts.
 * `XXX` and `YYY` below are the two ratios the Zulip draft leaves open.
-* The anchor example says `import HexGraphIso`, not the `import Hex` of the
-  Zulip draft: in hex-dev, `Hex` is the shared oracle/bench helper library and
-  does not re-export `Hex.GraphIso`. It must be re-checked against the final
-  API; see the TODO in `examples/hex/HexExamples/GraphIso.lean`.
+* The anchor example must be re-checked against the final API; see the TODO in
+  `examples/hex/HexExamples/GraphIso.lean`.
+* `import Hex` reaches `Hex.GraphIso` only once `HexGraphIso` is added to the
+  hand-maintained umbrella `Hex.lean` in the released `leanprover/hex`, which
+  happens as part of the publish.
 * `examples/hex/lakefile.lean` still pins hex-dev at a SHA that predates
-  `HexGraphIso`, so the anchor cannot be extracted yet.
+  `HexGraphIso`, and requires hex-dev rather than released `hex`, whose
+  `Hex.lean` is a different file. So the anchor cannot be extracted yet.
 * `https://github.com/leanprover/hex-graph-iso` is not yet published by the
   hex-dev release sync, and the `leanprover.github.io/hex/docs` link is
   unverified.
@@ -61,7 +63,7 @@ rev = "main"
 and then:
 
 ```anchor petersen
-import HexGraphIso
+import Hex
 
 open Hex Hex.GraphIso
 

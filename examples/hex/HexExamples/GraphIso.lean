@@ -3,11 +3,17 @@
 -- stands on the hex-dev `nauty` branch, where the one-cell colouring is
 -- `Families.plain`. An in-flight change may rename that to
 -- `Graph.singleColor` and may add an uncoloured API, in which case both the
--- text below and `Site/Blog/GraphIso.lean` need updating together. This module
--- has not been compiled: `examples/hex/lakefile.lean` still pins hex-dev at a
--- SHA that predates `HexGraphIso`.
+-- text below and `Site/Blog/GraphIso.lean` need updating together.
+--
+-- This module has not been compiled, for two reasons. `examples/hex/lakefile.lean`
+-- still pins hex-dev at a SHA that predates `HexGraphIso`. And `import Hex`
+-- below is the released aggregate's umbrella, which re-exports every released
+-- library and will gain `HexGraphIso` when the release sync publishes it; the
+-- `Hex.lean` in hex-dev is a different file, the shared oracle and bench
+-- helper library, so this import will not reach `Hex.GraphIso` while
+-- `examples/hex` requires hex-dev rather than released `hex`.
 -- ANCHOR: petersen
-import HexGraphIso
+import Hex
 
 open Hex Hex.GraphIso
 

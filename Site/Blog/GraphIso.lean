@@ -19,8 +19,10 @@ and the release does not exist. Making the anchor build is one blocker in
 three ordered steps, and nothing here should be worked around to compile
 sooner.
 
-1. Publish `leanprover/hex-graph-iso` through the hex-dev release sync.
-   Until then the first link in the post is dead too.
+1. Publish `leanprover/hex-graph-iso` through the hex-dev release sync. The
+   uncoloured surface the example uses (`Hex.Graph`, `Graph.Isomorphic`, and
+   `Families.gpetersen` returning a `Graph`) has to be on main first. Until
+   this step the first link in the post is dead too.
 2. Add `HexGraphIso` to the hand-maintained umbrella `Hex.lean` in released
    `leanprover/hex`, so that `import Hex` re-exports `Hex.GraphIso`.
 3. Point `examples/hex` at a source where `import Hex` resolves to that
@@ -30,9 +32,6 @@ sooner.
 
 Once step 1 has happened, the rest can be settled in any order:
 
-* re-check the anchor example against the final API, in particular whether
-  `Families.plain` has become `Graph.singleColor`; see the TODO in
-  `examples/hex/HexExamples/GraphIso.lean`;
 * fill in `XXX` and `YYY`, the two ratios the Zulip draft leaves open, and
   refresh the figures and their caption if the numbers move;
 * check that the `leanprover.github.io/hex/docs` link resolves to
@@ -59,7 +58,7 @@ I'm very excited to release [`HexGraphIso`](https://github.com/leanprover/hex-gr
 
 The `HexGraphIso` library is a re-implementation of the dense graph algorithm from `nauty`, into Lean. Right now it only supports the default mode of operation, but I anticipate supporting further options from `nauty` later. We don't attempt to prove that the re-implementation is faithful, except via conformance tests. But we *do* prove that the Lean implementation is correct: two graphs are assigned the same "canonical form" if and only if they are isomorphic. Moreover we return efficient kernel checkable certificates for the canonical labelling.
 
-This enables us to provide a `graph_iso` tactic, which solves both pairwise isomorphism and non-isomorphism goals, both without Mathlib (where graphs are represented using [`Hex.GraphIso.Colored`](https://leanprover.github.io/hex/docs)) and [with Mathlib](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-mathlib), where the tactic gains the ability to process many ground terms representing `SimpleGraph`s.
+This enables us to provide a `graph_iso` tactic, which solves both pairwise isomorphism and non-isomorphism goals, both without Mathlib (where graphs are represented using [`Hex.Graph`](https://leanprover.github.io/hex/docs), or `Hex.GraphIso.Colored` when you want ordered vertex colours) and [with Mathlib](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-mathlib), where the tactic gains the ability to process many ground terms representing `SimpleGraph`s.
 
 Add to your `lakefile.toml`:
 
@@ -77,20 +76,18 @@ import Hex
 
 open Hex Hex.GraphIso
 
--- `Colored n k` is a graph on `n` vertices with an ordered `k`-colouring,
--- and `Families.plain` gives a graph the trivial one-colour colouring.
 -- The Petersen graph as G(5,2), and as the Kneser graph K(5,2):
 -- two presentations of the same graph on ten vertices.
-def petersen : Colored 10 1 := Families.plain (Families.gpetersen 5 2)
-def kneser52 : Colored 10 1 := Families.plain (Families.kneser 5 2)
+def petersen : Graph 10 := Families.gpetersen 5 2
+def kneser52 : Graph 10 := Families.kneser 5 2
 
 -- The pentagonal prism G(5,1) is the interesting negative companion:
 -- ten vertices, every one of degree three, so degree refinement alone
 -- does not settle the question.
-def prism5 : Colored 10 1 := Families.plain (Families.gpetersen 5 1)
+def prism5 : Graph 10 := Families.gpetersen 5 1
 
-example : Isomorphic petersen kneser52 := by graph_iso
-example : ¬ Isomorphic petersen prism5 := by graph_iso
+example : Graph.Isomorphic petersen kneser52 := by graph_iso
+example : ¬ Graph.Isomorphic petersen prism5 := by graph_iso
 ```
 
 (This example is drawn from the [Hex manual page for `HexGraphIso`](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso).)

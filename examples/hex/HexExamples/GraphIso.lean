@@ -1,10 +1,3 @@
--- TODO (draft): re-check this example against the final HexGraphIso API
--- before publication. It is written against `HexGraphIso/Families.lean` as it
--- stands on the hex-dev `nauty` branch, where the one-cell colouring is
--- `Families.plain`. An in-flight change may rename that to
--- `Graph.singleColor` and may add an uncoloured API, in which case both the
--- text below and `Site/Blog/GraphIso.lean` need updating together.
---
 -- This module does not compile yet, and is not meant to. `import Hex` below is
 -- the released aggregate's umbrella, deliberately matching what the post tells
 -- a reader to write. Three things have to happen, in this order, before it
@@ -20,23 +13,26 @@
 --
 -- Do not paper over this by importing `HexGraphIso` here while the post shows
 -- `import Hex`, or by repointing the example project ahead of the release.
+--
+-- The code between the anchor fences is `zulip.md` in hex-dev verbatim, and
+-- must stay character-for-character identical to the block in
+-- `Site/Blog/GraphIso.lean`. It uses the uncoloured surface from
+-- `HexGraphIso/Uncolored.lean`, which is not on hex-dev main yet.
 -- ANCHOR: petersen
 import Hex
 
 open Hex Hex.GraphIso
 
--- `Colored n k` is a graph on `n` vertices with an ordered `k`-colouring,
--- and `Families.plain` gives a graph the trivial one-colour colouring.
 -- The Petersen graph as G(5,2), and as the Kneser graph K(5,2):
 -- two presentations of the same graph on ten vertices.
-def petersen : Colored 10 1 := Families.plain (Families.gpetersen 5 2)
-def kneser52 : Colored 10 1 := Families.plain (Families.kneser 5 2)
+def petersen : Graph 10 := Families.gpetersen 5 2
+def kneser52 : Graph 10 := Families.kneser 5 2
 
 -- The pentagonal prism G(5,1) is the interesting negative companion:
 -- ten vertices, every one of degree three, so degree refinement alone
 -- does not settle the question.
-def prism5 : Colored 10 1 := Families.plain (Families.gpetersen 5 1)
+def prism5 : Graph 10 := Families.gpetersen 5 1
 
-example : Isomorphic petersen kneser52 := by graph_iso
-example : ¬ Isomorphic petersen prism5 := by graph_iso
+example : Graph.Isomorphic petersen kneser52 := by graph_iso
+example : ¬ Graph.Isomorphic petersen prism5 := by graph_iso
 -- ANCHOR_END: petersen

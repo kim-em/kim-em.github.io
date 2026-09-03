@@ -12,27 +12,37 @@ set_option verso.exampleModule "HexExamples.GraphIso"
 DRAFT. Do not publish until `HexGraphIso` is actually released.
 
 The prose is the Zulip announcement draft (`zulip.md` in hex-dev), reused
-as-is. Open items:
+as-is. The example shows `import Hex`, the released aggregate's umbrella,
+which is what a reader should write. It does not resolve yet, and that is
+expected rather than a defect: the post is written for the released package,
+and the release does not exist. Making the anchor build is one blocker in
+three ordered steps, and nothing here should be worked around to compile
+sooner.
 
-* `date` below is today's date, not a decided publication date. The published
-  URL is generated from the date and the title (un-zero-padded), so changing
-  either changes the permalink.
-* The title is a guess, parallel to "Certified integer polynomial
-  factorization in Lean".
-* `categories` copies the Factor post. `Site.performance` is also defined and
-  would fit, given the comparison charts.
-* `XXX` and `YYY` below are the two ratios the Zulip draft leaves open.
-* The anchor example must be re-checked against the final API; see the TODO in
-  `examples/hex/HexExamples/GraphIso.lean`.
-* `import Hex` reaches `Hex.GraphIso` only once `HexGraphIso` is added to the
-  hand-maintained umbrella `Hex.lean` in the released `leanprover/hex`, which
-  happens as part of the publish.
-* `examples/hex/lakefile.lean` still pins hex-dev at a SHA that predates
-  `HexGraphIso`, and requires hex-dev rather than released `hex`, whose
-  `Hex.lean` is a different file. So the anchor cannot be extracted yet.
-* `https://github.com/leanprover/hex-graph-iso` is not yet published by the
-  hex-dev release sync, and the `leanprover.github.io/hex/docs` link is
-  unverified.
+1. Publish `leanprover/hex-graph-iso` through the hex-dev release sync.
+   Until then the first link in the post is dead too.
+2. Add `HexGraphIso` to the hand-maintained umbrella `Hex.lean` in released
+   `leanprover/hex`, so that `import Hex` re-exports `Hex.GraphIso`.
+3. Point `examples/hex` at a source where `import Hex` resolves to that
+   umbrella. It currently requires `kim-em/hex-dev`, pinned at a SHA that
+   predates `HexGraphIso`, and hex-dev's own `Hex.lean` is a different file,
+   the shared oracle and bench helper library, which re-exports nothing.
+
+Once step 1 has happened, the rest can be settled in any order:
+
+* re-check the anchor example against the final API, in particular whether
+  `Families.plain` has become `Graph.singleColor`; see the TODO in
+  `examples/hex/HexExamples/GraphIso.lean`;
+* fill in `XXX` and `YYY`, the two ratios the Zulip draft leaves open, and
+  refresh the figures and their caption if the numbers move;
+* check that the `leanprover.github.io/hex/docs` link resolves to
+  `Hex.GraphIso.Colored`;
+* settle the title, currently a guess parallel to "Certified integer
+  polynomial factorization in Lean";
+* settle `categories`, currently copied from the Factor post;
+  `Site.performance` is also defined and would fit, given the charts;
+* set `date` last. It is today's date, and the published URL is generated
+  from the date and the title (un-zero-padded), so both are load-bearing.
 -/
 
 #doc (Post) "Certified graph isomorphism in Lean" =>

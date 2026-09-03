@@ -5,13 +5,21 @@
 -- `Graph.singleColor` and may add an uncoloured API, in which case both the
 -- text below and `Site/Blog/GraphIso.lean` need updating together.
 --
--- This module has not been compiled, for two reasons. `examples/hex/lakefile.lean`
--- still pins hex-dev at a SHA that predates `HexGraphIso`. And `import Hex`
--- below is the released aggregate's umbrella, which re-exports every released
--- library and will gain `HexGraphIso` when the release sync publishes it; the
--- `Hex.lean` in hex-dev is a different file, the shared oracle and bench
--- helper library, so this import will not reach `Hex.GraphIso` while
--- `examples/hex` requires hex-dev rather than released `hex`.
+-- This module does not compile yet, and is not meant to. `import Hex` below is
+-- the released aggregate's umbrella, deliberately matching what the post tells
+-- a reader to write. Three things have to happen, in this order, before it
+-- resolves:
+--
+--   1. `leanprover/hex-graph-iso` is published by the hex-dev release sync;
+--   2. `HexGraphIso` is added to the hand-maintained umbrella `Hex.lean` in
+--      released `leanprover/hex`;
+--   3. `examples/hex` is pointed at a source where `import Hex` resolves to
+--      that umbrella. It currently requires `kim-em/hex-dev`, pinned at a SHA
+--      predating `HexGraphIso`, and hex-dev's own `Hex.lean` is a different
+--      file, the shared oracle and bench helper library.
+--
+-- Do not paper over this by importing `HexGraphIso` here while the post shows
+-- `import Hex`, or by repointing the example project ahead of the release.
 -- ANCHOR: petersen
 import Hex
 

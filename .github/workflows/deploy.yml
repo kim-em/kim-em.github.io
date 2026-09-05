@@ -51,10 +51,13 @@ jobs:
 
       # The parts of the manifest entry that change the generated data: the
       # module list, the suppressed namespaces, the native dependencies and the
-      # environment the extractor runs under.
+      # environment the extractor runs under. `depBuildCache` only names a
+      # directory to cache, so it is dropped: retuning it must not throw away
+      # everyone's highlighting data.
       - id: config
         run: |
-          jq -c --arg n '${{ matrix.project.name }}' 'map(select(.name == $n))' examples/examples.json \
+          jq -c --arg n '${{ matrix.project.name }}' \
+            'map(select(.name == $n) | del(.depBuildCache))' examples/examples.json \
             | sha256sum | cut -c1-16 | sed 's/^/hash=/' >> "$GITHUB_OUTPUT"
 
       # Exact keys only. Generated Lean data is not compatible across toolchains

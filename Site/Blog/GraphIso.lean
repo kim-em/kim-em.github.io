@@ -9,40 +9,35 @@ set_option verso.exampleProject "examples/hex"
 set_option verso.exampleModule "HexExamples.GraphIso"
 
 /-
-DRAFT, for review. Not ready to publish.
+DRAFT. The text is settled; do not merge yet, because the site does not
+build.
 
+The prose is the Zulip announcement (`zulip.md` in hex-dev), reused as-is.
 The examples show `import Hex`, the released aggregate's umbrella, which is
-what a reader should write. Both libraries are now published:
-`leanprover/hex-graph-iso` and `leanprover/hex-graph-iso-mathlib` carry them,
-and released `leanprover/hex` re-exports both tactic surfaces from its
-hand-maintained `Hex.lean`, so `require hex` plus `import Hex` does reach
-them.
+what a reader should write, and released `leanprover/hex` does re-export
+both graph-iso libraries. Title, categories and date are settled. `date` is
+the one field worth revisiting at the moment of posting: the published URL
+is generated from the date and the title (un-zero-padded).
 
-One thing still stops the anchors building, and it should not be worked
-around to compile sooner:
+Two things are outstanding, both upstream of this repository:
 
-* `examples/hex` requires `kim-em/hex-dev`, not released `hex`. hex-dev's
-  own `Hex.lean` is a different file, the shared oracle and bench helper
-  library, which re-exports nothing, so `import Hex` does not resolve there.
-  Point `examples/hex` at released `hex` instead.
-
-The rest, in no particular order:
-
-* check that the `leanprover.github.io/hex/docs` link resolves to
-  `Hex.Graph`;
-* settle the title, currently a guess parallel to "Certified integer
-  polynomial factorization in Lean";
-* settle `categories`, currently copied from the Factor post;
-  `Site.performance` is also defined and would fit, given the charts;
-* set `date` last. It is a stand-in, and the published URL is generated
-  from the date and the title (un-zero-padded), so both are load-bearing.
+* `examples/hex` still requires `kim-em/hex-dev`, so the anchors do not
+  extract and the top-level build cannot elaborate this post. Repointing it
+  at released `hex` was tried and reverted: released `hex-lll` declares
+  `lean_lib HexLLL` without the `precompileModules := true` that hex-dev
+  sets, so `HexExamples.Core` and `HexExamples.Coppersmith` cannot find the
+  native symbol behind `Hex.Internal.ExternalReducer.externalReducerAvailable`
+  and the lattice basis reduction post stops building. Fix the released
+  package, then repoint.
+* the `leanprover.github.io/hex/docs` link in the paragraph below does not
+  serve `HexGraphIso` yet; the aggregate's docs workflow is still running.
 -/
 
 #doc (Post) "Certified graph isomorphism in Lean" =>
 
 %%%
 authors := ["Kim Morrison"]
-date := {year := 2026, month := 9, day := 3}
+date := {year := 2026, month := 9, day := 5}
 categories := [Site.algebra, Site.lean, Site.tactics]
 %%%
 
@@ -89,10 +84,10 @@ example : ¬ Graph.Isomorphic petersen prism5 := by graph_iso
 (This example is drawn from the [Hex manual page for `HexGraphIso`](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso).)
 
 Graphs are only the interchange format here. A small illustration of the more
-general principle—finite objects and their relations can often be encoded as
-coloured graphs—is Latin-square isotopy. Two Latin squares are isotopic if one
-can be obtained from the other by independently permuting the rows, columns,
-and symbols.
+general principle, that finite objects and their relations can often be
+encoded as coloured graphs, is Latin-square isotopy. Two Latin squares are
+isotopic if one can be obtained from the other by independently permuting the
+rows, columns, and symbols.
 
 The example headed [“Isotopy” in the nauty introduction](https://pallini.di.uniroma1.it/Introduction.html)
 uses the Latin square whose rows are `1 3 2`, `2 1 3`, and `3 2 1`. We use
@@ -104,8 +99,8 @@ symbol, and position, with those four kinds as its colours. Each position is
 joined to its row, its column, and the symbol written there. A
 colour-preserving graph isomorphism therefore restricts to three permutations,
 and the three edges at every position force precisely the isotopy equation.
-Once that bridge is proved, the actual isotopy proof is just the reduction
-followed by `graph_iso`:
+Once that correspondence is proved, the actual isotopy proof is just the
+reduction followed by `graph_iso`:
 
 ```anchor latin-isotopy (module := HexExamples.GraphIso.Latin)
 open Hex.GraphIso.Mathlib

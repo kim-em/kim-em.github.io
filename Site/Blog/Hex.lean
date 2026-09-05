@@ -1,5 +1,6 @@
 import VersoBlog
 import Site.Categories
+import Site.Examples
 open Verso Genre Blog
 open Verso.Code.External
 
@@ -9,6 +10,10 @@ set_option linter.verso.markup.emph false
 -- own module (with its own imports) via `(module := ...)` on the anchor block.
 set_option verso.exampleProject "examples/hex"
 set_option verso.exampleModule "HexExamples.Core"
+
+-- Seed Verso's cache from pre-generated highlighting data. Does nothing unless
+-- SITE_PREBUILT_EXAMPLES is set, in which case CI's artifacts must be in place.
+load_examples "examples/hex"
 
 #doc (Post) "Lattice basis reduction using the Hex Lean library" =>
 

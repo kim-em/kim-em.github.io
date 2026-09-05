@@ -20,35 +20,43 @@ lake build
 
 The first `lake build` also drives the `examples/*` subprojects under their own
 toolchains (installed automatically by elan), so it needs network access and the
-native dependencies those projects require (BLAS/LAPACK for `sos`; a C++
-toolchain for `lp`'s SoPlex backend; GMP for `hex`; zlib for `zip`). See
-`.github/workflows/deploy.yml`.
+native dependencies those projects require. `examples/examples.json` lists them,
+along with each project's modules and anything else its build needs; it is the
+one place CI, the build script and the site build all read.
 
-`examples/hex` depends on the hex monorepo, and its `HexExamples.Mathlib`
-section pulls in Mathlib, so build it through its `build-examples.sh` (which
-fetches the Mathlib cache first) *before* the top-level `lake build` extracts
-its anchors. The Tau Ceti post similarly has a pinned example project that
-checks its displayed theorem statements against Tau Ceti. Run both once after
-cloning:
+Those subprojects are slow. `examples/hex` and `examples/tauceti` pull in
+Mathlib, and `examples/zip`'s single anchor is lean-zip's DEFLATE roundtrip
+capstone, so extracting it compiles the whole verification. Build each one once
+up front, rather than waiting for the top-level `lake build` to shell into it:
 
 ```
-(cd examples/hex && ./build-examples.sh)
-(cd examples/tauceti && lake exe cache get && lake build)
+examples/build-highlighted.sh hex
+examples/build-highlighted.sh tauceti
+examples/build-highlighted.sh zip
 ```
 
-`examples/zip` is slow for the same reason: its single anchor is lean-zip's
-DEFLATE roundtrip capstone, so extracting it compiles the whole verification
-(around fifteen minutes, and there is no cache to fetch). Build it once up
-front too:
+That fetches the Mathlib cache where there is one, builds the project, and
+writes each module's highlighting data to
+`<project>/.lake/build/highlighted/<Module>.json`, the same file Verso would
+have produced by shelling out.
+
+Since the data is just those JSON files, CI does not need the projects at all.
+It builds each one in its own job, caches the JSON on the project's exact
+inputs, and unpacks it back into place before building the site. Setting
 
 ```
-(cd examples/zip && lake build)
+export SITE_PREBUILT_EXAMPLES=1
 ```
 
-If `pkg-config` can't find zlib on your machine, set `ZLIB_LDFLAGS` for both
-that build and the top-level one: lean-zip's zlib probe otherwise falls through
-to `xcrun`, which throws on Linux and leaves behind a Lake configuration that
-the *next* invocation rejects ("compiled configuration is invalid").
+makes the site build read that data instead of invoking Lake, and fail if any
+of it is missing or malformed. Leave it unset locally and examples are built on
+demand, as before, so an edit to an example is always picked up.
+
+If `pkg-config` can't find zlib on your machine, set `ZLIB_LDFLAGS`:
+lean-zip's zlib probe otherwise falls through to `xcrun`, which throws on Linux
+and leaves behind a Lake configuration that the *next* invocation rejects
+("compiled configuration is invalid"). `examples/build-highlighted.sh` sets it
+from the manifest, but a bare `lake build` in `examples/zip` needs it too.
 
 ```
 export ZLIB_LDFLAGS=-lz
@@ -65,3 +73,6 @@ Layout
   one per post. Post sections can pull code from different modules (with
   different imports) of the same project via `anchor NAME (module := ...)`;
   `examples/hex` uses this to keep its Mathlib-free and Mathlib sections apart.
+- `examples/examples.json` — what each example project contributes and what its
+  build needs, read by `examples/build-highlighted.sh`, `Site/Examples.lean` and
+  the Pages workflow.

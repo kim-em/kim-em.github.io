@@ -1,5 +1,6 @@
 import VersoBlog
 import Site.Categories
+import Site.Examples
 open Verso Genre Blog
 open Verso.Code.External
 
@@ -7,6 +8,10 @@ set_option linter.verso.markup.emph false
 
 set_option verso.exampleProject "examples/tauceti"
 set_option verso.exampleModule "TauCetiExamples"
+
+-- Seed Verso's cache from pre-generated highlighting data. Does nothing unless
+-- SITE_PREBUILT_EXAMPLES is set, in which case CI's artifacts must be in place.
+load_examples "examples/tauceti"
 
 #doc (Post) "Tau Ceti: ten theorems from the first month" =>
 

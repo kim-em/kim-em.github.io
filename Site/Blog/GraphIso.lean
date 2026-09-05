@@ -28,8 +28,6 @@ around to compile sooner:
 
 The rest, in no particular order:
 
-* fill in `XXX` and `YYY`, the two ratios the Zulip draft leaves open, and
-  refresh the figures and their caption if the numbers move;
 * check that the `leanprover.github.io/hex/docs` link resolves to
   `Hex.Graph`;
 * settle the title, currently a guess parallel to "Certified integer
@@ -272,9 +270,9 @@ Some other goodies associated with this release:
 
 * A [specification](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=nauty-algorithm) of what the default dense mode of `nauty` 2.9.3 is actually doing!
 * [`leanprover/nauty-ffi`](https://github.com/leanprover/nauty-ffi), a Lean FFI wrapper around `nauty` itself, if you don't care about verification and just want to run the original C code, fast. We don't use this in `HexGraphIso` except for conformance testing.
-* [Comparison charts](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-performance) showing the relative performance of `HexGraphIso` and `nauty`: at present, the compiled canonical labelling is about XXX times slower than `nauty`, and the non-isomorphism tactic, which replays the decision through the kernel, is about YYY times slower again. (Already I'm very happy with these numbers: `nauty` is fast! We'll get a bit better with some further AI-driven optimization, but don't expect catching up!)
+* [Comparison charts](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-performance) showing the relative performance of `HexGraphIso` and `nauty`: at present, the compiled canonical labelling is about 7 times slower than `nauty`, and the non-isomorphism tactic, which replays the decision through the kernel, is about 5000 times slower again. (Already I'm very happy with these numbers: `nauty` is fast! We'll get a bit better with some further AI-driven optimization, but don't expect catching up!)
 
-Here are those charts. The first is canonical labelling over the deterministic families: a cactus plot of `nauty` 2.9.3 against the compiled `canonicalize`, and beside it the same two broken down per family against the number of vertices.
+Here are those charts. The first is canonical labelling over the deterministic families: a cactus plot of `nauty` 2.9.3 against the compiled `canonicalize`, and beside it the same two broken down per family against the number of vertices. Every family lands within about a factor of two of that headline number, with the Kneser and Johnson graphs the slowest and the grids and random graphs the quickest.
 
 ![Canonical labelling over the deterministic families: a cactus plot of nauty 2.9.3 against the compiled canonicalize, and a per-family breakdown of the same two against vertex count](/figures/hexgraphiso-canon-cactus.svg)
 

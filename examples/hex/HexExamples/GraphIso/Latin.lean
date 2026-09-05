@@ -6,7 +6,7 @@ import Mathlib.Data.Fintype.Sum
 import Mathlib.Tactic.DeriveFintype
 import Mathlib.Tactic.FinCases
 
--- ANCHOR: latinisotopy
+-- ANCHOR: latinencoding
 open Hex.GraphIso.Mathlib
 
 namespace LatinSquareExample
@@ -77,6 +77,8 @@ private instance (L : LatinSquare) :
       (x ≠ y ∧ (incidence L x y ∨ incidence L y x))
     infer_instance
 
+-- ANCHOR_END: latinencoding
+-- ANCHOR: latincorrespondence
 variable {L M : LatinSquare}
 
 private def component : Fin 3 → Fin 3 → Vertex
@@ -161,5 +163,5 @@ example : Isotopic nautySquare cyclicSquare := by
   graph_iso
 
 end LatinSquareExample
--- ANCHOR_END: latinisotopy
+-- ANCHOR_END: latincorrespondence
 

@@ -81,7 +81,7 @@ and the three edges at every position force precisely the isotopy equation.
 Once that correspondence is proved, the actual isotopy proof is just the
 reduction followed by `graph_iso`:
 
-```anchor latinisotopy (module := HexExamples.GraphIso.Latin)
+```anchor latinencoding (module := HexExamples.GraphIso.Latin)
 open Hex.GraphIso.Mathlib
 
 namespace LatinSquareExample
@@ -151,7 +151,11 @@ private instance (L : LatinSquare) :
     change Decidable
       (x ≠ y ∧ (incidence L x y ∨ incidence L y x))
     infer_instance
+```
 
+and then the correspondence itself, which is where the work is:
+
+```anchor latincorrespondence (module := HexExamples.GraphIso.Latin)
 variable {L M : LatinSquare}
 
 private def component : Fin 3 → Fin 3 → Vertex

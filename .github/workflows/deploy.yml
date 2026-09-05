@@ -10,8 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+# Per ref, not one global "pages" group: a workflow_dispatch test run on a
+# branch used to cancel an in-flight master deploy, and be cancelled by one.
+# Only master reaches the deploy job, so master runs still serialise.
 concurrency:
-  group: "pages"
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -48,21 +51,47 @@ jobs:
 
       # The parts of the manifest entry that change the generated data: the
       # module list, the suppressed namespaces, the native dependencies and the
-      # environment the extractor runs under.
+      # environment the extractor runs under. `depBuildCache` only names a
+      # directory to cache, so it is dropped: retuning it must not throw away
+      # everyone's highlighting data.
       - id: config
         run: |
-          jq -c --arg n '${{ matrix.project.name }}' 'map(select(.name == $n))' examples/examples.json \
+          jq -c --arg n '${{ matrix.project.name }}' \
+            'map(select(.name == $n) | del(.depBuildCache))' examples/examples.json \
             | sha256sum | cut -c1-16 | sed 's/^/hash=/' >> "$GITHUB_OUTPUT"
 
       # Exact keys only. Generated Lean data is not compatible across toolchains
       # or dependency revisions, so a restore-key fallback would serve JSON that
       # no longer matches the sources -- worse than a rebuild. The SubVerso
-      # revision is pinned in the project's lake-manifest.json, which is hashed.
+      # revision is pinned in the project's lake-manifest.json, which is hashed,
+      # and examples/build-highlighted.sh fails if Lake rewrites that lockfile
+      # while building, since the data would then be keyed on the wrong inputs.
+      #
+      # `runner.os` is only "Linux", so an ubuntu-latest image change does not
+      # invalidate anything. That matters for sos alone, whose extractor runs
+      # CSDP through an FFI while highlighting; bump the `v1` below by hand if a
+      # native dependency ever starts changing what comes out.
       - id: cache
         uses: actions/cache@v4
         with:
           path: ${{ matrix.project.dir }}/.lake/build/highlighted
-          key: highlighted-${{ matrix.project.name }}-${{ runner.os }}-${{ hashFiles(format('{0}/lean-toolchain', matrix.project.dir), format('{0}/lake-manifest.json', matrix.project.dir), format('{0}/lakefile.*', matrix.project.dir), format('{0}/**/*.lean', matrix.project.dir), format('{0}/**/*.sh', matrix.project.dir), 'examples/build-highlighted.sh') }}-${{ steps.config.outputs.hash }}
+          key: highlighted-v1-${{ matrix.project.name }}-${{ runner.os }}-${{ hashFiles(format('{0}/lean-toolchain', matrix.project.dir), format('{0}/lake-manifest.json', matrix.project.dir), format('{0}/lakefile.*', matrix.project.dir), format('{0}/**/*.lean', matrix.project.dir), format('{0}/**/*.sh', matrix.project.dir), 'examples/build-highlighted.sh') }}-${{ steps.config.outputs.hash }}
+
+      # The dependency's compiled output, for a project whose dependency is
+      # expensive and has no cache of its own. leanprover/hex is 10k Lake jobs
+      # and about 40 minutes from source, and none of that is Mathlib; hex's own
+      # CI caches the same directories the same way, but an Actions cache is
+      # scoped to its repository, so we keep our own copy.
+      #
+      # Keyed on the toolchain and the lockfile only, deliberately not on the
+      # example sources: editing an example should cost an example rebuild, not
+      # a dependency rebuild. Only moving the Hex pin pays the 40 minutes.
+      - name: Restore the dependency build outputs
+        if: steps.cache.outputs.cache-hit != 'true' && matrix.project.depBuildCache != ''
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.project.depBuildCache }}
+          key: depbuild-v1-${{ matrix.project.name }}-${{ runner.os }}-${{ hashFiles(format('{0}/lean-toolchain', matrix.project.dir), format('{0}/lake-manifest.json', matrix.project.dir)) }}
 
       - name: Install elan
         if: steps.cache.outputs.cache-hit != 'true'
@@ -156,14 +185,24 @@ jobs:
       # under .lake means the site job rebuilt an example project.
       - name: Confirm no example project was rebuilt
         run: |
+          set -uo pipefail
           status=0
-          for dir in $(jq -r '.[].dir' examples/examples.json); do
-            for path in "$dir/.lake/packages" "$dir/.lake/build/lib"; do
-              if [[ -e "$path" ]]; then
-                echo "::error::$path exists, so the site build fell back to building $dir"
-                status=1
-              fi
-            done
+          # Every project under examples/, not just the manifest's, so a post
+          # that reaches a project nobody registered is caught too.
+          for lakefile in examples/*/lakefile.*; do
+            dir=$(dirname "$lakefile")
+            [[ -d "$dir/.lake" ]] || continue
+            extra=$(find "$dir/.lake" -mindepth 1 -maxdepth 1 ! -name build)
+            if [[ -d "$dir/.lake/build" ]]; then
+              more=$(find "$dir/.lake/build" -mindepth 1 -maxdepth 1 ! -name highlighted)
+              extra=$(printf '%s\n%s' "$extra" "$more")
+            fi
+            extra=$(sed '/^[[:space:]]*$/d' <<<"$extra")
+            if [[ -n "$extra" ]]; then
+              echo "::error::the site build fell back to building $dir; it created:"
+              echo "$extra"
+              status=1
+            fi
           done
           exit $status
 

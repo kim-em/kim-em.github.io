@@ -8,30 +8,6 @@ set_option linter.verso.markup.emph false
 set_option verso.exampleProject "examples/hex"
 set_option verso.exampleModule "HexExamples.GraphIso"
 
-/-
-DRAFT. The text is settled; do not merge yet, because the site does not
-build.
-
-The prose is the Zulip announcement (`zulip.md` in hex-dev), reused as-is.
-The examples show `import Hex`, the released aggregate's umbrella, which is
-what a reader should write, and released `leanprover/hex` does re-export
-both graph-iso libraries. Title, categories and date are settled. `date` is
-the one field worth revisiting at the moment of posting: the published URL
-is generated from the date and the title (un-zero-padded).
-
-Two things are outstanding, both upstream of this repository:
-
-* `examples/hex` still requires `kim-em/hex-dev`, so the anchors do not
-  extract and the top-level build cannot elaborate this post. Repointing it
-  at released `hex` was tried and reverted: released `hex-lll` declares
-  `lean_lib HexLLL` without the `precompileModules := true` that hex-dev
-  sets, so `HexExamples.Core` and `HexExamples.Coppersmith` cannot find the
-  native symbol behind `Hex.Internal.ExternalReducer.externalReducerAvailable`
-  and the lattice basis reduction post stops building. Fix the released
-  package, then repoint.
-* the `leanprover.github.io/hex/docs` link in the paragraph below does not
-  serve `HexGraphIso` yet; the aggregate's docs workflow is still running.
--/
 
 #doc (Post) "Certified graph isomorphism in Lean" =>
 

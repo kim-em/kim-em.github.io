@@ -38,7 +38,7 @@
     "aptPackages": [],
     "mathlibCache": true,
     "env": [],
-    "depBuildCache": ""
+    "depBuildCache": "examples/tauceti/.lake/packages/TauCeti/.lake/build"
   },
   {
     "name": "hex",
@@ -73,6 +73,6 @@
     "env": [
       "ZLIB_LDFLAGS=-lz"
     ],
-    "depBuildCache": ""
+    "depBuildCache": "examples/zip/.lake/packages/*/.lake/build"
   }
 ]

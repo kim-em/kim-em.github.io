@@ -84,9 +84,9 @@ example : ¬ Graph.Isomorphic petersen prism5 := by graph_iso
 (This example is drawn from the [Hex manual page for `HexGraphIso`](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso).)
 
 You might think that this is "only" about graphs. The real power of `nauty` and hence `HexGraphIso`
-come from that fact that a huge range of combinatorial objects can be encoded as graphs, moreover reflecting isomorphisms.
+comes from the fact that a huge range of combinatorial objects can be encoded as graphs, moreover reflecting isomorphisms.
 This then allows us to solve the isomorphism problem in many domains. In fact, the encoding doesn't need to be at all efficient,
-because `nauty` is typically so efficient that that the blowup doesn't matter much.
+because `nauty` is typically so efficient that the blowup doesn't matter much.
 
 We illustrate this idea by taking the Latin square example from the [`nauty` introduction](https://pallini.di.uniroma1.it/Introduction.html)
 and implementing it using `HexGraphIso`.
@@ -259,9 +259,9 @@ end LatinSquareExample
 
 For now, we do not provide functions, verified or otherwise, that return generators for the automorphism group of a graph, but this will hopefully arrive [soon](https://github.com/kim-em/hex-dev/issues/9959).
 
-Right now, `HexGraphIso` is about 5-10 times slower than `nauty`, and the non-isomorphism tactic, which replays the decision through the kernel, is about 5000 times slower again. (Already I'm very happy with these numbers: `nauty` is fast! We'll get a bit better with some further AI-driven optimization, but don't expect catching up!)
+Right now, `HexGraphIso` is about 5 to 12 times slower than `nauty`, and the non-isomorphism tactic, which replays the decision through the kernel, is about 5000 times slower again. (Already I'm very happy with these numbers: `nauty` is fast! We'll get a bit better with some further AI-driven optimization, but don't expect catching up!)
 
-The first chart here shows canonical labelling over some standard families: a cactus plot of `nauty` 2.9.3 against the compiled `canonicalize`, and beside it the same two broken down per family against the number of vertices. Every family lands roughly an order of magnitude slower than `nauty`, with the Kneser and Johnson graphs the slowest and the grids and random graphs the quickest.
+The first chart here shows canonical labelling over some standard families: a cactus plot of `nauty` 2.9.3 against the compiled `canonicalize`, and beside it the same two broken down per family against the number of vertices. Every family lands within about a factor of two of that, with the Kneser and Johnson graphs the slowest and the grids and random graphs the quickest.
 
 ![Canonical labelling over the deterministic families: a cactus plot of nauty 2.9.3 against the compiled canonicalize, and a per-family breakdown of the same two against vertex count](/figures/hexgraphiso-canon-cactus.svg)
 

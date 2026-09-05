@@ -6,7 +6,7 @@ import Mathlib.Data.Fintype.Sum
 import Mathlib.Tactic.DeriveFintype
 import Mathlib.Tactic.FinCases
 
--- ANCHOR: latin-isotopy
+-- ANCHOR: latinIsotopy
 open Hex.GraphIso.Mathlib
 
 namespace LatinSquareExample
@@ -161,5 +161,5 @@ example : Isotopic nautySquare cyclicSquare := by
   graph_iso
 
 end LatinSquareExample
--- ANCHOR_END: latin-isotopy
+-- ANCHOR_END: latinIsotopy
 

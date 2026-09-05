@@ -81,7 +81,7 @@ and the three edges at every position force precisely the isotopy equation.
 Once that correspondence is proved, the actual isotopy proof is just the
 reduction followed by `graph_iso`:
 
-```anchor latin-isotopy (module := HexExamples.GraphIso.Latin)
+```anchor latinIsotopy (module := HexExamples.GraphIso.Latin)
 open Hex.GraphIso.Mathlib
 
 namespace LatinSquareExample

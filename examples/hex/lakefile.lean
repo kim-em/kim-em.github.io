@@ -3,14 +3,15 @@ open Lake DSL
 
 require subverso from git "https://github.com/kim-em/subverso" @ "sos-load-dynlibs"
 
--- The hex monorepo (kim-em/hex-dev) provides the full library set: the released
+-- The released aggregate (leanprover/hex) provides the full library set: the
 -- Mathlib-free computational libraries, the Berlekamp-Zassenhaus factorizer that
 -- the Coppersmith and factorization examples need, and the HexXMathlib
--- correspondence layer (with Mathlib) for sections that want it. Pinned to a
--- known SHA. Each example module imports only the slice its section uses, so a
--- Mathlib-free section never compiles Mathlib.
+-- correspondence layer (with Mathlib) for sections that want it. This is the
+-- same `require` the posts tell a reader to write. Pinned to a known SHA. Each
+-- example module imports only the slice its section uses, so a Mathlib-free
+-- section never compiles Mathlib.
 require Hex from git
-  "https://github.com/kim-em/hex-dev" @ "b31ebade9b7e58ac513ef4582bb324e5e09d215c"
+  "https://github.com/leanprover/hex" @ "80b6dc6"
 
 package «hex-examples» where
 

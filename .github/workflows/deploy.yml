@@ -15,70 +15,157 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  # examples/examples.json is the single source of truth for which example
+  # projects exist, which modules they contribute, and what each needs to
+  # build. The site build reads it too (Site/Examples.lean).
+  plan:
     runs-on: ubuntu-latest
+    outputs:
+      projects: ${{ steps.read.outputs.projects }}
     steps:
       - uses: actions/checkout@v4
+      - id: read
+        run: |
+          projects=$(jq -ce 'length > 0' examples/examples.json >/dev/null && jq -c . examples/examples.json)
+          echo "projects=$projects" >> "$GITHUB_OUTPUT"
+
+  # One job per example project. They have no dependencies on one another, so
+  # what used to be ~34 minutes of sequential Lean builds is now the slowest
+  # single project. Each uploads only its SubVerso highlighting JSON, a few
+  # megabytes, rather than the multi-gigabyte .lake tree that produced it.
+  examples:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJSON(needs.plan.outputs.projects) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: echo "STARTED_AT=$(date +%s)" >> "$GITHUB_ENV"
+
+      # The parts of the manifest entry that change the generated data: the
+      # module list, the suppressed namespaces, the native dependencies and the
+      # environment the extractor runs under.
+      - id: config
+        run: |
+          jq -c --arg n '${{ matrix.project.name }}' 'map(select(.name == $n))' examples/examples.json \
+            | sha256sum | cut -c1-16 | sed 's/^/hash=/' >> "$GITHUB_OUTPUT"
+
+      # Exact keys only. Generated Lean data is not compatible across toolchains
+      # or dependency revisions, so a restore-key fallback would serve JSON that
+      # no longer matches the sources -- worse than a rebuild. The SubVerso
+      # revision is pinned in the project's lake-manifest.json, which is hashed.
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.project.dir }}/.lake/build/highlighted
+          key: highlighted-${{ matrix.project.name }}-${{ runner.os }}-${{ hashFiles(format('{0}/lean-toolchain', matrix.project.dir), format('{0}/lake-manifest.json', matrix.project.dir), format('{0}/lakefile.*', matrix.project.dir), format('{0}/**/*.lean', matrix.project.dir), format('{0}/**/*.sh', matrix.project.dir), 'examples/build-highlighted.sh') }}-${{ steps.config.outputs.hash }}
+
+      - name: Install elan
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      # Only what this project needs: CSDP's BLAS/LAPACK runtime for sos, GMP
+      # for hex's Berlekamp-Zassenhaus, zlib for lean-zip's FFI shims.
+      - name: Install native dependencies
+        if: steps.cache.outputs.cache-hit != 'true' && join(matrix.project.aptPackages) != ''
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ join(matrix.project.aptPackages, ' ') }}
+
+      - name: Build highlighting data
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: examples/build-highlighted.sh ${{ matrix.project.name }}
+
+      - name: Check the highlighting data
+        run: examples/check-highlighted.sh ${{ matrix.project.name }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: highlighted-${{ matrix.project.name }}
+          path: ${{ matrix.project.dir }}/.lake/build/highlighted
+          retention-days: 1
+          if-no-files-found: error
+
+      - if: always()
+        run: |
+          outcome=$([ '${{ steps.cache.outputs.cache-hit }}' = 'true' ] && echo 'cache hit' || echo 'built')
+          elapsed=$(( $(date +%s) - STARTED_AT ))
+          printf '**examples/%s**: %s, %dm%02ds\n\n' \
+            '${{ matrix.project.name }}' "$outcome" $((elapsed / 60)) $((elapsed % 60)) >> "$GITHUB_STEP_SUMMARY"
+
+  build:
+    needs: examples
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: echo "STARTED_AT=$(date +%s)" >> "$GITHUB_ENV"
 
       - name: Install elan
         run: |
           curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
-          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
-      # sos → csdp-ffi builds CSDP and links it against the system BLAS/LAPACK
-      # runtime; the lp examples use the pure-Lean backend (no native deps).
-      - name: Install native dependencies (for sos / CSDP, hex / GMP, zip / zlib)
+      # No native dependencies here: this job never builds an example project,
+      # so it never needs CSDP's BLAS, GMP or zlib.
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: highlighted-*
+          path: _highlighted
+
+      # Put each project's JSON back exactly where `lake build +M:highlighted`
+      # would have left it, which is where Verso looks.
+      - name: Unpack the highlighting data
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential liblapack-dev libblas-dev gfortran libgmp-dev zlib1g-dev
+          set -euo pipefail
+          while IFS=$'\t' read -r name dir; do
+            src="_highlighted/highlighted-$name"
+            if [[ ! -d "$src" ]]; then
+              echo "::error::no highlighting artifact was uploaded for $name"
+              exit 1
+            fi
+            mkdir -p "$dir/.lake/build"
+            rm -rf "$dir/.lake/build/highlighted"
+            mv "$src" "$dir/.lake/build/highlighted"
+          done < <(jq -r '.[] | "\(.name)\t\(.dir)"' examples/examples.json)
 
-      # Pre-build the example subprojects under their own toolchains so the
-      # blog's SubVerso extraction (which shells out to each) only reads
-      # already-built artifacts.
-      - name: Build lp examples
-        working-directory: examples/lp
-        run: lake build
+      - name: Check the highlighting data
+        run: examples/check-highlighted.sh
 
-      - name: Build sos examples (fetches Mathlib cache)
-        working-directory: examples/sos
-        run: |
-          lake exe cache get
-          lake build
-
-      - name: Build Tau Ceti examples (fetches Mathlib cache)
-        working-directory: examples/tauceti
-        run: |
-          lake exe cache get
-          lake build
-
-      # hex examples: the Core and Coppersmith sections are Mathlib-free (GMP
-      # for Berlekamp-Zassenhaus, hence libgmp-dev), the Mathlib section imports
-      # HexRowReduceMathlib. The script fetches the Mathlib cache, then builds.
-      - name: Build hex examples (fetches Mathlib cache)
-        working-directory: examples/hex
-        run: ./build-examples.sh
-
-      # zip examples: one anchor, but it is the DEFLATE roundtrip capstone, so
-      # this compiles the whole of lean-zip's verification (~15 minutes, and
-      # zlib for the library's FFI shims). There is no cache to fetch.
-      #
-      # ZLIB_LDFLAGS short-circuits lean-zip's zlib probe. Without it the probe
-      # falls through to `xcrun` when pkg-config can't find zlib, which throws
-      # on Linux and leaves Lake with a configuration it rejects on the *next*
-      # invocation ("compiled configuration is invalid") — exactly what the
-      # site build does when it shells back in to extract the anchor.
-      - name: Build zip examples
-        working-directory: examples/zip
-        env:
-          ZLIB_LDFLAGS: -lz
-        run: lake build
-
+      # SITE_PREBUILT_EXAMPLES makes Site/Examples.lean seed Verso's module
+      # cache from that JSON, so elaborating the posts never shells out to Lake
+      # in an example project. Missing or malformed data is an error, not a
+      # fallback.
       - name: Build site
         env:
-          ZLIB_LDFLAGS: -lz
+          SITE_PREBUILT_EXAMPLES: "1"
         run: |
           lake build
           .lake/build/bin/generate-site --output _site
+
+      # If an anchor did reach Verso's Lake path anyway, the shell-out would
+      # have resolved the project's dependencies and compiled its library. The
+      # artifacts only ever create .lake/build/highlighted, so anything else
+      # under .lake means the site job rebuilt an example project.
+      - name: Confirm no example project was rebuilt
+        run: |
+          status=0
+          for dir in $(jq -r '.[].dir' examples/examples.json); do
+            for path in "$dir/.lake/packages" "$dir/.lake/build/lib"; do
+              if [[ -e "$path" ]]; then
+                echo "::error::$path exists, so the site build fell back to building $dir"
+                status=1
+              fi
+            done
+          done
+          exit $status
 
       # Check the generated site for broken links. `-verso-data` holds Verso's
       # framework assets, referenced relative to the per-page <base>; the
@@ -154,8 +241,19 @@ jobs:
         with:
           path: _site
 
+      - if: always()
+        run: |
+          elapsed=$(( $(date +%s) - STARTED_AT ))
+          printf '**site build and link check**: %dm%02ds\n\n' \
+            $((elapsed / 60)) $((elapsed % 60)) >> "$GITHUB_STEP_SUMMARY"
+          printf 'Baseline, when every example was built in sequence inside this job: 41m48s total.\n' \
+            >> "$GITHUB_STEP_SUMMARY"
+
+  # A `workflow_dispatch` run on a branch is how this workflow gets tested, and
+  # a test run must not publish.
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

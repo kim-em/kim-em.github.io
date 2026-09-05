@@ -1,0 +1,73 @@
+[
+  {
+    "name": "lp",
+    "dir": "examples/lp",
+    "modules": [
+      "LpExamples"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [],
+    "mathlibCache": false,
+    "env": []
+  },
+  {
+    "name": "sos",
+    "dir": "examples/sos",
+    "modules": [
+      "SosExamples"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [
+      "build-essential",
+      "liblapack-dev",
+      "libblas-dev",
+      "gfortran"
+    ],
+    "mathlibCache": true,
+    "env": []
+  },
+  {
+    "name": "tauceti",
+    "dir": "examples/tauceti",
+    "modules": [
+      "TauCetiExamples"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [],
+    "mathlibCache": true,
+    "env": []
+  },
+  {
+    "name": "hex",
+    "dir": "examples/hex",
+    "modules": [
+      "HexExamples.Core",
+      "HexExamples.Coppersmith",
+      "HexExamples.Mathlib",
+      "HexExamples.Factor",
+      "HexExamples.GraphIso",
+      "HexExamples.GraphIso.Latin"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [
+      "libgmp-dev"
+    ],
+    "mathlibCache": true,
+    "env": []
+  },
+  {
+    "name": "zip",
+    "dir": "examples/zip",
+    "modules": [
+      "ZipExamples"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [
+      "zlib1g-dev"
+    ],
+    "mathlibCache": false,
+    "env": [
+      "ZLIB_LDFLAGS=-lz"
+    ]
+  }
+]

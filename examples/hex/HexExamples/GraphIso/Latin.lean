@@ -1,6 +1,5 @@
--- This module targets the released aggregate described in GraphIso.lean. It
--- intentionally remains unbuildable in the blog project until HexGraphIso and
--- HexGraphIsoMathlib have been published and added to the released Hex umbrella.
+-- This module targets the released aggregate described in GraphIso.lean, and
+-- reaches the Mathlib correspondence layer through the same `import Hex`.
 
 import Hex
 import Mathlib.Data.Fintype.Sum

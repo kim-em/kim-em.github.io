@@ -5,7 +5,7 @@ import HexBerlekampZassenhaus
 /-!
 A Coppersmith-style attack on RSA, driven by the project's LLL layer. The toy
 instance needs only `HexLLL`; the full 2048-bit instance also uses
-`ZPoly.factorize` (Berlekamp-Zassenhaus, not yet released as a standalone package) to
+`ZPoly.factorize` (Berlekamp-Zassenhaus) to
 read the secret off a linear factor. Each `#guard` runs when the page is built.
 -/
 

@@ -21,7 +21,7 @@ def kneser52 : Graph 10 := Families.kneser 5 2
 example : Graph.Isomorphic petersen kneser52 := by graph_iso
 
 -- The pentagonal prism G(5,1) also has ten vertices,
--- each of degree three, so degree refinement isn't enough.
+-- each of degree three.
 def prism5 : Graph 10 := Families.gpetersen 5 1
 
 example : ¬ Graph.Isomorphic petersen prism5 := by graph_iso

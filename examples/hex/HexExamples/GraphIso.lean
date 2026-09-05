@@ -1,19 +1,18 @@
--- This module does not compile yet, and is not meant to. `import Hex` below is
--- the released aggregate's umbrella, deliberately matching what the post tells
--- a reader to write. Three things have to happen, in this order, before it
--- resolves:
+-- This module does not compile yet. `import Hex` below is the released
+-- aggregate's umbrella, deliberately matching what the post tells a reader to
+-- write. `leanprover/hex-graph-iso` and `leanprover/hex-graph-iso-mathlib` are
+-- both published now, and released `leanprover/hex` re-exports both tactic
+-- surfaces from its hand-maintained `Hex.lean`. The one thing left is that
+-- `examples/hex` requires `kim-em/hex-dev` rather than released `hex`, and
+-- hex-dev's own `Hex.lean` is a different file, the shared oracle and bench
+-- helper library, which re-exports nothing. Point `examples/hex` at released
+-- `hex`.
 --
---   1. `leanprover/hex-graph-iso` and `leanprover/hex-graph-iso-mathlib` are
---      published by the hex-dev release sync;
---   2. both libraries are added to the hand-maintained umbrella `Hex.lean` in
---      released `leanprover/hex`;
---   3. `examples/hex` is pointed at a source where `import Hex` resolves to
---      that umbrella. It currently requires `kim-em/hex-dev`, pinned at a SHA
---      predating `HexGraphIso`, and hex-dev's own `Hex.lean` is a different
---      file, the shared oracle and bench helper library.
+-- Do not paper over this by importing a library directly here while the post
+-- shows `import Hex`.
 --
--- Do not paper over this by importing an unreleased library here while the post
--- shows `import Hex`, or by repointing the example project ahead of the release.
+-- The code between the anchor fences must stay character-for-character
+-- identical to the block in `Site/Blog/GraphIso.lean`.
 
 -- ANCHOR: petersen
 import Hex

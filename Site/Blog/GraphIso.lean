@@ -9,35 +9,34 @@ set_option verso.exampleProject "examples/hex"
 set_option verso.exampleModule "HexExamples.GraphIso"
 
 /-
-DRAFT. Do not publish until `HexGraphIso` is actually released.
+DRAFT, for review. Not ready to publish.
 
 The examples show `import Hex`, the released aggregate's umbrella, which is
-what a reader should write. It does not resolve yet, and that is expected
-rather than a defect: the post is written for the released package, and the
-release does not exist. Making the anchors build is one blocker in three
-ordered steps, and nothing here should be worked around to compile sooner.
+what a reader should write. Both libraries are now published:
+`leanprover/hex-graph-iso` and `leanprover/hex-graph-iso-mathlib` carry them,
+and released `leanprover/hex` re-exports both tactic surfaces from its
+hand-maintained `Hex.lean`, so `require hex` plus `import Hex` does reach
+them.
 
-1. Publish `leanprover/hex-graph-iso` and
-   `leanprover/hex-graph-iso-mathlib` through the hex-dev release sync. Until
-   this step the first link in the post is dead too.
-2. Add both libraries to the hand-maintained umbrella `Hex.lean` in released
-   `leanprover/hex`, so that `import Hex` re-exports both tactic surfaces.
-3. Point `examples/hex` at a source where `import Hex` resolves to that
-   umbrella. It currently requires `kim-em/hex-dev`, pinned at a SHA that
-   predates `HexGraphIso`, and hex-dev's own `Hex.lean` is a different file,
-   the shared oracle and bench helper library, which re-exports nothing.
+One thing still stops the anchors building, and it should not be worked
+around to compile sooner:
 
-Once step 1 has happened, the rest can be settled in any order:
+* `examples/hex` requires `kim-em/hex-dev`, not released `hex`. hex-dev's
+  own `Hex.lean` is a different file, the shared oracle and bench helper
+  library, which re-exports nothing, so `import Hex` does not resolve there.
+  Point `examples/hex` at released `hex` instead.
+
+The rest, in no particular order:
 
 * fill in `XXX` and `YYY`, the two ratios the Zulip draft leaves open, and
   refresh the figures and their caption if the numbers move;
 * check that the `leanprover.github.io/hex/docs` link resolves to
-  `Hex.GraphIso.Colored`;
+  `Hex.Graph`;
 * settle the title, currently a guess parallel to "Certified integer
   polynomial factorization in Lean";
 * settle `categories`, currently copied from the Factor post;
   `Site.performance` is also defined and would fit, given the charts;
-* set `date` last. It is today's date, and the published URL is generated
+* set `date` last. It is a stand-in, and the published URL is generated
   from the date and the title (un-zero-padded), so both are load-bearing.
 -/
 
@@ -275,15 +274,15 @@ Some other goodies associated with this release:
 * [`leanprover/nauty-ffi`](https://github.com/leanprover/nauty-ffi), a Lean FFI wrapper around `nauty` itself, if you don't care about verification and just want to run the original C code, fast. We don't use this in `HexGraphIso` except for conformance testing.
 * [Comparison charts](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-performance) showing the relative performance of `HexGraphIso` and `nauty`: at present, the compiled canonical labelling is about XXX times slower than `nauty`, and the non-isomorphism tactic, which replays the decision through the kernel, is about YYY times slower again. (Already I'm very happy with these numbers: `nauty` is fast! We'll get a bit better with some further AI-driven optimization, but don't expect catching up!)
 
-Here are those charts. The first is canonical labelling over the deterministic families, comparing `nauty` 2.9.3, the fast compiled `canonicalize`, and `canonicalizeChecked`, which additionally validates every answer through the proven certificate checker:
+Here are those charts. The first is canonical labelling over the deterministic families: a cactus plot of `nauty` 2.9.3 against the compiled `canonicalize`, and beside it the same two broken down per family against the number of vertices.
 
-![Canonical labelling: a cactus plot over the family instances, and a per-family breakdown of nauty, canonicalize, and canonicalizeChecked](/figures/hexgraphiso-canon-cactus.svg)
+![Canonical labelling over the deterministic families: a cactus plot of nauty 2.9.3 against the compiled canonicalize, and a per-family breakdown of the same two against vertex count](/figures/hexgraphiso-canon-cactus.svg)
 
-The second is isomorphism proof obligations of known polarity, and adds the `graph_iso` tactic itself, timed end to end as a kernel-checked proof:
+The second is isomorphism proof obligations of known polarity, which adds a third curve for the `graph_iso` tactic itself, timed end to end as a kernel-checked proof:
 
-![Isomorphism proof obligations: nauty, the compiled isIso decision, isIsoChecked, and the graph_iso tactic, as a cactus plot](/figures/hexgraphiso-pairs-cactus.svg)
+![Isomorphism proof obligations of known polarity: a cactus plot of nauty 2.9.3, the compiled isIso, and the graph_iso tactic](/figures/hexgraphiso-pairs-cactus.svg)
 
-(Both measured on `chungus2`, an AMD EPYC 9455, on 2026-09-03.)
+(Both measured on `chungus2`, an AMD EPYC 9455, on 2026-09-05.)
 
 Unreleased libraries, and all future development, live at [github.com/kim-em/hex-dev](https://github.com/kim-em/hex-dev).
 Contributions and pull requests are welcome, but specs must be updated *before* any new features or substantial changes, as separately reviewed PRs.

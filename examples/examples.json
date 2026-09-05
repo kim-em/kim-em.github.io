@@ -8,7 +8,8 @@
     "suppressNamespaces": "",
     "aptPackages": [],
     "mathlibCache": false,
-    "env": []
+    "env": [],
+    "depBuildCache": ""
   },
   {
     "name": "sos",
@@ -24,7 +25,8 @@
       "gfortran"
     ],
     "mathlibCache": true,
-    "env": []
+    "env": [],
+    "depBuildCache": ""
   },
   {
     "name": "tauceti",
@@ -35,7 +37,8 @@
     "suppressNamespaces": "",
     "aptPackages": [],
     "mathlibCache": true,
-    "env": []
+    "env": [],
+    "depBuildCache": ""
   },
   {
     "name": "hex",
@@ -53,7 +56,8 @@
       "libgmp-dev"
     ],
     "mathlibCache": true,
-    "env": []
+    "env": [],
+    "depBuildCache": "examples/hex/.lake/packages/Hex*/.lake/build"
   },
   {
     "name": "zip",
@@ -68,6 +72,7 @@
     "mathlibCache": false,
     "env": [
       "ZLIB_LDFLAGS=-lz"
-    ]
+    ],
+    "depBuildCache": ""
   }
 ]

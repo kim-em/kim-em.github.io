@@ -74,6 +74,22 @@ jobs:
           path: ${{ matrix.project.dir }}/.lake/build/highlighted
           key: highlighted-v1-${{ matrix.project.name }}-${{ runner.os }}-${{ hashFiles(format('{0}/lean-toolchain', matrix.project.dir), format('{0}/lake-manifest.json', matrix.project.dir), format('{0}/lakefile.*', matrix.project.dir), format('{0}/**/*.lean', matrix.project.dir), format('{0}/**/*.sh', matrix.project.dir), 'examples/build-highlighted.sh') }}-${{ steps.config.outputs.hash }}
 
+      # The dependency's compiled output, for a project whose dependency is
+      # expensive and has no cache of its own. leanprover/hex is 10k Lake jobs
+      # and about 40 minutes from source, and none of that is Mathlib; hex's own
+      # CI caches the same directories the same way, but an Actions cache is
+      # scoped to its repository, so we keep our own copy.
+      #
+      # Keyed on the toolchain and the lockfile only, deliberately not on the
+      # example sources: editing an example should cost an example rebuild, not
+      # a dependency rebuild. Only moving the Hex pin pays the 40 minutes.
+      - name: Restore the dependency build outputs
+        if: steps.cache.outputs.cache-hit != 'true' && matrix.project.depBuildCache != ''
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.project.depBuildCache }}
+          key: depbuild-v1-${{ matrix.project.name }}-${{ runner.os }}-${{ hashFiles(format('{0}/lean-toolchain', matrix.project.dir), format('{0}/lake-manifest.json', matrix.project.dir)) }}
+
       - name: Install elan
         if: steps.cache.outputs.cache-hit != 'true'
         run: |

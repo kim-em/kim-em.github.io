@@ -83,19 +83,17 @@ example : ¬ Graph.Isomorphic petersen prism5 := by graph_iso
 
 (This example is drawn from the [Hex manual page for `HexGraphIso`](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso).)
 
-Graphs are only the interchange format here. A small illustration of the more
-general principle, that finite objects and their relations can often be
-encoded as coloured graphs, is Latin-square isotopy. Two Latin squares are
-isotopic if one can be obtained from the other by independently permuting the
-rows, columns, and symbols.
+You might think that this is "only" about graphs. The real power of `nauty` and hence `HexGraphIso`
+come from that fact that a huge range of combinatorial objects can be encoded as graphs, moreover reflecting isomorphisms.
+This then allows us to solve the isomorphism problem in many domains. In fact, the encoding doesn't need to be at all efficient,
+because `nauty` is typically so efficient that that the blowup doesn't matter much.
 
-The example headed [“Isotopy” in the nauty introduction](https://pallini.di.uniroma1.it/Introduction.html)
-uses the Latin square whose rows are `1 3 2`, `2 1 3`, and `3 2 1`. We use
-exactly that square here. The Lean definitions use the zero-based elements of
-`Fin 3`, and add `cyclicSquare` as the square to compare it with.
+We illustrate this idea by taking the Latin square example from the [`nauty` introduction](https://pallini.di.uniroma1.it/Introduction.html)
+and implementing it using `HexGraphIso`.
+Consider the Latin square whose rows are `0 2 1`, `1 0 2`, and `2 1 0`.
 
-Following the introduction, the encoding has a vertex for each row, column,
-symbol, and position, with those four kinds as its colours. Each position is
+The encoding has a vertex for each row, column,
+symbol, and position, each kind receiving a different "color". Each position is
 joined to its row, its column, and the symbol written there. A
 colour-preserving graph isomorphism therefore restricts to three permutations,
 and the three edges at every position force precisely the isotopy equation.
@@ -261,21 +259,22 @@ end LatinSquareExample
 
 For now, we do not provide functions, verified or otherwise, that return generators for the automorphism group of a graph, but this will hopefully arrive [soon](https://github.com/kim-em/hex-dev/issues/9959).
 
+Right now, `HexGraphIso` is about 5-10 times slower than `nauty`, and the non-isomorphism tactic, which replays the decision through the kernel, is about 5000 times slower again. (Already I'm very happy with these numbers: `nauty` is fast! We'll get a bit better with some further AI-driven optimization, but don't expect catching up!)
+
+The first chart here shows canonical labelling over some standard families: a cactus plot of `nauty` 2.9.3 against the compiled `canonicalize`, and beside it the same two broken down per family against the number of vertices. Every family lands roughly an order of magnitude slower than `nauty`, with the Kneser and Johnson graphs the slowest and the grids and random graphs the quickest.
+
+![Canonical labelling over the deterministic families: a cactus plot of nauty 2.9.3 against the compiled canonicalize, and a per-family breakdown of the same two against vertex count](/figures/hexgraphiso-canon-cactus.svg)
+
+The second chart shows non-isomorphism proof obligations, which adds a third curve for the `graph_iso` tactic itself, timed end to end as a kernel-checked proof:
+
+![Non-isomorphism proof obligations: a cactus plot of nauty 2.9.3, the compiled isIso, and the graph_iso tactic](/figures/hexgraphiso-pairs-cactus.svg)
+
+(Both measured on `chungus2`, an AMD EPYC 9455, on 2026-09-05. These charts also appear in the [Hex manual page for `HexGraphIso`](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-performance).)
+
 Some other goodies associated with this release:
 
 * A [specification](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=nauty-algorithm) of what the default dense mode of `nauty` 2.9.3 is actually doing!
 * [`leanprover/nauty-ffi`](https://github.com/leanprover/nauty-ffi), a Lean FFI wrapper around `nauty` itself, if you don't care about verification and just want to run the original C code, fast. We don't use this in `HexGraphIso` except for conformance testing.
-* [Comparison charts](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-performance) showing the relative performance of `HexGraphIso` and `nauty`: at present, the compiled canonical labelling is about 7 times slower than `nauty`, and the non-isomorphism tactic, which replays the decision through the kernel, is about 5000 times slower again. (Already I'm very happy with these numbers: `nauty` is fast! We'll get a bit better with some further AI-driven optimization, but don't expect catching up!)
-
-Here are those charts. The first is canonical labelling over the deterministic families: a cactus plot of `nauty` 2.9.3 against the compiled `canonicalize`, and beside it the same two broken down per family against the number of vertices. Every family lands within about a factor of two of that headline number, with the Kneser and Johnson graphs the slowest and the grids and random graphs the quickest.
-
-![Canonical labelling over the deterministic families: a cactus plot of nauty 2.9.3 against the compiled canonicalize, and a per-family breakdown of the same two against vertex count](/figures/hexgraphiso-canon-cactus.svg)
-
-The second is isomorphism proof obligations of known polarity, which adds a third curve for the `graph_iso` tactic itself, timed end to end as a kernel-checked proof:
-
-![Isomorphism proof obligations of known polarity: a cactus plot of nauty 2.9.3, the compiled isIso, and the graph_iso tactic](/figures/hexgraphiso-pairs-cactus.svg)
-
-(Both measured on `chungus2`, an AMD EPYC 9455, on 2026-09-05.)
 
 Unreleased libraries, and all future development, live at [github.com/kim-em/hex-dev](https://github.com/kim-em/hex-dev).
 Contributions and pull requests are welcome, but specs must be updated *before* any new features or substantial changes, as separately reviewed PRs.

@@ -1,15 +1,9 @@
--- This module does not compile yet. `import Hex` below is the released
--- aggregate's umbrella, deliberately matching what the post tells a reader to
--- write. `leanprover/hex-graph-iso` and `leanprover/hex-graph-iso-mathlib` are
--- both published now, and released `leanprover/hex` re-exports both tactic
--- surfaces from its hand-maintained `Hex.lean`. The one thing left is that
--- `examples/hex` requires `kim-em/hex-dev` rather than released `hex`, and
--- hex-dev's own `Hex.lean` is a different file, the shared oracle and bench
--- helper library, which re-exports nothing. Point `examples/hex` at released
--- `hex`.
+-- `import Hex` below is the released aggregate's umbrella, deliberately
+-- matching what the post tells a reader to write; `examples/hex` requires
+-- `leanprover/hex` so that this is the same import a reader would get.
 --
--- Do not paper over this by importing a library directly here while the post
--- shows `import Hex`.
+-- Do not paper over a breakage by importing a library directly here while the
+-- post shows `import Hex`.
 --
 -- The code between the anchor fences must stay character-for-character
 -- identical to the block in `Site/Blog/GraphIso.lean`.

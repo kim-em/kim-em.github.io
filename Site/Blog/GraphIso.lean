@@ -50,7 +50,7 @@ I'm very excited to release [`HexGraphIso`](https://github.com/leanprover/hex-gr
 
 `nauty` is one of my favourite pieces of software. It takes a decision problem, graph isomorphism, which is meant to be really hard, and uses a clever algorithm and heuristics to make it rather fast in practice! I didn't fully understand the beauty of `nauty` until I co-supervised one of Brendan's students, and could appreciate just how many combinatorial problems can be encoded into graph isomorphism problems, and then solved very efficiently with `nauty`.
 
-The `HexGraphIso` library is a re-implementation of the dense graph algorithm from `nauty`, into Lean. Right now it only supports the default mode of operation, but I anticipate supporting further options from `nauty` later. We don't attempt to prove that the re-implementation is faithful, except via conformance tests. But we *do* prove that the Lean implementation is correct: two graphs are assigned the same "canonical form" if and only if they are isomorphic. Moreover we return efficient kernel checkable certificates for the canonical labelling.
+The `HexGraphIso` library is a re-implementation of the dense graph algorithm from `nauty`, into Lean. Right now it only supports the default mode of operation, but I anticipate supporting further options from `nauty` later. We don't attempt to prove that the re-implementation is faithful (in practice, it is!), except via conformance tests. But we *do* prove that the Lean implementation is correct: two graphs are assigned the same "canonical form" if and only if they are isomorphic. Moreover we return efficient kernel checkable certificates for the canonical labelling.
 
 In fact, most of the proof work goes into showing that the search pruning that `nauty` performs is all correct: that it never causes us to miss finding the canonical labelling.
 
@@ -80,7 +80,7 @@ def kneser52 : Graph 10 := Families.kneser 5 2
 example : Graph.Isomorphic petersen kneser52 := by graph_iso
 
 -- The pentagonal prism G(5,1) also has ten vertices,
--- each of degree three, so degree refinement isn't enough.
+-- each of degree three.
 def prism5 : Graph 10 := Families.gpetersen 5 1
 
 example : ¬ Graph.Isomorphic petersen prism5 := by graph_iso

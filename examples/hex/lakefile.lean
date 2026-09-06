@@ -11,7 +11,7 @@ require subverso from git "https://github.com/kim-em/subverso" @ "sos-load-dynli
 -- example module imports only the slice its section uses, so a Mathlib-free
 -- section never compiles Mathlib.
 require Hex from git
-  "https://github.com/leanprover/hex" @ "80b6dc6"
+  "https://github.com/leanprover/hex" @ "134b04c059d0"
 
 package «hex-examples» where
 

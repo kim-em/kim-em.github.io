@@ -29,6 +29,7 @@ fi
 
 dir=$(jq -r '.dir' <<<"$spec")
 mathlib_cache=$(jq -r '.mathlibCache' <<<"$spec")
+lake_cache=$(jq -r '.lakeCache' <<<"$spec")
 
 # `mapfile < <(jq ...)` would swallow a jq failure and leave an empty list, so
 # take the modules through a checked assignment first.
@@ -55,6 +56,41 @@ done <<<"$env_text"
 manifest_before=$(sha256sum "$dir/lake-manifest.json")
 
 cd "$dir"
+
+# Hex publishes its compiled libraries to a public R2 bucket, and Lake can
+# fetch them instead of compiling ~10k modules. Lake only sweeps a whole
+# workspace for Reservoir services, so for a custom endpoint we ask per package.
+#
+# Every part of this is non-fatal. A package that has not published yet, or a
+# pin predating the publishing, just means that library gets compiled as before.
+if [[ "$lake_cache" == "true" ]]; then
+  cache_config=$(mktemp)
+  cat > "$cache_config" <<'TOML'
+cache.defaultService = "hex-public"
+
+[[cache.service]]
+name = "hex-public"
+kind = "s3"
+artifactEndpoint = "https://pub-1ad7cebeb89e49d5afe6887b57e7956a.r2.dev/artifacts"
+revisionEndpoint = "https://pub-1ad7cebeb89e49d5afe6887b57e7956a.r2.dev/revisions"
+TOML
+  export LAKE_CONFIG="$cache_config"
+  export LAKE_CACHE_DIR="$PWD/.lake/cache"
+  export LAKE_ARTIFACT_CACHE=true
+  export LAKE_RESTORE_ARTIFACTS=true
+  # The pins are the commits the release sync pushed to each mirror's main, so
+  # the exact revision should be the one that published. A couple of revisions
+  # of slack costs little; the default of 100 would mean 100 misses per
+  # unpublished package.
+  while IFS=$'\t' read -r pkg url; do
+    case "$url" in
+      https://github.com/leanprover/hex*) repo=${url#https://github.com/}; repo=${repo%.git} ;;
+      *) continue ;;
+    esac
+    lake cache get --max-revs=5 --service hex-public --package "$pkg" --repo "$repo" \
+      || echo "note: no published build outputs for $pkg ($repo); it will be compiled"
+  done < <(jq -r '.packages[] | "\(.name)\t\(.url)"' lake-manifest.json)
+fi
 
 if [[ "$mathlib_cache" == "true" ]]; then
   lake exe cache get

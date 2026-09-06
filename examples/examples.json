@@ -9,7 +9,8 @@
     "aptPackages": [],
     "mathlibCache": false,
     "env": [],
-    "depBuildCache": ""
+    "depBuildCache": "",
+    "lakeCache": false
   },
   {
     "name": "sos",
@@ -26,7 +27,8 @@
     ],
     "mathlibCache": true,
     "env": [],
-    "depBuildCache": ""
+    "depBuildCache": "",
+    "lakeCache": false
   },
   {
     "name": "tauceti",
@@ -38,7 +40,8 @@
     "aptPackages": [],
     "mathlibCache": true,
     "env": [],
-    "depBuildCache": "examples/tauceti/.lake/packages/TauCeti/.lake/build"
+    "depBuildCache": "examples/tauceti/.lake/packages/TauCeti/.lake/build",
+    "lakeCache": false
   },
   {
     "name": "hex",
@@ -57,7 +60,8 @@
     ],
     "mathlibCache": true,
     "env": [],
-    "depBuildCache": "examples/hex/.lake/packages/Hex*/.lake/build"
+    "depBuildCache": "examples/hex/.lake/packages/Hex*/.lake/build",
+    "lakeCache": true
   },
   {
     "name": "zip",
@@ -73,6 +77,7 @@
     "env": [
       "ZLIB_LDFLAGS=-lz"
     ],
-    "depBuildCache": "examples/zip/.lake/packages/*/.lake/build"
+    "depBuildCache": "examples/zip/.lake/packages/*/.lake/build",
+    "lakeCache": false
   }
 ]

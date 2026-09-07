@@ -27,6 +27,7 @@ the Lean language for automation, and the Lean kernel for reliable verification.
 
 Recent posts:
 
+* [Certified graph isomorphism in Lean](/blog/2026-9-5-certified-graph-isomorphism-in-lean/) — HexGraphIso brings verified graph canonization and a `graph_iso` tactic to Lean.
 * [Announcing the Palomar Registry](/blog/2026-8-19-announcing-the-palomar-registry/) — an index of formalized mathematics repositories, with automatic checks on the formal statements and the metadata.
 * [Tau Ceti: ten theorems from the first month](/blog/2026-8-19-tau-ceti-ten-theorems-from-the-first-month/) — ten highlights from a formal-mathematics library built by AIs following human-written roadmaps.
 * [Certified integer polynomial factorization in Lean](/blog/2026-8-10-certified-integer-polynomial-factorization-in-lean/) — Berlekamp-Zassenhaus with van Hoeij reconstruction, formally verified for the first time.

@@ -8,6 +8,7 @@ import Site.Blog.TauCeti
 import Site.Blog.Sos
 import Site.Blog.Lp
 import Site.Blog.Hex
+import Site.Blog.NumberFields
 import Site.Blog.Zip
 import Site.Blog.Factor
 import Site.Blog.Palomar
@@ -19,6 +20,7 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
+    Site.Blog.NumberFields
     Site.Blog.GraphIso
     Site.Blog.Palomar
     Site.Blog.TauCeti

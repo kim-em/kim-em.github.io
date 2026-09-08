@@ -25,14 +25,17 @@ categories := [Site.algebra, Site.lean]
 
 I'm happy to announce the release of further packages for
 [Hex](https://github.com/leanprover/hex), the computer algebra library for Lean,
-following [lattice basis reduction](/blog/2026-7-7-lattice-basis-reduction-using-the-hex-lean-library/)
-and [certified integer polynomial factorization](/blog/2026-8-10-certified-integer-polynomial-factorization-in-lean/).
+following [lattice basis reduction](/blog/2026-7-7-lattice-basis-reduction-using-the-hex-lean-library/),
+[certified integer polynomial factorization](/blog/2026-8-10-certified-integer-polynomial-factorization-in-lean/)
+and [certified graph isomorphism](/blog/2026-9-5-certified-graph-isomorphism-in-lean/).
 
 Today we have exact algebraic numbers, and arithmetic and factorization in
 number fields.
 
 Everything below is compiled as part of building this page, against the
-released `v0.4.0`. To follow along, add to your `lakefile.toml`:
+released `v0.4.0`; the [Hex manual](https://kim-em.github.io/hex-dev/) covers
+these libraries and the rest of Hex in full. To follow along, add to your
+`lakefile.toml`:
 
 ```
 [[require]]
@@ -90,7 +93,7 @@ def c : QAdjoin cbrt2 := cbrt2.toQAdjoin
 #guard c⁻¹ == c * c / 2
 
 -- Elements print as the expression that rebuilds them: the generating
--- number and the coordinates. Here `c⁵ = 2c²`.
+-- number and the coordinates.
 /-- info: QAdjoin.ofCoeffs (ZPoly.rootNear #p[-2, 0, 0, 1] 1.25992) #p[0, 0, 2] -/
 #guard_msgs in
 #eval c ^ 5

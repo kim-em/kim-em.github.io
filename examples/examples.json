@@ -60,6 +60,21 @@
     "depBuildCache": "examples/hex/.lake/packages/Hex*/.lake/build"
   },
   {
+    "name": "hex-number-field",
+    "dir": "examples/hex-number-field",
+    "modules": [
+      "HexNumberFieldExamples.Core",
+      "HexNumberFieldExamples.Correspondence"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [
+      "libgmp-dev"
+    ],
+    "mathlibCache": true,
+    "env": [],
+    "depBuildCache": "examples/hex-number-field/.lake/packages/hex/.lake/build"
+  },
+  {
     "name": "zip",
     "dir": "examples/zip",
     "modules": [

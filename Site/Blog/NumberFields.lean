@@ -25,8 +25,9 @@ categories := [Site.algebra, Site.lean]
 
 I'm happy to announce the release of further packages for
 [Hex](https://github.com/leanprover/hex), the computer algebra library for Lean,
-following [lattice basis reduction](/blog/2026-7-7-lattice-basis-reduction-using-the-hex-lean-library/)
-and [certified integer polynomial factorization](/blog/2026-8-10-certified-integer-polynomial-factorization-in-lean/).
+following [lattice basis reduction](/blog/2026-7-7-lattice-basis-reduction-using-the-hex-lean-library/),
+[certified integer polynomial factorization](/blog/2026-8-10-certified-integer-polynomial-factorization-in-lean/)
+and [certified graph isomorphism](/blog/2026-9-5-certified-graph-isomorphism-in-lean/).
 
 Today we have exact algebraic numbers, and arithmetic and factorization in
 number fields.

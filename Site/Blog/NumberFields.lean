@@ -33,7 +33,9 @@ Today we have exact algebraic numbers, and arithmetic and factorization in
 number fields.
 
 Everything below is compiled as part of building this page, against the
-released `v0.4.0`. To follow along, add to your `lakefile.toml`:
+released `v0.4.0`; the [Hex manual](https://kim-em.github.io/hex-dev/) covers
+these libraries and the rest of Hex in full. To follow along, add to your
+`lakefile.toml`:
 
 ```
 [[require]]

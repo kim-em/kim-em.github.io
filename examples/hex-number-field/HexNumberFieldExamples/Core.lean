@@ -33,7 +33,7 @@ def c : QAdjoin cbrt2 := cbrt2.toQAdjoin
 #guard c⁻¹ == c * c / 2
 
 -- Elements print as the expression that rebuilds them: the generating
--- number and the coordinates. Here `c⁵ = 2c²`.
+-- number and the coordinates.
 /-- info: QAdjoin.ofCoeffs (ZPoly.rootNear #p[-2, 0, 0, 1] 1.25992) #p[0, 0, 2] -/
 #guard_msgs in
 #eval c ^ 5

@@ -31,12 +31,12 @@ migrate into Tau Ceti.
 If you'd just like to point your AI at Tau Ceti, it can be as simple as
 
 ```
-uv tool install git+https://github.com/kim-em/TauCetiWorker.git
+uv tool install git+https://github.com/TauCetiProject/TauCetiWorker
 tauceti --loop
 ```
 
 (if you would like to run this inside a Docker container, please read, or have your AI read,
-[https://github.com/kim-em/TauCetiWorker/blob/main/docs/docker.md](https://github.com/kim-em/TauCetiWorker/blob/78c4969bd8803d920050108e4e851546a08eeceb/docs/docker.md))
+[https://github.com/TauCetiProject/TauCetiWorker/blob/main/docs/docker.md](https://github.com/TauCetiProject/TauCetiWorker/blob/78c4969bd8803d920050108e4e851546a08eeceb/docs/docker.md))
 
 # 1. Planar Harnack inequality and strong maximum principle
 

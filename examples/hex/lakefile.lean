@@ -5,13 +5,13 @@ require subverso from git "https://github.com/kim-em/subverso" @ "sos-load-dynli
 
 -- The released aggregate (leanprover/hex) provides the full library set: the
 -- Mathlib-free computational libraries, the Berlekamp-Zassenhaus factorizer that
--- the Coppersmith and factorization examples need, and the HexXMathlib
+-- the Coppersmith and factorization examples need, and the HexXTheory
 -- correspondence layer (with Mathlib) for sections that want it. This is the
 -- same `require` the posts tell a reader to write. Pinned to a known SHA. Each
 -- example module imports only the slice its section uses, so a Mathlib-free
 -- section never compiles Mathlib.
 require Hex from git
-  "https://github.com/leanprover/hex" @ "80b6dc6"
+  "https://github.com/leanprover/hex" @ "f4b180cfe51692a4e41587d731c92c08a9a63bc4"
 
 package «hex-examples» where
 

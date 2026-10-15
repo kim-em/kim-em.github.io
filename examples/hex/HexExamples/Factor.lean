@@ -1,5 +1,5 @@
 -- ANCHOR: factoring
-import HexBerlekampZassenhausMathlib
+import HexBerlekampZassenhausTheory
 
 open Polynomial
 

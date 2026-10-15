@@ -166,7 +166,7 @@ theorem degree_frobeniusIsogeny
     (frobeniusIsogeny W).degree = Nat.card F
 ```
 
-[Source](https://github.com/TauCetiProject/TauCeti/blob/f93736047d51931862e138b4c097099c8d1168a6/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/Frobenius.lean#L147) · [documentation](https://taucetiproject.github.io/TauCeti/docs/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/Frobenius.html#TauCeti.Isogeny.degree_frobeniusIsogeny) · [PR #2926](https://github.com/TauCetiProject/TauCeti/pull/2926)
+[Source](https://github.com/TauCetiProject/TauCeti/blob/f93736047d51931862e138b4c097099c8d1168a6/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/Frobenius.lean#L147) · [documentation](https://taucetiproject.github.io/TauCeti/docs/TauCeti/AlgebraicGeometry/EllipticCurve/Isogeny/Frobenius/Basic.html#TauCeti.Isogeny.degree_frobeniusIsogeny) · [PR #2926](https://github.com/TauCetiProject/TauCeti/pull/2926)
 
 # 7. Artin induction theorem
 
@@ -180,7 +180,7 @@ theorem natCard_nsmul_mem_indVirtualCharacters_isCyclic
     Nat.card G • f ∈ indVirtualCharacters k G (fun C ↦ IsCyclic C)
 ```
 
-[Source](https://github.com/TauCetiProject/TauCeti/blob/f93736047d51931862e138b4c097099c8d1168a6/TauCeti/RepresentationTheory/Induction/Artin.lean#L199) · [documentation](https://taucetiproject.github.io/TauCeti/docs/TauCeti/RepresentationTheory/Induction/Artin.html#TauCeti.ClassFunction.natCard_nsmul_mem_indVirtualCharacters_isCyclic) · [PR #2258](https://github.com/TauCetiProject/TauCeti/pull/2258)
+[Source](https://github.com/TauCetiProject/TauCeti/blob/f93736047d51931862e138b4c097099c8d1168a6/TauCeti/RepresentationTheory/Induction/Artin.lean#L199) · [documentation](https://taucetiproject.github.io/TauCeti/docs/TauCeti/RepresentationTheory/Induction/Artin/Basic.html#TauCeti.ClassFunction.natCard_nsmul_mem_indVirtualCharacters_isCyclic) · [PR #2258](https://github.com/TauCetiProject/TauCeti/pull/2258)
 
 # 8. Cartan–Killing classification
 

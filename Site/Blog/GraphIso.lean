@@ -30,7 +30,7 @@ The `HexGraphIso` library is a re-implementation of the dense graph algorithm fr
 
 In fact, most of the proof work goes into showing that the search pruning that `nauty` performs is all correct: that it never causes us to miss finding the canonical labelling.
 
-This enables us to provide a `graph_iso` tactic, which solves both pairwise isomorphism and non-isomorphism goals, both without Mathlib (where graphs are represented using [`Hex.Graph`](https://leanprover.github.io/hex/docs), or `Hex.GraphIso.Colored` when you want ordered vertex colours) and [with Mathlib](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-mathlib), where the tactic gains the ability to process many ground terms representing `SimpleGraph`s.
+This enables us to provide a `graph_iso` tactic, which solves both pairwise isomorphism and non-isomorphism goals, both without Mathlib (where graphs are represented using [`Hex.Graph`](https://leanprover.github.io/hex/docs), or `Hex.GraphIso.Colored` when you want ordered vertex colours) and [with Mathlib](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-graph-iso-theory), where the tactic gains the ability to process many ground terms representing `SimpleGraph`s.
 
 Add to your `lakefile.toml`:
 

@@ -372,7 +372,7 @@ In future sublibraries, e.g. the fact that the "fast path" for integer polynomia
 always completes successfully, and we never need to fall back to the "slow path",
 requires some number theory from Mathlib.)
 
-Here, with the additional `import HexRowReduceMathlib`, we demonstrate
+Here, with the additional `import HexRowReduceTheory`, we demonstrate
 how to compute the rank of a Mathlib matrix, via transfer to Hex's machinery.
 Once the statement has been transferred, we resolve it with `decide +kernel`.
 

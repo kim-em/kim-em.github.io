@@ -7,7 +7,7 @@ require subverso from git "https://github.com/kim-em/subverso" @ "sos-load-dynli
 -- Pinning a tag rather than `main` keeps the post reproducible: the code here
 -- is exactly what a reader who follows the instructions will get.
 require hex from git
-  "https://github.com/leanprover/hex.git" @ "v0.4.0"
+  "https://github.com/leanprover/hex.git" @ "v0.10.0"
 
 package «hex-number-field-examples» where
 

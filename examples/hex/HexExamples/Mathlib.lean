@@ -1,8 +1,8 @@
-import HexRowReduceMathlib
+import HexRowReduceTheory
 
 /-!
 Crossing into Mathlib. The computational libraries are Mathlib-free, but each has
-a companion `HexXMathlib` library identifying the executable results with their
+a companion `HexXTheory` library identifying the executable results with their
 Mathlib analogues. This section imports one of them, so it does compile Mathlib
 (fetched via `lake exe cache get`). The payoff: settle a fact about Mathlib's
 *noncomputable* `Matrix.rank` by running the executable row reduction in the
@@ -10,7 +10,7 @@ kernel and rewriting through the correspondence theorem.
 -/
 
 namespace HexExamples.Mathlib.RankProof
-open Hex Hex.Matrix HexMatrixMathlib
+open Hex Hex.Matrix HexMatrixTheory
 
 -- ANCHOR: mathlibRank
 -- `A` is an ordinary Mathlib matrix; `A.rank` is Mathlib's noncomputable rank.

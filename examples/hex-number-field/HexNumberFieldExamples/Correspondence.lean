@@ -1,4 +1,4 @@
-import HexNumberFieldMathlib
+import HexNumberFieldTheory
 
 open Hex
 

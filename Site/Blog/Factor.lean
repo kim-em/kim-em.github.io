@@ -37,7 +37,7 @@ rev = "main"
 and then:
 
 ```anchor factoring
-import HexBerlekampZassenhausMathlib
+import HexBerlekampZassenhausTheory
 
 open Polynomial
 
@@ -81,7 +81,7 @@ Two plots, both cumulative "cactus" plots of instances solved against time:
 
 ![Swinnerton-Dyer polynomials, the classic hard case for Berlekamp-Zassenhaus recombination](/figures/hexbz-cactus-swinnerton-dyer.svg)
 
-As usual for Hex, these libraries are split into purely computational libraries that do not depend on Mathlib, plus associated libraries that make the connection with Mathlib theory. (The irreducibility and factoring tactics work in the purely computational setting, and then gain capabilities to handle Mathlib polynomials once you import the Mathlib libraries.) In the medium term I am interested in merging the "with Mathlib" libraries into Mathlib (adding the computational libraries as dependencies), which would make these tactics available within Mathlib, and to all projects that import Mathlib without the need for further dependencies.
+As usual for Hex, these libraries are split into purely computational libraries that do not depend on Mathlib, plus associated libraries that make the connection with Mathlib theory. (The irreducibility and factoring tactics work in the purely computational setting, and then gain capabilities to handle Mathlib polynomials once you import the `*Theory` libraries.) In the medium term I am interested in merging the `*Theory` libraries into Mathlib (adding the computational libraries as dependencies), which would make these tactics available within Mathlib, and to all projects that import Mathlib without the need for further dependencies.
 
 Unreleased libraries, and all future development, live at [github.com/kim-em/hex-dev](https://github.com/kim-em/hex-dev).
 Contributions and pull requests are welcome, but specs must be updated *before* any new features or substantial changes, as separately reviewed PRs.

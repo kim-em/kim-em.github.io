@@ -7,7 +7,7 @@ open Verso.Code.External
 set_option linter.verso.markup.emph false
 
 -- The Mathlib-free sections. The correspondence section selects its own
--- module (which imports HexNumberFieldMathlib) on its anchor block.
+-- module (which imports HexNumberFieldTheory) on its anchor block.
 set_option verso.exampleProject "examples/hex-number-field"
 set_option verso.exampleModule "HexNumberFieldExamples.Core"
 
@@ -33,7 +33,7 @@ Today we have exact algebraic numbers, and arithmetic and factorization in
 number fields.
 
 Everything below is compiled as part of building this page, against the
-released `v0.4.0`; the [Hex manual](https://kim-em.github.io/hex-dev/) covers
+released `v0.10.0`; the [Hex manual](https://kim-em.github.io/hex-dev/) covers
 these libraries and the rest of Hex in full. To follow along, add to your
 `lakefile.toml`:
 
@@ -41,7 +41,7 @@ these libraries and the rest of Hex in full. To follow along, add to your
 [[require]]
 name = "hex"
 git = "https://github.com/leanprover/hex.git"
-rev = "v0.4.0"
+rev = "v0.10.0"
 ```
 
 # Algebraic numbers
@@ -163,7 +163,7 @@ def gamma : Elem Q23.tower := Q23.embed Q2.gen + Q23.gen
 
 # The Mathlib correspondence
 
-`HexNumberFieldMathlib` proves these computations correct. It interprets each
+`HexNumberFieldTheory` proves these computations correct. It interprets each
 `AlgebraicNumber` as a complex number, and shows that interpretation is
 injective and preserves the arithmetic:
 
@@ -176,7 +176,7 @@ example (a b : AlgebraicNumber) :
   AlgebraicNumber.add_toComplex a b
 ```
 
-The computational libraries are Mathlib-free; the `*Mathlib` libraries are the
+The computational libraries are Mathlib-free; the `*Theory` libraries are the
 bridge, and hold the correspondence proofs. Everything is kernel-checkable,
 and nothing uses `native_decide`.
 

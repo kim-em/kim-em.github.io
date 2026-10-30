@@ -27,6 +27,7 @@ the Lean language for automation, and the Lean kernel for reliable verification.
 
 Recent posts:
 
+* [All 100 theorems in Lean](/blog/2026-10-30-all-100-theorems-in-lean/) — Green's theorem in Tau Ceti completes Lean's coverage of Freek Wiedijk's list.
 * [Exact algebraic numbers and number fields in Lean](/blog/2026-9-8-exact-algebraic-numbers-and-number-fields-in-lean/) — exact arithmetic with algebraic numbers, and factoring, splitting and flattening in number field towers, with Mathlib proofs that the executable code is right.
 * [Certified graph isomorphism in Lean](/blog/2026-9-5-certified-graph-isomorphism-in-lean/) — HexGraphIso brings verified graph canonization and a `graph_iso` tactic to Lean.
 * [Announcing the Palomar Registry](/blog/2026-8-19-announcing-the-palomar-registry/) — an index of formalized mathematics repositories, with automatic checks on the formal statements and the metadata.

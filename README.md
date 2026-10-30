@@ -69,7 +69,7 @@ Layout
 - `Site/Theme.lean` + `Site/theme.css` — the terminal styling.
 - `Site/LinkTargets.lean` — turns identifiers in highlighted code into links to
   the sources they come from (the example projects live in other repositories).
-- `examples/lp`, `examples/sos`, `examples/hex`, `examples/zip`, `examples/tauceti` — standalone example projects,
+- `examples/lp`, `examples/sos`, `examples/hex`, `examples/zip`, `examples/tauceti`, `examples/green` — standalone example projects,
   one per post. Post sections can pull code from different modules (with
   different imports) of the same project via `anchor NAME (module := ...)`;
   `examples/hex` uses this to keep its Mathlib-free and Mathlib sections apart.

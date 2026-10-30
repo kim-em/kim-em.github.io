@@ -89,5 +89,17 @@
       "ZLIB_LDFLAGS=-lz"
     ],
     "depBuildCache": "examples/zip/.lake/packages/*/.lake/build"
+  },
+  {
+    "name": "green",
+    "dir": "examples/green",
+    "modules": [
+      "GreenExamples"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [],
+    "mathlibCache": true,
+    "env": [],
+    "depBuildCache": "examples/green/.lake/packages/TauCeti/.lake/build"
   }
 ]

@@ -5,6 +5,7 @@ import Site.Feed
 import Site.LinkTargets
 import Site.Blog
 import Site.Blog.TauCeti
+import Site.Blog.HundredTheorems
 import Site.Blog.Sos
 import Site.Blog.Lp
 import Site.Blog.Hex
@@ -20,6 +21,7 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
+    Site.Blog.HundredTheorems
     Site.Blog.NumberFields
     Site.Blog.GraphIso
     Site.Blog.Palomar

@@ -229,7 +229,11 @@ jobs:
           # _site/papers is a self-contained Verso build (its own relative
           # assets + <base> tag confuse a base-unaware checker); the landing's
           # link *to* /papers/grind/ is still validated from index.html.
+          # This tag page serves the working app with HTTP 404. Its route and
+          # conditional status were checked against the app and its tag data.
+          # Exclude only this deep link until Axiom fixes its HTTP status.
           args: >-
+            --exclude '^https://stacks\.axiommath\.ai/library\?tag=03W0$'
             --root-dir "${{ github.workspace }}/_site"
             --exclude verso-data
             --accept '200..=299, 429'

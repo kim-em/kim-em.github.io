@@ -4,6 +4,7 @@ import Site.FrontPage
 import Site.Feed
 import Site.LinkTargets
 import Site.Blog
+import Site.Blog.AxiomStacks
 import Site.Blog.TauCeti
 import Site.Blog.HundredTheorems
 import Site.Blog.Sos
@@ -21,6 +22,7 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
+    Site.Blog.AxiomStacks
     Site.Blog.HundredTheorems
     Site.Blog.NumberFields
     Site.Blog.GraphIso

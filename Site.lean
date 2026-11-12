@@ -15,3 +15,4 @@ import Site.Blog.Zip
 import Site.Blog.Factor
 import Site.Blog.Palomar
 import Site.Blog.GraphIso
+import Site.Blog.PermGroup

@@ -4,3 +4,4 @@ import HexExamples.Mathlib
 import HexExamples.Factor
 import HexExamples.GraphIso
 import HexExamples.GraphIso.Latin
+import HexExamples.PermGroup

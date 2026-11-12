@@ -49,7 +49,8 @@
       "HexExamples.Mathlib",
       "HexExamples.Factor",
       "HexExamples.GraphIso",
-      "HexExamples.GraphIso.Latin"
+      "HexExamples.GraphIso.Latin",
+      "HexExamples.PermGroup"
     ],
     "suppressNamespaces": "",
     "aptPackages": [

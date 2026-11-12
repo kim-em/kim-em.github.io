@@ -23,7 +23,7 @@ Freek Wiedijk has for many years maintained a [list of 100 significant theorems 
 
 For the first time, a single language now has proofs of all 100 theorems: *Lean*!
 
-And I'm very pleased to report that the 100th theorem completed in Lean was a strong formulation of [Green's theorem](https://taucetiproject.org/docs/TauCeti/Analysis/Green/IndexOne.html#TauCeti.Green.green_ac_index_one), which landed in [Tau Ceti](https://taucetiproject.org/), the library of all mathematics that we're autoformalizing with the [Lean FRO](https://lean-lang.org/fro) and [Mathlib Initiative](https://mathlib-initiative.org/).
+And I'm very pleased to report that the 100th theorem completed in Lean was a strong formulation of [Green's theorem](https://taucetiproject.github.io/TauCeti/docs/TauCeti/Analysis/Green/IndexOne.html#TauCeti.Green.green_ac_index_one), which landed in [Tau Ceti](https://taucetiproject.org/), the library of all mathematics that we're autoformalizing with the [Lean FRO](https://lean-lang.org/fro) and [Mathlib Initiative](https://mathlib-initiative.org/).
 
 Here is the statement in Lean:
 
@@ -42,4 +42,4 @@ theorem green_ac_index_one {γ : ℝ → ℂ} {a b : ℝ} {U : Set ℂ} {P Q : �
 
 The curve is only required to be absolutely continuous and closed, with winding number one throughout the bounded complementary region. There is no simplicity or finite-component hypothesis, and integrability of both sides is part of the conclusion.
 
-[Source](https://github.com/TauCetiProject/TauCeti/blob/36f24f5d94ccf25e167520cf4c0f1a028c064fb0/TauCeti/Analysis/Green/IndexOne.lean#L31) · [documentation](https://taucetiproject.org/docs/TauCeti/Analysis/Green/IndexOne.html#TauCeti.Green.green_ac_index_one)
+[Source](https://github.com/TauCetiProject/TauCeti/blob/36f24f5d94ccf25e167520cf4c0f1a028c064fb0/TauCeti/Analysis/Green/IndexOne.lean#L31) · [documentation](https://taucetiproject.github.io/TauCeti/docs/TauCeti/Analysis/Green/IndexOne.html#TauCeti.Green.green_ac_index_one)

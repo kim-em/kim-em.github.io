@@ -54,7 +54,7 @@ derived series, direct products, and wreath products.
 We can also ask for the enumeration index of an element in
 (an arbitrary ordering of) the group, or ask for the `i`-th element,
 without actually enumerating the group. These
-operations takes about `n²` steps per element, regardless of the order of the
+operations take about `n²` steps per element, regardless of the order of the
 group. We can efficiently generate random elements.
 
 `HexPermGroupTheory` proves that these computations describe the subgroup of
@@ -127,7 +127,7 @@ The example above additionally imports
 `Mathlib.GroupTheory.Perm.Cycle.Concrete` for the `c[...]` cycle notation.
 
 There is an approved
-[Tau Ceti roadmap proposal](https://github.com/TauCetiProject/TauCetiRoadmap/pull/599),
+[Tau Ceti roadmap proposal](https://github.com/TauCetiProject/TauCetiRoadmap/pull/599)
 to prove the orders of these ten sporadic groups and
 connect them to the presentations used in Tau Ceti.
 

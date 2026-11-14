@@ -181,7 +181,7 @@ bridge, and hold the correspondence proofs. Everything is kernel-checkable,
 and nothing uses `native_decide`.
 
 Discussion is welcome at
-[#Computer algebra > Discussion: Hex](https://leanprover.zulipchat.com/#narrow/channel/511923-Computer-algebra)
+[#Computer algebra > Discussion: Hex](https://leanprover.zulipchat.com/#narrow/channel/482893-Computer-algebra/topic/Discussion.3A.20Hex)
 on the Lean Zulip. The manual pages for
 [`HexNumberField`](https://kim-em.github.io/hex-dev/find/?domain=Verso.Genre.Manual.section&name=hex-number-field)
 and

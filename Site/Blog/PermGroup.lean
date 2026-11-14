@@ -134,5 +134,5 @@ connect them to the presentations used in Tau Ceti.
 Unreleased libraries and future development live at
 [github.com/kim-em/hex-dev](https://github.com/kim-em/hex-dev).
 Discussion is welcome at
-[#Computer algebra > Discussion: Hex](https://leanprover.zulipchat.com/#narrow/channel/511923-Computer-algebra)
+[#Computer algebra > Discussion: Hex](https://leanprover.zulipchat.com/#narrow/channel/482893-Computer-algebra/topic/Discussion.3A.20Hex)
 on the Lean Zulip.

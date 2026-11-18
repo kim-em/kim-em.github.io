@@ -25,8 +25,11 @@ I also have time for experiments building Lean libraries and tactics using AI,
 to demonstrate what is possible when we combine the power of generative AI,
 the Lean language for automation, and the Lean kernel for reliable verification.
 
-Recent posts:
+Posts:
 
+* [An error in the Isabelle/HOL formalization of sheaves](/blog/2026-11-16-an-error-in-the-isabellehol-formalization-of-sheaves/)
+* [Computational permutation groups in Lean](/blog/2026-11-12-computational-permutation-groups-in-lean/)
+* [Axiom's formalization of the Stacks project](/blog/2026-11-5-axioms-formalization-of-the-stacks-project/)
 * [All 100 theorems in Lean](/blog/2026-10-30-all-100-theorems-in-lean/) — Green's theorem in Tau Ceti completes Lean's coverage of Freek Wiedijk's list.
 * [Exact algebraic numbers and number fields in Lean](/blog/2026-9-8-exact-algebraic-numbers-and-number-fields-in-lean/) — exact arithmetic with algebraic numbers, and factoring, splitting and flattening in number field towers, with Mathlib proofs that the executable code is right.
 * [Certified graph isomorphism in Lean](/blog/2026-9-5-certified-graph-isomorphism-in-lean/) — HexGraphIso brings verified graph canonization and a `graph_iso` tactic to Lean.

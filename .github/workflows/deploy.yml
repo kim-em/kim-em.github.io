@@ -178,6 +178,7 @@ jobs:
         run: |
           lake build
           .lake/build/bin/generate-site --output _site
+          python3 scripts/check-post-index.py _site
 
       # If an anchor did reach Verso's Lake path anyway, the shell-out would
       # have resolved the project's dependencies and compiled its library. The

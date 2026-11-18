@@ -6,6 +6,7 @@ namespace SheafArticle
 structure Context where
   theoremUrls : Std.HashMap String String := {}
   referenceKeys : Array String := #[]
+  highlightedCode : Array SubVerso.Highlighting.Highlighted := #[]
 
 abbrev RenderM := ReaderT Context (Except String)
 
@@ -90,14 +91,18 @@ partial def inlineBlog : Inline Article → RenderM (Inline Genre.Blog.Post)
   | .other (.cite key) xs => do
     let n ← referenceNumber key
     let locator ← xs.mapM inlineBlog
-    pure (.link (#[.text s!"[{n}"] ++ (if xs.isEmpty then #[] else #[.text ", "] ++ locator) ++ #[.text "]"]) s!"#reference-{key}")
+    pure (.other (.ref (Lean.Name.mkSimple s!"sheaf-reference-{key}"))
+      (#[.text s!"[{n}"] ++ (if xs.isEmpty then #[] else #[.text ", "] ++ locator) ++ #[.text "]"]))
   | _ => throw "Unsupported inline element in blog projection"
 
 partial def blockBlog (b : Block Article) : StateT Nat RenderM (Block Genre.Blog.Post) := do
   match b with
   | .para xs => return .para (← xs.mapM (fun x => liftM (inlineBlog x)))
   | .concat xs => return .concat (← xs.mapM blockBlog)
-  | .code s => return .code s
+  | .code s =>
+    match (← read).highlightedCode.find? (fun h => h.toString.trimAscii.toString == s.trimAscii.toString) with
+    | some h => return .other (.highlightedCode {contextName := `verso} h) #[]
+    | none => return .code s
   | .blockquote xs => return .blockquote (← xs.mapM blockBlog)
   | .other .epigraph xs => return .blockquote (← xs.mapM blockBlog)
   | .other .attribution xs => return .concat (← xs.mapM blockBlog)
@@ -113,7 +118,7 @@ partial def blockBlog (b : Block Article) : StateT Nat RenderM (Block Genre.Blog
     let n ← referenceNumber key
     let content : Array (Block Genre.Blog.Post) ← xs.mapM blockBlog
     match content[0]? with
-    | some (Lean.Doc.Block.para first) => return .other (.htmlWrapper "div" #[("id", s!"reference-{key}")]) (#[.para (#[.text s!"[{n}] "] ++ first)] ++ content.extract 1 content.size)
+    | some (Lean.Doc.Block.para first) => return .concat (#[.para (#[.other (.label (Lean.Name.mkSimple s!"sheaf-reference-{key}")) #[], .text s!"[{n}] "] ++ first)] ++ content.extract 1 content.size)
     | _ => throw "Reference must start with a paragraph"
   | _ => throw "Unsupported block in blog projection"
 

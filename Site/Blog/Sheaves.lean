@@ -1,6 +1,7 @@
 import Site.SheafArticle.Note
 import Site.SheafArticle.SourceLinks
 import Site.Categories
+import Site.SheafArticle.Mathlib
 
 open Verso Doc Genre Blog
 open SheafArticle
@@ -8,7 +9,10 @@ open SheafArticle
 private def projection : Except String (Part Post) := do
   let doc := %doc Site.SheafArticle.Note
   let some metadata := doc.metadata | throw "Missing article metadata"
-  let ctx : Context := {theoremUrls := sourceLinks, referenceKeys := collectReferences doc}
+  let #[.other (.highlightedCode _ highlighted) _] := (%doc Site.SheafArticle.Mathlib).content
+    | throw "Expected one checked Mathlib code block"
+  let ctx : Context := {theoremUrls := sourceLinks, referenceKeys := collectReferences doc,
+    highlightedCode := #[highlighted]}
   let (post, _) ← ((partBlog doc).run 0).run ctx
   return {post with metadata := some {
     date := metadata.date

@@ -9,3 +9,7 @@ To update from a clean checkout, run:
 python3 scripts/sync-sheaf-article.py /path/to/sheaf-of-rings
 lake build Site.Blog.Sheaves
 ```
+
+`Mathlib.lean` embeds the checked theorem statement from `examples/sheaves`,
+which imports the pinned proof repository. Its semantic highlighting is passed
+to the renderer only when the displayed source text matches exactly.

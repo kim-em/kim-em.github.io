@@ -102,5 +102,17 @@
     "mathlibCache": true,
     "env": [],
     "depBuildCache": "examples/green/.lake/packages/TauCeti/.lake/build"
+  },
+  {
+    "name": "sheaves",
+    "dir": "examples/sheaves",
+    "modules": [
+      "SheafExamples"
+    ],
+    "suppressNamespaces": "",
+    "aptPackages": [],
+    "mathlibCache": true,
+    "env": [],
+    "depBuildCache": ""
   }
 ]

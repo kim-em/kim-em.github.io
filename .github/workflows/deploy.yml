@@ -236,7 +236,10 @@ jobs:
           # Exclude only this deep link until Axiom fixes its HTTP status.
           # This DOI resolves to the correct Bordg–Paulson–Li paper (verified
           # against Crossref); the publisher returns a Cloudflare challenge.
+          # Lychee ignores <base>; native Verso citation URLs are checked with
+          # browser-equivalent resolution by check-sheaf-article.py above.
           args: >-
+            --exclude '#FLQQ--95--sheaf-reference-(hartshorne|afp|mathlib|paper)--95--FLQQ--95--$'
             --exclude '^https://doi\.org/10\.1080/10586458\.2022\.2062073$'
             --exclude '^https://stacks\.axiommath\.ai/library\?tag=03W0$'
             --root-dir "${{ github.workspace }}/_site"

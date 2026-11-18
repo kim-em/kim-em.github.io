@@ -233,7 +233,10 @@ jobs:
           # This tag page serves the working app with HTTP 404. Its route and
           # conditional status were checked against the app and its tag data.
           # Exclude only this deep link until Axiom fixes its HTTP status.
+          # This DOI resolves to the correct Bordg–Paulson–Li paper (verified
+          # against Crossref); the publisher returns a Cloudflare challenge.
           args: >-
+            --exclude '^https://doi\.org/10\.1080/10586458\.2022\.2062073$'
             --exclude '^https://stacks\.axiommath\.ai/library\?tag=03W0$'
             --root-dir "${{ github.workspace }}/_site"
             --exclude verso-data

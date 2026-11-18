@@ -6,13 +6,21 @@ import Site.SheafArticle.Mathlib
 open Verso Doc Genre Blog
 open SheafArticle
 
+private partial def highlights : Verso.Doc.Block Post → Array SubVerso.Highlighting.Highlighted
+  | .other (.highlightedCode _ h) _ => #[h]
+  | .concat blocks => blocks.flatMap highlights
+  | _ => #[]
+
 private def projection : Except String (Part Post) := do
   let doc := %doc Site.SheafArticle.Note
   let some metadata := doc.metadata | throw "Missing article metadata"
-  let #[.other (.highlightedCode _ highlighted) _] := (%doc Site.SheafArticle.Mathlib).content
+  let #[highlighted] := (%doc Site.SheafArticle.Mathlib).content.flatMap highlights
     | throw "Expected one checked Mathlib code block"
-  let ctx : Context := {theoremUrls := sourceLinks, referenceKeys := collectReferences doc,
-    highlightedCode := #[highlighted]}
+  let ctx : Context := {
+    theoremUrls := sourceLinks
+    referenceKeys := collectReferences doc
+    highlightedCode := #[highlighted]
+  }
   let (post, _) ← ((partBlog doc).run 0).run ctx
   return {post with metadata := some {
     date := metadata.date

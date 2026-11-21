@@ -18,7 +18,7 @@ This will surely proceed in several directions.
 
 # Understanding the proof
 
-Many people are running AIs to autoinformalize the proof, and will write up accounts of the overall structure and extract intermediate steps with stateable formulations. Here there's essentially no bottleneck: any interested mathematician has access to Fable and Astra, and the autoinformalization step works very well, once you get used to reading the AI text.
+Many people are running AIs to autoinformalize the proof, and will write up accounts of the overall structure and extract intermediate steps with stateable formulations. Here there's essentially no bottleneck: many interested mathematicians have access to Fable and Astra, and the autoinformalization step works very well, once you get used to reading the AI text.
 
 But I think Lean can assist here as well: as we start to identify interesting intermediate results, let's get clear formulations of these into Lean, so we all agree. I would love to see contributions adding such statements to [lean-lang.org/eval](https://lean-lang.org/eval); ping me if you make a PR! Similarly the community may want to create missions on prove2me.
 

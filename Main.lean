@@ -17,6 +17,7 @@ import Site.Blog.Palomar
 import Site.Blog.GraphIso
 import Site.Blog.Sheaves
 import Site.Blog.PermGroup
+import Site.Blog.RiemannHypothesis
 
 open Verso Genre Blog Site Syntax
 
@@ -24,6 +25,7 @@ def mySite : Site := site Site.FrontPage /
   static "papers" ← "papers"
   static "figures" ← "figures"
   "blog" Site.Blog with
+    Site.Blog.RiemannHypothesis
     Site.Blog.Sheaves
     Site.Blog.PermGroup
     Site.Blog.AxiomStacks

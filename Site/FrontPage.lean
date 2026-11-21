@@ -27,6 +27,7 @@ the Lean language for automation, and the Lean kernel for reliable verification.
 
 Posts:
 
+* [The Riemann hypothesis: what next for Lean?](/blog/2026-11-21-the-riemann-hypothesis-what-next-for-lean/) — understanding the proof, adopting the repository, and bringing its mathematics into Mathlib and Tau Ceti.
 * [An error in the Isabelle/HOL formalization of sheaves](/blog/2026-11-16-an-error-in-the-isabellehol-formalization-of-sheaves/) — the AFP sheaf axioms accept a presheaf that fails gluing; the repair is small.
 * [Computational permutation groups in Lean](/blog/2026-11-12-computational-permutation-groups-in-lean/) — Hex now has a `perm_group` tactic, which uses the Schreier–Sims algorithm to answer questions about permutation groups.
 * [Axiom's formalization of the Stacks project](/blog/2026-11-5-axioms-formalization-of-the-stacks-project/) — Axiom’s release falls short in a few ways, many of which are readily fixable.

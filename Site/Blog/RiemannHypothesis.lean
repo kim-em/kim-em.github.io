@@ -12,8 +12,6 @@ date := {year := 2026, month := 11, day := 21}
 categories := [Site.lean]
 %%%
 
-These are lightly edited notes from my [messages on the Lean Zulip](https://leanprover.zulipchat.com/#narrow/channel/113488-general/topic/Discussion.3A.20Alp.C3.B6ge.20Proves.20the.20Riemann.20Hypothesis/near/642386327), about what comes next after Alpöge's proof of the Riemann hypothesis.
-
 Now that we've finished the "let's check the Lean proof carefully" stage, and there are essentially no remaining doubts as to whether this is a correct proof, let's get organized making sure Lean is as useful as possible during the next stage of humans acquiring understanding of the proof.
 
 This will surely proceed in several directions.
